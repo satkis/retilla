@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		384E3630A61D15FC054DFDC5 /* Pods_retilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */; };
 		FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D1D201672E70016F853 /* AppDelegate.swift */; };
 		FF7D5D20201672E70016F853 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D1F201672E70016F853 /* ViewController.swift */; };
 		FF7D5D23201672E70016F853 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D21201672E70016F853 /* Main.storyboard */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E822D97274E1776C756927A9 /* Pods-retilla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.release.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.release.xcconfig"; sourceTree = "<group>"; };
+		EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_retilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.debug.xcconfig"; sourceTree = "<group>"; };
 		FF7D5D1A201672E70016F853 /* retilla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = retilla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7D5D1D201672E70016F853 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7D5D1F201672E70016F853 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				384E3630A61D15FC054DFDC5 /* Pods_retilla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00C2E091488AA2AC08D8F42B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D570C6FA846349BAF28B9EED /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */,
+				E822D97274E1776C756927A9 /* Pods-retilla.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FF7D5D11201672E60016F853 = {
 			isa = PBXGroup;
 			children = (
 				FF7D5D1C201672E70016F853 /* retilla */,
 				FF7D5D1B201672E70016F853 /* Products */,
+				D570C6FA846349BAF28B9EED /* Pods */,
+				00C2E091488AA2AC08D8F42B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF7D5D2C201672E70016F853 /* Build configuration list for PBXNativeTarget "retilla" */;
 			buildPhases = (
+				E3469AE3162C0A68D4266C12 /* [CP] Check Pods Manifest.lock */,
 				FF7D5D16201672E70016F853 /* Sources */,
 				FF7D5D17201672E70016F853 /* Frameworks */,
 				FF7D5D18201672E70016F853 /* Resources */,
+				63E7CA929F85C9F9E900A568 /* [CP] Embed Pods Frameworks */,
+				2ADD853CA5F8EF661BF26543 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,70 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2ADD853CA5F8EF661BF26543 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-retilla/Pods-retilla-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		63E7CA929F85C9F9E900A568 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-retilla/Pods-retilla-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-retilla/Pods-retilla-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3469AE3162C0A68D4266C12 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-retilla-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FF7D5D16201672E70016F853 /* Sources */ = {
@@ -272,6 +363,7 @@
 		};
 		FF7D5D2D201672E70016F853 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +379,7 @@
 		};
 		FF7D5D2E201672E70016F853 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E822D97274E1776C756927A9 /* Pods-retilla.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

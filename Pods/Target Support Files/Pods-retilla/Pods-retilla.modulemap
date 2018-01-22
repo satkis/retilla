@@ -1,0 +1,6 @@
+framework module Pods_retilla {
+  umbrella header "Pods-retilla-umbrella.h"
+
+  export *
+  module * { export * }
+}

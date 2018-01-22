@@ -7,20 +7,27 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var emailTxt: UITextField!
+    @IBOutlet weak var passwordTxt: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func fbLoginPressed(_ sender: Any) {
     }
+    
+    
 
-    //comment
+    
+    @IBAction func emailLoginPressed(_ sender: Any) {
+    }
+    
 
 }
 
