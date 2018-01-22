@@ -13,6 +13,9 @@
 		FF7D5D23201672E70016F853 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D21201672E70016F853 /* Main.storyboard */; };
 		FF7D5D25201672E70016F853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D24201672E70016F853 /* Assets.xcassets */; };
 		FF7D5D28201672E70016F853 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D26201672E70016F853 /* LaunchScreen.storyboard */; };
+		FF7D5D302016868B0016F853 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D2F2016868A0016F853 /* GoogleService-Info.plist */; };
+		FF7D5D372016885B0016F853 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D362016885B0016F853 /* Constants.swift */; };
+		FF7D5D3920168A620016F853 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D3820168A620016F853 /* DataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		FF7D5D24201672E70016F853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF7D5D27201672E70016F853 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF7D5D29201672E70016F853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF7D5D2F2016868A0016F853 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FF7D5D362016885B0016F853 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FF7D5D3820168A620016F853 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +84,57 @@
 		FF7D5D1C201672E70016F853 /* retilla */ = {
 			isa = PBXGroup;
 			children = (
+				FF7D5D352016884E0016F853 /* Services */,
+				FF7D5D34201688470016F853 /* Utilities */,
+				FF7D5D33201688420016F853 /* Model */,
+				FF7D5D322016883C0016F853 /* View */,
+				FF7D5D31201688300016F853 /* Controller */,
 				FF7D5D1D201672E70016F853 /* AppDelegate.swift */,
-				FF7D5D1F201672E70016F853 /* ViewController.swift */,
 				FF7D5D21201672E70016F853 /* Main.storyboard */,
 				FF7D5D24201672E70016F853 /* Assets.xcassets */,
 				FF7D5D26201672E70016F853 /* LaunchScreen.storyboard */,
 				FF7D5D29201672E70016F853 /* Info.plist */,
+				FF7D5D2F2016868A0016F853 /* GoogleService-Info.plist */,
 			);
 			path = retilla;
+			sourceTree = "<group>";
+		};
+		FF7D5D31201688300016F853 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FF7D5D1F201672E70016F853 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		FF7D5D322016883C0016F853 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FF7D5D33201688420016F853 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FF7D5D34201688470016F853 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FF7D5D362016885B0016F853 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FF7D5D352016884E0016F853 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FF7D5D3820168A620016F853 /* DataService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF7D5D28201672E70016F853 /* LaunchScreen.storyboard in Resources */,
+				FF7D5D302016868B0016F853 /* GoogleService-Info.plist in Resources */,
 				FF7D5D25201672E70016F853 /* Assets.xcassets in Resources */,
 				FF7D5D23201672E70016F853 /* Main.storyboard in Resources */,
 			);
@@ -185,7 +235,9 @@
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -194,7 +246,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,6 +283,8 @@
 			files = (
 				FF7D5D20201672E70016F853 /* ViewController.swift in Sources */,
 				FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */,
+				FF7D5D372016885B0016F853 /* Constants.swift in Sources */,
+				FF7D5D3920168A620016F853 /* DataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EE7C63FEA90AC3350E9A709181736528"
+               BlueprintIdentifier = "014F5C21B44C060E9F4154ADD234A5B8"
                BuildableName = "Pods_retilla.framework"
                BlueprintName = "Pods-retilla"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EE7C63FEA90AC3350E9A709181736528"
+            BlueprintIdentifier = "014F5C21B44C060E9F4154ADD234A5B8"
             BuildableName = "Pods_retilla.framework"
             BlueprintName = "Pods-retilla"
             ReferencedContainer = "container:Pods.xcodeproj">

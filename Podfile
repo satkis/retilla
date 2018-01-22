@@ -7,7 +7,11 @@ target 'retilla' do
 
   # Pods for retilla
 
-pod 'Firebase/Core'
+pod ‘Firebase’
+pod ‘Firebase/Core’
+pod ‘Firebase/Auth’
+pod ‘Firebase/Database’
+pod 'Firebase/Storage'
 
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'

@@ -14,7 +14,7 @@
     <key>FacebookAppID</key>
     <string>397956600662692</string>
     <key>FacebookDisplayName</key>
-    <string>[This is m app name in plist file]</string>
+    <string>This is app name in plist file</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>fbapi</string>

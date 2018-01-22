@@ -76,11 +76,27 @@
                     <connections>
                         <outlet property="emailTxt" destination="efi-Ge-zN2" id="frz-wa-bhC"/>
                         <outlet property="passwordTxt" destination="6PN-uO-YcT" id="kTI-9q-61k"/>
+                        <segue destination="2n9-KW-AMD" kind="show" identifier="loggedIn" id="qlj-io-j1P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="96.7016491754123"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="28c-sX-cUK">
+            <objects>
+                <viewController id="2n9-KW-AMD" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1sY-ch-EF5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="js0-PV-GbQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7bN-GI-xaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="97"/>
         </scene>
     </scenes>
 </document>
