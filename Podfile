@@ -17,4 +17,6 @@ pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
 
+pod 'SwiftyJSON'
+
 end

@@ -10,9 +10,12 @@ import UIKit
 import FBSDKLoginKit
 import Firebase
 
+
 class ViewController: UIViewController {
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
+    
+    var dict: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,42 +49,42 @@ class ViewController: UIViewController {
                     } else {
                         print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
                         
-//                        let displayy = authData?.displayName as Any
-//                        let emaill = authData?.email as Any
-//                        let profileImgUrll = authData?.photoURL as Any
-//
-//                        if let username = authData?.displayName, username != "", let email = authData?.email, email != "" {
-//
-//                        let user = [
-//                            "username": \(authData?.displayName as Any),
-//                            "email": \(authData?.email as Any)
-//                            //"profileImgUrl": authData?.photoURL as Any
-//                            ]
-//                        } else {
-//                            print("wrong")
-//                        }
-//
-//                        let user = [
-//                            "username": \(authData?.displayName as Any),
-//                            "email": \(authData?.email as Any)
-//                            //"profileImgUrl": authData?.photoURL as Any
-//                        ]
+                        let graphPath = "me"
                         
-                        let user = [
-                            "username": "sssss",
-                            "email": "dddddd",
-                            "profileImgUrl": "eeeeeee"
-                        ]
+                        let parameters = ["fields": "name, first_name, last_name, timezone, picture, email"]
                         
-                        DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as! Dictionary<String, String> )
-                        //user?.uid is a unique user ID saved as KEY_UID. this authorises user into Firebase
-                        UserDefaults.standard.set(authData?.uid , forKey: KEY_UID)
-                        self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+                        let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
+                        
+                        graphRequest?.start(completionHandler: { (connection, result, error) in
+                            
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else {
+                                print(result)
+                                let data:[String:AnyObject] = result as! [String : AnyObject]
+                                
+                                let userName : NSString? = data["name"]! as? NSString
+                                let firstName : NSString? = data["first_name"]! as? NSString
+                                let lastName : NSString? = data["last_name"]! as? NSString
+                                let timeZone : NSInteger? = data["timezone"]! as? NSInteger
+                                //url extract doenst work
+                                let profileImgUrl : NSString? = data["picture"]! as? NSString
+                                let email : NSString? = data["email"]! as? NSString
+                                
+                                let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "timezone": timeZone as Any, "picture": profileImgUrl as Any, "email": email as Any]
+                                
+                                DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
+                                
+                                self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+                                
+                            }
+                        })
                     }
                 }
             }
         }
     }
+    
     
     @IBAction func emailLoginPressed(_ sender: Any) {
         if let email = emailTxt.text, email != "", let pwd = passwordTxt.text, pwd != "" {
@@ -98,7 +101,17 @@ class ViewController: UIViewController {
                             }  else {
                                 //UserDefaults.standard.set(result[KEY_UID], forKey: KEY_UID)
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+                                
+//                                let data:[String:AnyObject] = result as! [String : AnyObject]
+//
+//                                let userName : NSString? = data["email"]! as? NSString
+                                let user = ["email": self.emailTxt.text]
+                                
+                                DataService.instance.createFirebaseUser(uid: (result?.uid)!, user: user as Dictionary<String, AnyObject>)
+                                
+                                
                                 print("USER LOGGED IN WITH ID::: \(String(describing: Auth.auth().currentUser?.uid))")
+                                
                                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                             }
                         }
