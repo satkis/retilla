@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		384E3630A61D15FC054DFDC5 /* Pods_retilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */; };
+		FF421D452017E3C80023D9BF /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF421D442017E3C80023D9BF /* FeedVC.swift */; };
+		FF421D472017E4B00023D9BF /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF421D462017E4B00023D9BF /* PostCell.swift */; };
 		FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D1D201672E70016F853 /* AppDelegate.swift */; };
 		FF7D5D20201672E70016F853 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D1F201672E70016F853 /* ViewController.swift */; };
 		FF7D5D23201672E70016F853 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D21201672E70016F853 /* Main.storyboard */; };
@@ -22,6 +24,8 @@
 		E822D97274E1776C756927A9 /* Pods-retilla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.release.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.release.xcconfig"; sourceTree = "<group>"; };
 		EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_retilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.debug.xcconfig"; sourceTree = "<group>"; };
+		FF421D442017E3C80023D9BF /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		FF421D462017E4B00023D9BF /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		FF7D5D1A201672E70016F853 /* retilla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = retilla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7D5D1D201672E70016F853 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7D5D1F201672E70016F853 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				FF7D5D1F201672E70016F853 /* ViewController.swift */,
+				FF421D442017E3C80023D9BF /* FeedVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 		FF7D5D322016883C0016F853 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FF421D462017E4B00023D9BF /* PostCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -283,8 +289,10 @@
 			files = (
 				FF7D5D20201672E70016F853 /* ViewController.swift in Sources */,
 				FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */,
+				FF421D452017E3C80023D9BF /* FeedVC.swift in Sources */,
 				FF7D5D372016885B0016F853 /* Constants.swift in Sources */,
 				FF7D5D3920168A620016F853 /* DataService.swift in Sources */,
+				FF421D472017E4B00023D9BF /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -40,13 +40,42 @@ class ViewController: UIViewController {
                 let accessToken = FBSDKAccessToken.current().tokenString
                 print("SUCCESSFULLY LOGGED IN TO FB::: \(String(describing: accessToken))")
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken!)
-                Auth.auth().signIn(with: credential) { (user, error) in
+                Auth.auth().signIn(with: credential) { (authData, error) in
                     if error != nil {
                         print("FIREBASE LOGIN FAILED::: \(String(describing: error))")
                     } else {
                         print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
+                        
+//                        let displayy = authData?.displayName as Any
+//                        let emaill = authData?.email as Any
+//                        let profileImgUrll = authData?.photoURL as Any
+//
+//                        if let username = authData?.displayName, username != "", let email = authData?.email, email != "" {
+//
+//                        let user = [
+//                            "username": \(authData?.displayName as Any),
+//                            "email": \(authData?.email as Any)
+//                            //"profileImgUrl": authData?.photoURL as Any
+//                            ]
+//                        } else {
+//                            print("wrong")
+//                        }
+//
+//                        let user = [
+//                            "username": \(authData?.displayName as Any),
+//                            "email": \(authData?.email as Any)
+//                            //"profileImgUrl": authData?.photoURL as Any
+//                        ]
+                        
+                        let user = [
+                            "username": "sssss",
+                            "email": "dddddd",
+                            "profileImgUrl": "eeeeeee"
+                        ]
+                        
+                        DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as! Dictionary<String, String> )
                         //user?.uid is a unique user ID saved as KEY_UID. this authorises user into Firebase
-                        UserDefaults.standard.set(user?.uid, forKey: KEY_UID)
+                        UserDefaults.standard.set(authData?.uid , forKey: KEY_UID)
                         self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                     }
                 }

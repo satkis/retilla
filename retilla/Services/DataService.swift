@@ -9,18 +9,35 @@
 import Foundation
 import Firebase
 
-let _URL_BASE = Database.database().reference(fromURL: "https://retilla-220b1.firebaseio.com/")
+let URL_GENERAL = Database.database().reference(fromURL: "https://retilla-220b1.firebaseio.com/")
 
 class DataService {
     
     static let instance = DataService()
+    
+    private var _REF_BASE = URL_GENERAL
+    private var _REF_POSTS = URL_GENERAL.child("posts")
+    private var _REF_USERS = URL_GENERAL.child("users")
 
+    
+    // make publicly available
     var URL_BASE: DatabaseReference! {
-        return _URL_BASE
+        return _REF_BASE
+    }
+    
+    var URL_POSTS: DatabaseReference! {
+        return _REF_POSTS
     }
    
-    
+    var URL_USERS: DatabaseReference! {
+        return _REF_USERS
+    }
 
+    
+    func createFirebaseUser(uid: String, user: Dictionary<String, String>) {
+        URL_USERS.child(uid).setValue(user)
+    }
+    
     
 }
 
