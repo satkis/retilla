@@ -10,6 +10,8 @@ import UIKit
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    var categories = ["Recycle", "Reuse", "Reduce", "Pollution"]
+    
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -22,17 +24,22 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return categories.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return categories[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "postCell") as! PostCell
+        return tableView.dequeueReusableCell(withIdentifier: "cell") as! CategoryRow
     }
     
+ 
     
     
 
