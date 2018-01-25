@@ -308,6 +308,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="qUO-VE-8Mk" secondAttribute="bottom" id="k7n-Ed-qDL"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionVieww" destination="qUO-VE-8Mk" id="z2J-XS-bg5"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
