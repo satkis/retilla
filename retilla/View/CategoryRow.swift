@@ -68,8 +68,14 @@ class CategoryRow: UITableViewCell, UICollectionViewDataSource, UICollectionView
         print("POST STORY::: \(post.postStory as Any)")
         print("SECTION NUMBER::: \(post.sectionNumber)")
         
-        
-        return collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as! UICollectionViewCell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
+         
+            cell.configureCell(post: post)
+            return cell
+            
+        } else {
+            return PostCell()
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

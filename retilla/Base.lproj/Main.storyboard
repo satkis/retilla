@@ -251,6 +251,13 @@
                                                                                     </imageView>
                                                                                 </subviews>
                                                                             </stackView>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="857" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKG-Ku-jXO">
+                                                                                <rect key="frame" x="102" y="126.5" width="30" height="20.5"/>
+                                                                                <color key="backgroundColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="O7E-rC-7CV">
                                                                                 <rect key="frame" x="5" y="180" width="34.5" height="22"/>
                                                                                 <subviews>
@@ -279,12 +286,14 @@
                                                                             <constraint firstAttribute="bottom" secondItem="NLf-X1-A7J" secondAttribute="bottom" constant="4.5" id="9T1-hx-ufx"/>
                                                                             <constraint firstItem="Ivo-pn-obU" firstAttribute="top" secondItem="bh9-w5-oO2" secondAttribute="bottom" constant="133" id="DFG-X3-hFM"/>
                                                                             <constraint firstAttribute="height" constant="204" id="ELd-pZ-CQl"/>
+                                                                            <constraint firstItem="Ivo-pn-obU" firstAttribute="top" secondItem="vKG-Ku-jXO" secondAttribute="bottom" constant="4" id="FkV-WT-BcX"/>
                                                                             <constraint firstAttribute="trailing" secondItem="NLf-X1-A7J" secondAttribute="trailing" constant="4" id="JFl-TO-SYb"/>
                                                                             <constraint firstItem="Ivo-pn-obU" firstAttribute="leading" secondItem="a08-NU-M6F" secondAttribute="leading" id="NZb-NJ-IsI"/>
                                                                             <constraint firstItem="O7E-rC-7CV" firstAttribute="top" secondItem="UEN-th-JPI" secondAttribute="bottom" constant="3" id="ODv-Qa-yMW"/>
                                                                             <constraint firstItem="bh9-w5-oO2" firstAttribute="centerX" secondItem="a08-NU-M6F" secondAttribute="centerX" id="OEH-k9-kvx"/>
                                                                             <constraint firstAttribute="trailing" secondItem="Ivo-pn-obU" secondAttribute="trailing" id="ZN1-cD-f1t"/>
                                                                             <constraint firstItem="O7E-rC-7CV" firstAttribute="leading" secondItem="a08-NU-M6F" secondAttribute="leading" constant="5" id="alk-pS-pyr"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="vKG-Ku-jXO" secondAttribute="trailing" constant="3" id="nGn-dz-aje"/>
                                                                             <constraint firstItem="UEN-th-JPI" firstAttribute="centerX" secondItem="a08-NU-M6F" secondAttribute="centerX" id="pqj-z3-tGX"/>
                                                                             <constraint firstAttribute="trailing" secondItem="cKd-y3-Ei5" secondAttribute="trailing" id="vDk-9S-LcG"/>
                                                                             <constraint firstAttribute="trailing" secondItem="cKd-y3-Ei5" secondAttribute="trailing" id="zin-Ws-dc5"/>
@@ -300,11 +309,11 @@
                                                                 <constraint firstAttribute="trailing" secondItem="a08-NU-M6F" secondAttribute="trailing" id="jav-41-1zO"/>
                                                             </constraints>
                                                             <connections>
-                                                                <outlet property="commentsCuntLbl" destination="CaN-eQ-Y8m" id="jVw-WD-95G"/>
+                                                                <outlet property="commentsCountLbl" destination="CaN-eQ-Y8m" id="yMi-32-ANt"/>
                                                                 <outlet property="locationLbl" destination="4Sl-pT-2me" id="wLT-lZ-Hri"/>
                                                                 <outlet property="postDateLbl" destination="o4F-aE-mhc" id="1Px-lj-iZY"/>
                                                                 <outlet property="postImg" destination="cKd-y3-Ei5" id="TLR-ve-l5d"/>
-                                                                <outlet property="reactionLbl" destination="oBP-xZ-ak4" id="ltB-kl-CFd"/>
+                                                                <outlet property="reactionCountLbl" destination="vKG-Ku-jXO" id="eao-wy-HGd"/>
                                                                 <outlet property="readStoryLbl" destination="NLf-X1-A7J" id="trv-0W-ekP"/>
                                                                 <outlet property="userNameLbl" destination="3gp-eV-1iR" id="0IH-wG-nOA"/>
                                                             </connections>
