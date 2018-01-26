@@ -17,6 +17,7 @@ class Post {
     private var _likes: Int?
     private var _username: String!
     private var _postKey: String!
+    private var _sectionNumber: Int!
     
 var postStory: String? {
     return _postStory
@@ -42,12 +43,17 @@ var postStory: String? {
         return _username
     }
     
+    var sectionNumber: Int {
+        return _sectionNumber
+    }
+    
 
     init(postStory: String?, hashtag: String?, imageUrl: String, username: String) {
         self._postStory = postStory
         self._hashtag = hashtag
         self._imageUrl = imageUrl
         self._username = username
+        self._sectionNumber = sectionNumber
     }
     
     //calling this when downloading data from Firebase
@@ -58,12 +64,15 @@ var postStory: String? {
             self._likes = likes
         }
         
-        if let postStory = dictionary["postStory"] as? String {
+        if let postStory = dictionary["description"] as? String {
             self._postStory = postStory
         }
         
         if let hashtag = dictionary["hashtag"] as? String {
             self._hashtag = hashtag
+        }
+        if let sectionNumber = dictionary["sectionNr"] as? Int {
+            self._sectionNumber = sectionNumber
         }
     }
     
