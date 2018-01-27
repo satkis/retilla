@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class CategoryRow: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
+class CategoryRow: UITableViewCell {
 
     
 
@@ -17,12 +17,16 @@ class CategoryRow: UITableViewCell, UICollectionViewDataSource, UICollectionView
     
     
     var posts = [Post]()
+    
     // NSCache dictionary first AnyObject is url of image (aka key), 2nd AnyObject is image data (aka value)
-    static var imageCache = NSCache<AnyObject, AnyObject>()
+//    static var imageCache = NSCache<AnyObject, AnyObject>()
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+//
+//        collectionViewww.delegate = self
+//        collectionViewww.dataSource = self
+        
                 //even this is in viewdidload, below will be called only when data changes
                 DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
                     print(snapshot.value as Any)
@@ -58,40 +62,22 @@ class CategoryRow: UITableViewCell, UICollectionViewDataSource, UICollectionView
         
     }
 
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return posts.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let post = posts[indexPath.row]
 
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
-            
-            cell.request?.cancel()
-            
-            var image: UIImage?
-            
-            
-            
-            if let url = post.imageUrl {
-                //set image in cache as image(if it exists). if not, then image will be downloaded
-                image = CategoryRow.imageCache.object(forKey: url as AnyObject) as? UIImage
-            }
-            
-            cell.configureCell(post: post, image: image)
-            return cell
-            
-        } else {
-            return PostCell()
-        }
-    }
+    
+    
+ 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 221
     }
     
     
+    
 
-}
+    
+    
+    
+    }
+    
+
+

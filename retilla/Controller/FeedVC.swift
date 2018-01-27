@@ -12,7 +12,7 @@ import Firebase
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var categories = ["Recycle", "Reuse", "Reduce", "Pollution"]
-//    var posts = [Post]()
+    var posts = [Post]()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -54,28 +54,76 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SEGUE_POSTDETAILVC {
+            let detailVC = segue.destination as? PostDetailVC
+            if let posty = sender as? Post {
+                detailVC?.post = posty
+            }
+            
+        }
+    }
+    
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return categories.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return categories[section]
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-
-    
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
 
         return tableView.dequeueReusableCell(withIdentifier: "cell") as! CategoryRow
     }
     
- 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        }
+        
+    
+    
+    
+    //identify which postcell was selected
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var posty: Post!
+       
+        posty = posts[indexPath.item]
+        
+        self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posty)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == SEGUE_POSTDETAILVC {
+//            if let detailVC = segue.destination as? PostDetailVC {
+//                if let posty = sender as? Post {
+//                    detailVC.post = posty
+//                }
+//            }
+//        }
+//    }
+//
+    
+    
+
     
     
 

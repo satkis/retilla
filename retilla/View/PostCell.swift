@@ -14,6 +14,10 @@ class PostCell: UICollectionViewCell {
 
     var post: Post!
     var request: Request?
+      
+
+    
+    
     
     @IBOutlet weak var locationLbl: UILabel!
     
@@ -76,8 +80,24 @@ class PostCell: UICollectionViewCell {
     }
     
     
-
-
+//
+//    override var isSelected: Bool {
+//        didSet{
+//            if self.isSelected
+//            {
+//
+//                var posty: Post!
+//
+//                posty = posts[IndexPath.row]
+//
+//                print("tap::: \(posty)")
+//            }
+//            else
+//            {
+//                print("ERRORRRR::::")
+//            }
+//        }
+//    }
     
     
     

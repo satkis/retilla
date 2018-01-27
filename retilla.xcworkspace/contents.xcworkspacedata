@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/satkis/Desktop/retilla/retilla/Controller/PostDetailVC.swift">
+   </FileRef>
+   <FileRef
       location = "group:retilla.xcodeproj">
    </FileRef>
    <FileRef
