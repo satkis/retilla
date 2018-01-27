@@ -13,7 +13,7 @@ class Post {
     private var _postStory: String?
     private var _hashtag: String?
     private var _coordinatesGps: Double!
-    private var _imageUrl: String!
+    private var _imageUrl: String?
     private var _likes: Int?
     private var _username: String!
     private var _postKey: String!
@@ -31,7 +31,7 @@ var postStory: String? {
         return _coordinatesGps
     }
     
-    var imageUrl: String {
+    var imageUrl: String? {
         return _imageUrl
     }
     
@@ -48,7 +48,7 @@ var postStory: String? {
     }
     
 
-    init(postStory: String?, hashtag: String?, imageUrl: String, username: String) {
+    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String) {
         self._postStory = postStory
         self._hashtag = hashtag
         self._imageUrl = imageUrl
@@ -62,6 +62,10 @@ var postStory: String? {
         
         if let likes = dictionary["likes"] as? Int {
             self._likes = likes
+        }
+        
+        if let imageUrl = dictionary["imageUrl"] as? String {
+            self._imageUrl = imageUrl
         }
         
         if let postStory = dictionary["description"] as? String {

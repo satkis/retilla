@@ -17,7 +17,8 @@ class CategoryRow: UITableViewCell, UICollectionViewDataSource, UICollectionView
     
     
     var posts = [Post]()
-
+    // NSCache dictionary first AnyObject is url of image (aka key), 2nd AnyObject is image data (aka value)
+    static var imageCache = NSCache<AnyObject, AnyObject>()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,12 +66,21 @@ class CategoryRow: UITableViewCell, UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let post = posts[indexPath.row]
-        print("POST STORY::: \(post.postStory as Any)")
-        print("SECTION NUMBER::: \(post.sectionNumber)")
-        
+
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
-         
-            cell.configureCell(post: post)
+            
+            cell.request?.cancel()
+            
+            var image: UIImage?
+            
+            
+            
+            if let url = post.imageUrl {
+                //set image in cache as image(if it exists). if not, then image will be downloaded
+                image = CategoryRow.imageCache.object(forKey: url as AnyObject) as? UIImage
+            }
+            
+            cell.configureCell(post: post, image: image)
             return cell
             
         } else {
