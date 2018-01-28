@@ -83,24 +83,6 @@
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="96.7016491754123"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="28c-sX-cUK">
-            <objects>
-                <viewController id="2n9-KW-AMD" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1sY-ch-EF5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="js0-PV-GbQ"/>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="VoK-gn-rct" id="EHQ-Ht-Sre"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7bN-GI-xaz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="778" y="-424"/>
-        </scene>
         <!--Add Post-->
         <scene sceneID="wXo-gj-qWc">
             <objects>
@@ -320,10 +302,6 @@
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="5rk-i4-nbh" id="DVf-Si-wWJ"/>
-                                                        <outlet property="delegate" destination="5rk-i4-nbh" id="65R-2o-79J"/>
-                                                    </connections>
                                                 </collectionView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.1764705882" green="0.65825195309999995" blue="0.91658528650000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -335,12 +313,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="collectionViewww" destination="qUO-VE-8Mk" id="Hjn-3x-mYL"/>
+                                            <outlet property="collectionViewww" destination="qUO-VE-8Mk" id="S7D-vQ-U1R"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="1sY-ch-EF5" id="wtf-cJ-CTQ"/>
+                                    <outlet property="dataSource" destination="GWe-xP-pSd" id="8Jp-7p-5ul"/>
+                                    <outlet property="delegate" destination="GWe-xP-pSd" id="C7Q-fE-Um8"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -551,10 +530,6 @@
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
-                                            <connections>
-                                                <outlet property="dataSource" destination="VqN-Dn-YUD" id="axL-VM-lFL"/>
-                                                <outlet property="delegate" destination="VqN-Dn-YUD" id="jqU-KQ-I79"/>
-                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.1764705882" green="0.65825195309999995" blue="0.91658528650000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -571,13 +546,13 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="R09-4Z-XvD" id="Vzg-h2-bDc"/>
-                            <outlet property="delegate" destination="R09-4Z-XvD" id="9In-5u-R3n"/>
+                            <outlet property="dataSource" destination="R09-4Z-XvD" id="RSu-or-ZhI"/>
+                            <outlet property="delegate" destination="R09-4Z-XvD" id="Sf3-IY-D7H"/>
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="view" destination="JfE-98-U2b" id="Py7-7z-e6W"/>
-                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="ODP-FC-RCX"/>
+                        <outlet property="view" destination="JfE-98-U2b" id="AOS-uR-0Ho"/>
+                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="qW4-ZU-eWx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsE-9b-4iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
