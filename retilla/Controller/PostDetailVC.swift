@@ -10,7 +10,9 @@ import UIKit
 
 class PostDetailVC: UIViewController {
 
-    var post: Post!
+    var selectedPost: Post!
+    
+    //var displayString = ""
     
     @IBOutlet weak var descriptionLbl: UILabel!
     
@@ -18,7 +20,10 @@ class PostDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        descriptionLbl.text = post.postStory
+       // displayLabel?.text = displayString
+    
+        
+        descriptionLbl.text = selectedPost.postStory
     }
 
     override func didReceiveMemoryWarning() {

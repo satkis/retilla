@@ -527,6 +527,7 @@
                                                         <outlet property="reactionCountLbl" destination="Fjf-h9-2Is" id="PJk-Jv-EZa"/>
                                                         <outlet property="readStoryLbl" destination="hmf-lR-AZB" id="cqc-fO-Sef"/>
                                                         <outlet property="userNameLbl" destination="cl8-4c-8Sl" id="dPS-ne-heK"/>
+                                                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="HU4-wB-nFF"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -552,7 +553,6 @@
                     </tableView>
                     <connections>
                         <outlet property="view" destination="JfE-98-U2b" id="AOS-uR-0Ho"/>
-                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="qW4-ZU-eWx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsE-9b-4iz" userLabel="First Responder" sceneMemberID="firstResponder"/>

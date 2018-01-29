@@ -10,20 +10,25 @@ import Firebase
 
 class CategoryRow: UITableViewCell {
     
-    
+    var showDetail:ShowDetailDelegate? = nil
     
     @IBOutlet weak private var collectionViewww: UICollectionView!
     
     
+    
     var posts = [Post]()
+    var selectedPostt: Post?
+    
+    
     
     // NSCache dictionary first AnyObject is url of image (aka key), 2nd AnyObject is image data (aka value)
     //    static var imageCache = NSCache<AnyObject, AnyObject>()
     override func awakeFromNib() {
         super.awakeFromNib()
         
-                self.collectionViewww.delegate = self
-                self.collectionViewww.dataSource = self
+        self.collectionViewww.delegate = self
+        self.collectionViewww.dataSource = self
+        
         
         //even this is in viewdidload, below will be called only when data changes
         DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
@@ -61,6 +66,9 @@ class CategoryRow: UITableViewCell {
     
     
     
+
+    
+    
     
     
     
@@ -71,18 +79,58 @@ class CategoryRow: UITableViewCell {
 
     
     //identify which postcell was selected
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let posty: Post!
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print("indexpathITEM::: \(indexPath.item)")
+//        print("collectionViewTag::: \(collectionViewww.tag)")
+//        //self.selectedPostt = self.posts
+//        var tableViewIndex = collectionViewww.tag
+    
+    
+        func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+            if (collectionView.cellForItem(at: indexPath as IndexPath) as? PostCell) != nil {
+                let displayText = "selected cell number: \(indexPath.row) from category: (selectedCell.categoryName)"
+                showDetail?.showDetail(display: displayText)
+            }
+        }
         
-        posty = posts[indexPath.row]
-        print("tappppedddd::: \(posty)")
-       // self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posty)
+        
+        
+        
+//        let selectedPost = posts[indexPath.item]
+//        let destinationVC = PostDetailVC()
+//        destinationVC.post = selectedPost
+//        if let
+        
+        
+//        let selectedPost: Post!
+//        selectedPost = posts[indexPath.item]
+        
+
+        
+      //  posty = posts[indexPath.section,indexPath.row]
+        
+//        let pathh = self.collectionViewww.indexPath(for: posty)
+
+        //posty = posts[indexPath.row]
+       // print("tappppedddd::: \(posty)")
+        //self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: selectedPost)
     }
     
     
-    
-    
-    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        if let selectedCell = collectionView.cellForItem(at: indexPath as IndexPath) as? PostCell {
+//            let displayText = "selected cell number: \(indexPath.row) from category: \(selectedCell.tag)"
+//            showDetailDelegate?.showDetail(displayText: displayText)
+//                    print("indexpathITEM::: \(indexPath.item)")
+//                    print("collectionViewTag::: \(collectionViewww.tag)")
+//                    print("selectedCELL::: \(selectedCell.tag)")
+//        }
+//    }
+//
+//
     
     
 }
+    
+    
+
