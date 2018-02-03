@@ -8,16 +8,24 @@
 import UIKit
 import Firebase
 
+//Create a delegate protocol
+//protocol CellCollectionViewDelegate: class {
+//    func didSelect()
+//}
+
 class CategoryRow: UITableViewCell {
     
-    var showDetail:ShowDetailDelegate? = nil
+//    var showDetail:ShowDetailDelegate? = nil
+   // var didSelectAction: () -> Void = {}
+    
+   // weak var delegate: CellCollectionViewDelegate?
     
     @IBOutlet weak private var collectionViewww: UICollectionView!
     
     
     
     var posts = [Post]()
-    var selectedPostt: Post?
+    //var selectedPostt: Post?
     
     
     
@@ -66,8 +74,15 @@ class CategoryRow: UITableViewCell {
     
     
     
-
-    
+    //identify which postcell was selected
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let posty: Post!
+        
+        
+        posty = posts[indexPath.row]
+        print("tappppedddd::: \(posty)")
+        // self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posty)
+    }
     
     
     
@@ -86,12 +101,12 @@ class CategoryRow: UITableViewCell {
 //        var tableViewIndex = collectionViewww.tag
     
     
-        func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-            if (collectionView.cellForItem(at: indexPath as IndexPath) as? PostCell) != nil {
-                let displayText = "selected cell number: \(indexPath.row) from category: (selectedCell.categoryName)"
-                showDetail?.showDetail(display: displayText)
-            }
-        }
+//        func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//            if (collectionView.cellForItem(at: indexPath as IndexPath) as? PostCell) != nil {
+//                let displayText = "selected cell number: \(indexPath.row) from category: (selectedCell.categoryName)"
+//                showDetail?.showDetail(display: displayText)
+//            }
+//        }
         
         
         
@@ -130,7 +145,7 @@ class CategoryRow: UITableViewCell {
 //
     
     
-}
+
     
     
 

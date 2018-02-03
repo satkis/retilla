@@ -12,16 +12,16 @@ import Firebase
 //    func showDetail(displayText:String)
 //}
 
-protocol ShowDetailDelegate {
-    func showDetail(display: Any)
-}
+//protocol ShowDetailDelegate {
+//    func showDetail(display: Any)
+//}
 
 class FeedVCC: UITableViewController {
     
     var categories = ["Recycle", "Reuse", "Reduce", "Pollution"]
     var posts = [Post]()
     
-    @IBOutlet weak var tableViewwww: UITableView!
+    //@IBOutlet weak var tableViewwww: UITableView!
     
     
     
@@ -40,80 +40,59 @@ class FeedVCC: UITableViewController {
 }
 
 
-extension FeedVCC : ShowDetailDelegate {
-    func showDetail(display: Any) {
-        performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posts)
-    }
-    
-
-    
-    
-}
-
-
-
-extension FeedVCC {
-    
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let detailPage = segue.destination as? PostDetailVC, let displayString = sender {
-            detailPage.selectedPost = displayString as! Post
-
-        }
-    }
-
-
-    
-    
-    
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return categories.count
-//        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return categories[section]
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let categoryRoww = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CategoryRow
-        print("cellFOrRowAt:: \(indexPath.row)")
-        categoryRoww.tag = indexPath.row
-        
-        print("INDEXPATH in cellForROw atindexPath::: \(indexPath.row)")
-         categoryRoww.showDetail = self
-
-        return categoryRoww
-    }
-
-//   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//
-//    super.prepare(for: segue, sender: PostCell.self)
-//    let cell = CategoryRow.cellfo
-//
-//        if segue.identifier == SEGUE_POSTDETAILVC {
-//            if let collectionCell: PostCell = sender as? PostCell {
-//                if let collectionView: UICollectionView = collectionCell.superview as? UICollectionView {
-//                    if let destination = segue.destination as? PostDetailVC {
-//                        destination.selectedPost = CategoryRow[collectionView.tag].selectedPost
-//                        destination.
-//                    }
-//                }
-//            }
-//        }
-//
-//
-//
+//extension FeedVCC : ShowDetailDelegate {
+//    func showDetail(display: Any) {
+//        performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posts)
 //    }
 //
+//
+//
+//
+//}
+
+
+
+
     
+
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let detailPage = segue.destination as? PostDetailVC
+//           // let displayString = sender
+//        {
+//            detailPage.selectedPost =
+//
+//        }
+//    }
+
+
+    
+    
+    
+    
+    extension FeedVCC {
+        
+        override func numberOfSections(in tableView: UITableView) -> Int {
+            //        return categories.count
+            return 1
+        }
+        
+        override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            return categories[section]
+        }
+        
+        override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 1
+        }
+        
+        override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            
+            //return tableView.dequeueReusableCell(withIdentifier: "cell") as! CategoryRow
+            
+            let categoryRoww = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CategoryRow
+            return categoryRoww
+        }
+    
+
     
     
     
@@ -128,12 +107,12 @@ extension CategoryRow : UICollectionViewDataSource, UICollectionViewDelegate {
     
     static var imageCache = NSCache<AnyObject, AnyObject>()
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //print("collecitonViewTag: \(collectionView.tag)")
+        print("collecitonViewTag: \(collectionView.tag)")
         return posts.count
         
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -159,11 +138,10 @@ extension CategoryRow : UICollectionViewDataSource, UICollectionViewDelegate {
         }
     }
     
-
+    
     
     
     
     
 }
-
 
