@@ -72,10 +72,10 @@ class CategoryRow: UITableViewCell {
     
     //identify which postcell was selected
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let posty: Post!
+        //let posty: Post!
         
-        posty = posts[indexPath.row]
-        print("tappppedddd::: \(posty)")
+        let data = posts[indexPath.row].hashtag
+        print("didselectitem::: \(String(describing: data))")
        // self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posty)
     }
     
