@@ -18,7 +18,7 @@ class PostDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        descriptionLbl.text = post.postStory
+        descriptionLbl.text = post.hashtag
     }
 
     override func didReceiveMemoryWarning() {

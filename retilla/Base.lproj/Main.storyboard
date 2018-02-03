@@ -552,7 +552,7 @@
                     </tableView>
                     <connections>
                         <outlet property="view" destination="JfE-98-U2b" id="AOS-uR-0Ho"/>
-                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="qW4-ZU-eWx"/>
+                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="3dF-1n-SFt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsE-9b-4iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
