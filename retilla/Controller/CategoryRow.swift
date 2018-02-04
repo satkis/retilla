@@ -8,8 +8,12 @@
 import UIKit
 import Firebase
 
-protocol CellCollectionViewDelegatee {
-    func didSelect()
+//protocol CellCollectionViewDelegatee {
+//    func didSelect(data: String)
+//}
+
+protocol CellDelegate {
+    func colCategorySelected(_ indexPath : IndexPath)
 }
 
 class CategoryRow: UITableViewCell {
@@ -17,16 +21,19 @@ class CategoryRow: UITableViewCell {
     @IBOutlet weak private var collectionViewww: UICollectionView!
     
     static var imageCache = NSCache<AnyObject, AnyObject>()
-    var delegatee: CellCollectionViewDelegatee? = "nonono" as? CellCollectionViewDelegatee
+    //var delegatee: CellCollectionViewDelegatee?
     var posts = [Post]()
+    
+    var delegate : CellDelegate?
     
     // NSCache dictionary first AnyObject is url of image (aka key), 2nd AnyObject is image data (aka value)
     //    static var imageCache = NSCache<AnyObject, AnyObject>()
     override func awakeFromNib() {
         super.awakeFromNib()
         
-                collectionViewww.delegate = self
-                collectionViewww.dataSource = self
+        collectionViewww.delegate = self
+        collectionViewww.dataSource = self
+        
         
         //even this is in viewdidload, below will be called only when data changes
         DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
@@ -67,65 +74,67 @@ class CategoryRow: UITableViewCell {
     }
     
 }
-    
-    
-    extension CategoryRow: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            print("collecitonViewTag: \(collectionView.tag)")
-            return posts.count
-            
-        }
-        
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            let post = posts[indexPath.row]
-            //        var posts = [Post]()
-            
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
-                
-                cell.request?.cancel()
-                
-                var image: UIImage?
-                
-                if let url = post.imageUrl {
-                    //set image in cache as image(if it exists). if not, then image will be downloaded
-                    image = CategoryRow.imageCache.object(forKey: url as AnyObject) as? UIImage
-                }
-                
-                cell.configureCell(post: post, image: image)
-                return cell
-                
-            } else {
-                return PostCell()
-            }
-        }
-        
-        
-        //identify which postcell was selected
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            //let posty: Post!
-            
-            let data = posts[indexPath.row].hashtag
-            print("didselectitem::: \(String(describing: data))")
-            delegatee?.didSelect()
-            
-           
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+extension CategoryRow: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("collecitonViewTag: \(collectionView.tag)")
+        return posts.count
         
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let post = posts[indexPath.row]
+        //        var posts = [Post]()
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
+            
+            cell.request?.cancel()
+            
+            var image: UIImage?
+            
+            if let url = post.imageUrl {
+                //set image in cache as image(if it exists). if not, then image will be downloaded
+                image = CategoryRow.imageCache.object(forKey: url as AnyObject) as? UIImage
+            }
+            
+            cell.configureCell(post: post, image: image)
+            return cell
+            
+        } else {
+            return PostCell()
+        }
+    }
+    
+    //identify which postcell was selected
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //let posty: Post!
+        
+        //var posttt: Post!
+        let cell = collectionView.cellForItem(at: indexPath) as! PostCell
+        //print("before performsegue::: \(posttt.hashtag)")
+//        performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posttt)
+        let data = cell.post.hashtag
+        print("idddd: \(String(describing: data))")
+        
+        delegate?.colCategorySelected(indexPath)
+        print("delegateeeee:::: \(String(describing: delegate?.colCategorySelected(indexPath)))")
+        
+        //        print("celll:::: \(cell)")
+        //        let data = posts[indexPath.row].hashtag
+        //        print("didselectitem::: \(String(describing: data))")
+        //delegatee?.didSelect(data: data!)
+        //        print("degelateee value::: \(String(describing: delegatee?.didSelect(data: data!)))")
+        //print("delegate valuee:::::: \(self.posts[indexPath.row])")
+        
+        //        NotificationCenter.default.post(name: Notification.Name(rawValue:"myNotification"), object: nil, userInfo: ["message": data!])
+        //
+    }
+
+
+
+}
 

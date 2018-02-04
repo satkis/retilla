@@ -332,11 +332,11 @@
             </objects>
             <point key="canvasLocation" x="2805.5999999999999" y="-176.76161919040482"/>
         </scene>
-        <!--Post DetailVC-->
+        <!--Post DetailVCC-->
         <scene sceneID="zGx-GH-M5Q">
             <objects>
-                <viewController id="AdO-GU-xS3" customClass="PostDetailVC" customModule="retilla" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kZ1-jk-EXf" customClass="PostDetailVC">
+                <viewController id="AdO-GU-xS3" customClass="PostDetailVCC" customModule="retilla" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kZ1-jk-EXf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -353,11 +353,11 @@
                             <constraint firstItem="64H-rM-x4P" firstAttribute="centerY" secondItem="kZ1-jk-EXf" secondAttribute="centerY" id="tKK-hr-TQv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4ba-S1-df5"/>
-                        <connections>
-                            <outlet property="descriptionLbl" destination="64H-rM-x4P" id="7M0-qd-xTQ"/>
-                        </connections>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="descLabel" destination="64H-rM-x4P" id="mUc-dW-Pbm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Hb-Dq-Owp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -527,6 +527,7 @@
                                                         <outlet property="reactionCountLbl" destination="Fjf-h9-2Is" id="PJk-Jv-EZa"/>
                                                         <outlet property="readStoryLbl" destination="hmf-lR-AZB" id="cqc-fO-Sef"/>
                                                         <outlet property="userNameLbl" destination="cl8-4c-8Sl" id="dPS-ne-heK"/>
+                                                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="Ekv-r5-sS9"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
@@ -550,10 +551,6 @@
                             <outlet property="delegate" destination="R09-4Z-XvD" id="Sf3-IY-D7H"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="view" destination="JfE-98-U2b" id="AOS-uR-0Ho"/>
-                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="3dF-1n-SFt"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NsE-9b-4iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
