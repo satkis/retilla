@@ -356,7 +356,7 @@
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="descLabel" destination="64H-rM-x4P" id="mUc-dW-Pbm"/>
+                        <outlet property="descLabel" destination="64H-rM-x4P" id="WtL-2r-D4P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Hb-Dq-Owp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -527,7 +527,7 @@
                                                         <outlet property="reactionCountLbl" destination="Fjf-h9-2Is" id="PJk-Jv-EZa"/>
                                                         <outlet property="readStoryLbl" destination="hmf-lR-AZB" id="cqc-fO-Sef"/>
                                                         <outlet property="userNameLbl" destination="cl8-4c-8Sl" id="dPS-ne-heK"/>
-                                                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="Ekv-r5-sS9"/>
+                                                        <segue destination="AdO-GU-xS3" kind="show" identifier="PostDetailVC" id="1Ej-hQ-rdz"/>
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>

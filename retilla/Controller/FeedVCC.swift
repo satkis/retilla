@@ -8,12 +8,13 @@
 import UIKit
 import Firebase
 
-class FeedVCC: UITableViewController, CellDelegate {
-    
+class FeedVCC: UITableViewController, CellCollectionViewDelegatee {
+   
     var categories = ["Recycle"] //, "Reuse", "Reduce", "Pollution"]
     var posts = [Post]()
     
-    var delegate : CellDelegate?
+    var delegate: CellCollectionViewDelegatee?
+//    var delegate : CellDelegate?
     
     //@IBOutlet weak var tableViewwww: UITableView!
     
@@ -47,34 +48,67 @@ class FeedVCC: UITableViewController, CellDelegate {
         
         let categoryRoww = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CategoryRow
         categoryRoww.delegate = self
-        
-
         return categoryRoww
     }
+    
+
+    
     
 }
 
 extension FeedVCC: UICollectionViewDelegate {
  
-    
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SEGUE_POSTDETAILVC {
-            if let detailVC = segue.destination as? PostDetailVCC {
-                if let posttt = sender as? Post {
-                    detailVC.post = posttt
-                }
-            }
-        }
+    func didSelect(data: String) {
+        print("didSelect func data::: \(data)")
     }
     
-    func colCategorySelected(_ indexPath : IndexPath){
-       performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: nil)
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == SEGUE_POSTDETAILVC {
+//            if let detailVC = segue.destination as? PostDetailVCC {
+//                if let posttt = sender as? Post {
+//                    detailVC.descLabel.text = posttt
+//                }
+//            }
+//        }
+//    }
     
 }
+    
+//    extension PostDetailVCC {
+//        func didSelect(data: String) {
+//            print("POSTDETAILVCC func data::: \(data)")
+//        }
+//    }
+    
+
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == SEGUE_POSTDETAILVC {
+//            if let detailVC = segue.destination as? PostDetailVCC {
+//                if let posttt = sender as? Post {
+//                    detailVC.post = posttt
+//                }
+//            }
+//        }
+//    }
+    
+//    func colCategorySelected(_ indexPath : IndexPath){
+//       performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: nil)
+//    }
+    
+    
+
+    
+    
+    
+    
+//    func didSelect(data: String) {
+//        print("didSelect func value passed::: \(data)")
+//       //performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posts)
+//    }
+
+
+
 
 //extension FeedVCC: CellCollectionViewDelegatee {
 //    func didSelect(data: String) {

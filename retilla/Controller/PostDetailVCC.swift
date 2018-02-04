@@ -8,13 +8,10 @@
 
 import UIKit
 
-class PostDetailVCC: UIViewController, CellDelegate {
-    
-    
-    
-    
+class PostDetailVCC: UIViewController, CellCollectionViewDelegatee, UICollectionViewDelegate {
+
     var post: Post!
-    
+    var delegate: CellCollectionViewDelegatee?
 //    @IBOutlet weak var descriptionLbl: UILabel!
     
     @IBOutlet weak var descLabel: UILabel!
@@ -30,9 +27,28 @@ class PostDetailVCC: UIViewController, CellDelegate {
         //descriptionLbl.text = post.hashtag
     }
     
-    func colCategorySelected(_ indexPath: IndexPath) {
-        print("detailVCCC::: \(indexPath)")
+//    func colCategorySelected(_ indexPath: IndexPath) {
+//        print("detailVCCC::: \(indexPath)")
+//    }
+//
+   
+    func didSelect(data: String) {
+        print("detailVCCC::: \(data)")
+        descLabel.text = data
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SEGUE_POSTDETAILVC {
+            let detailVC: PostDetailVCC = segue.destination as! PostDetailVCC
+            detailVC.delegate = self
+        }
+    }
+    
+    
+ 
+
+    }
+    
     
     //    @objc func showDataReceivedFromCollectionViewCell(notification: Notification) {
     //        if let message = notification.userInfo {
@@ -72,5 +88,5 @@ class PostDetailVCC: UIViewController, CellDelegate {
      }
      */
     
-}
+
 
