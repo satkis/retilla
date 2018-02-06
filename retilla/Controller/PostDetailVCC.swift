@@ -10,83 +10,19 @@ import UIKit
 
 class PostDetailVCC: UIViewController, CellCollectionViewDelegatee, UICollectionViewDelegate {
 
-    var post: Post!
+    //var post: Post!
     var delegate: CellCollectionViewDelegatee?
-//    @IBOutlet weak var descriptionLbl: UILabel!
     
     @IBOutlet weak var descLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        descLabel.text = post.hashtag
-        
-        //        NotificationCenter.default.addObserver(self, selector: #selector(showDataReceivedFromCollectionViewCell(notification:)), name: NSNotification.Name(rawValue: "myNotification"), object: nil)
-        //    print("detailVCC: \(NSNotification.Name(rawValue: "myNotification"))")
-        // descriptionLbl.text = "kaka"
-        //descriptionLbl.text = post.hashtag
+
     }
-    
-//    func colCategorySelected(_ indexPath: IndexPath) {
-//        print("detailVCCC::: \(indexPath)")
-//    }
-//
-   
+
     func didSelect(data: String) {
-        print("detailVCCC::: \(data)")
+        print("detailVCC didSelect::: \(data)")
         descLabel.text = data
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SEGUE_POSTDETAILVC {
-            let detailVC: PostDetailVCC = segue.destination as! PostDetailVCC
-            detailVC.delegate = self
-        }
-    }
-    
-    
- 
-
-    }
-    
-    
-    //    @objc func showDataReceivedFromCollectionViewCell(notification: Notification) {
-    //        if let message = notification.userInfo {
-    //            if let msg = message["message"] as? String {
-    //                self.descriptionLbl.text = msg
-    //                print("detailVCC: \(msg)")
-    //            }
-    //        }
-    //    }
-    
-    //    func didSelect(data: String) {
-    //        descriptionLbl.text = post.hashtag
-    //        print("postDetailVC Post::: \(Post.self)")
-    //        print("#2 postDetailVC data::: \(data)")
-    //    }
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        //        if let cell = sender as? PostCell {
-    //        if segue.identifier == SEGUE_POSTDETAILVC {
-    //            let sendingVC: FeedVCC = segue.destination as! FeedVCC
-    //            //                detailScreen.descriptionLbl.text = post.hashtag
-    //            sendingVC.delegatee = self
-    //            print("delegate value in PostDetailVC \(String(describing: sendingVC.delegatee))")
-    //        }
-    //        //        }
-    //    }
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-
+}
 

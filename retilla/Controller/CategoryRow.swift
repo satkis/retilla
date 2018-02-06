@@ -12,24 +12,15 @@ protocol CellCollectionViewDelegatee {
     func didSelect(data: String)
 }
 
-//protocol CellDelegate {
-//    func colCategorySelected(_ indexPath : IndexPath)
-//}
-
 class CategoryRow: UITableViewCell {
 
-    
-    
     @IBOutlet weak private var collectionViewww: UICollectionView!
     
     static var imageCache = NSCache<AnyObject, AnyObject>()
     var delegate: CellCollectionViewDelegatee?
     var posts = [Post]()
     
-//    var delegate : CellDelegate?
     
-    // NSCache dictionary first AnyObject is url of image (aka key), 2nd AnyObject is image data (aka value)
-    //    static var imageCache = NSCache<AnyObject, AnyObject>()
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -54,21 +45,14 @@ class CategoryRow: UITableViewCell {
                         let post = Post(postKey: key, dictionary: postDictionary)
                         self.posts.append(post)
                     }
-                    
                 }
             }
             
-            
             self.collectionViewww.reloadData()
         }
-        
     }
     
-    
-    
     override func draw(_ rect: CGRect) {
-        //google. not sure why to round corenrs in draw rect override and not awakefromnib
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -85,13 +69,11 @@ extension CategoryRow: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         return posts.count
         
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let post = posts[indexPath.row]
-        //        var posts = [Post]()
-        
+
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
             
             cell.request?.cancel()
@@ -111,45 +93,21 @@ extension CategoryRow: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         }
     }
     
-//    func didSelect(data: String) {
-//        print("didSelect func value passed::: \(data)")
-//    }
-    
     //identify which postcell was selected
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
-        //let cell = collectionView.cellForItem(at: indexPath) as! PostCell
-        //let data = cell.post.hashtag
+
         let data = posts[indexPath.row].hashtag
-        
-        
-            delegate?.didSelect(data: data!)
-        
+        //let testText = "testingData"
 
-        print("idddd: \(String(describing: data))")
+        delegate?.didSelect(data: data!)
+
+        print("CategoryRow Prints?: \(String(describing: data!))")
         print("degelateee value::: \(String(describing: delegate?.didSelect(data: data!)))")
-        print("delegateeee::: \(String(describing: delegate.debugDescription))")
+ }
 
-        //let posty: Post!
-        
-        //var posttt: Post!
-        //let cell = collectionView.cellForItem(at: indexPath) as! PostCell
-        //print("before performsegue::: \(posttt.hashtag)")
-//        performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: posttt)
-        
-        
-//        delegate?.colCategorySelected(indexPath)
-//        print("delegateeeee:::: \(String(describing: delegate?.colCategorySelected(indexPath)))")
-        
-        //        print("celll:::: \(cell)")
-        //        let data = posts[indexPath.row].hashtag
-        //        print("didselectitem::: \(String(describing: data))")
-        //delegatee?.didSelect(data: data!)
-        
-
+    func didSelect(data: String) {
+        print("CategoryRow didSelect func::: \(data)")
     }
-
-   
     
     
     
