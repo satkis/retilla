@@ -18,6 +18,7 @@
 		FF7D5D372016885B0016F853 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D362016885B0016F853 /* Constants.swift */; };
 		FF7D5D3920168A620016F853 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D3820168A620016F853 /* DataService.swift */; };
 		FF85071220276B81003CB080 /* PostDetailVCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF85071120276B81003CB080 /* PostDetailVCC.swift */; };
+		FF85073A202F549C003CB080 /* CreatingPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF850739202F549C003CB080 /* CreatingPostVC.swift */; };
 		FF919B11201A70EE00270B65 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B10201A70EE00270B65 /* Post.swift */; };
 		FF919B13201AAE7200270B65 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B12201AAE7200270B65 /* PostCell.swift */; };
 		FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B1A201CB7D800270B65 /* FeedVCC.swift */; };
@@ -39,6 +40,7 @@
 		FF7D5D362016885B0016F853 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FF7D5D3820168A620016F853 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		FF85071120276B81003CB080 /* PostDetailVCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailVCC.swift; sourceTree = "<group>"; };
+		FF850739202F549C003CB080 /* CreatingPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingPostVC.swift; sourceTree = "<group>"; };
 		FF919B10201A70EE00270B65 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		FF919B12201AAE7200270B65 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		FF919B1A201CB7D800270B65 /* FeedVCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVCC.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				FF919B1A201CB7D800270B65 /* FeedVCC.swift */,
 				FF421D462017E4B00023D9BF /* CategoryRow.swift */,
 				FF85071120276B81003CB080 /* PostDetailVCC.swift */,
+				FF850739202F549C003CB080 /* CreatingPostVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */,
 				FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */,
 				FF85071220276B81003CB080 /* PostDetailVCC.swift in Sources */,
+				FF85073A202F549C003CB080 /* CreatingPostVC.swift in Sources */,
 				FF7D5D372016885B0016F853 /* Constants.swift in Sources */,
 				FF7D5D3920168A620016F853 /* DataService.swift in Sources */,
 				FF919B11201A70EE00270B65 /* Post.swift in Sources */,

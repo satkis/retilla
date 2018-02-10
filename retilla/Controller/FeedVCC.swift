@@ -14,8 +14,10 @@ class FeedVCC: UITableViewController {
     var posts = [Post]()
     static var imageCache = NSCache<AnyObject, AnyObject>()
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        // NEED TO FIX: when halfway slide back Back button(navigation) dissapears
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -97,6 +99,7 @@ class FeedVCC: UITableViewController {
             }
         }
     }
+
 
     
     
