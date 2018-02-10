@@ -54,10 +54,10 @@ class PostCell: UICollectionViewCell {
                         let image = UIImage(data: data)!
                         self.postImg.image = image
                         //add to cache if image was downloaded
-                        CategoryRow.imageCache.setObject(image, forKey: self.post.imageUrl as AnyObject)
+                        FeedVCC.imageCache.setObject(image, forKey: self.post.imageUrl as AnyObject)
                     } else {
                         //                        self.postImg.isHidden = true
-                        print("ALAMOFIRE ERROR::: \(response.result.error)")
+                        print("ALAMOFIRE ERROR::: \(String(describing: response.result.error))")
                     }
                 })
             }

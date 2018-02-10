@@ -8,21 +8,25 @@
 
 import UIKit
 
-class PostDetailVCC: UIViewController, CellCollectionViewDelegatee, UICollectionViewDelegate {
+class PostDetailVCC: UIViewController {
 
-    //var post: Post!
-    var delegate: CellCollectionViewDelegatee?
+    var post: Post!
     
     @IBOutlet weak var descLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if post != nil {
+            descLabel.text = post.postStory
+        } else {
+            descLabel.text = "Failed to load"
+        }
+        
     }
 
-    func didSelect(data: String) {
-        print("detailVCC didSelect::: \(data)")
-        descLabel.text = data
-    }
+    
+    
+    
 }
 
