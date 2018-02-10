@@ -132,6 +132,18 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func loginAnonymouslyTapped(_ sender: Any) {
+        Auth.auth().signInAnonymously { (user, error) in
+            if error == nil {
+                // successfully sign in anonymously
+                self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+                print("anonymous user: \(String(describing: user))")
+            }
+        }
+    }
+    
+    
+    
     
     func showErrorAlert(title: String, msg: String) {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)

@@ -196,14 +196,28 @@
                                     <action selector="emailLoginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kfn-gv-fZO"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="deK-De-bKD">
+                                <rect key="frame" x="88.5" y="56" width="198" height="40"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="2ZH-uY-KZa"/>
+                                    <constraint firstAttribute="width" constant="198" id="Xq0-lK-q4h"/>
+                                </constraints>
+                                <state key="normal" title="Continue Anonymously"/>
+                                <connections>
+                                    <action selector="loginAnonymouslyTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TYH-6b-B2t"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="deK-De-bKD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kfs-7m-QQv"/>
                             <constraint firstItem="31H-34-SQc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QhV-Dt-cUC"/>
                             <constraint firstItem="wYQ-rz-Ed3" firstAttribute="top" secondItem="31H-34-SQc" secondAttribute="bottom" constant="139" id="jbh-JG-dpA"/>
                             <constraint firstItem="31H-34-SQc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="118" id="pgb-gc-DBm"/>
                             <constraint firstItem="wYQ-rz-Ed3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tlQ-VT-ZOE"/>
                             <constraint firstItem="F4h-8n-RT1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vvm-s2-jUH"/>
+                            <constraint firstItem="31H-34-SQc" firstAttribute="top" secondItem="deK-De-bKD" secondAttribute="bottom" constant="42" id="xzB-fn-jhm"/>
                             <constraint firstItem="F4h-8n-RT1" firstAttribute="top" secondItem="wYQ-rz-Ed3" secondAttribute="bottom" constant="20" id="y4F-U4-0qr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -216,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1114" y="-893"/>
+            <point key="canvasLocation" x="-1114.4000000000001" y="-893.70314842578716"/>
         </scene>
         <!--Post DetailVCC-->
         <scene sceneID="zGx-GH-M5Q">

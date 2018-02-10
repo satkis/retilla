@@ -14,10 +14,12 @@ let URL_GENERAL = Database.database().reference(fromURL: "https://retilla-220b1.
 class DataService {
     
     static let instance = DataService()
+
     
     private var _REF_BASE = URL_GENERAL
     private var _REF_POSTS = URL_GENERAL.child("posts")
     private var _REF_USERS = URL_GENERAL.child("users")
+  
 
     
     // make publicly available
@@ -32,6 +34,8 @@ class DataService {
     var URL_USERS: DatabaseReference! {
         return _REF_USERS
     }
+    
+
 
     
     func createFirebaseUser(uid: String, user: Dictionary<String, AnyObject>) {
