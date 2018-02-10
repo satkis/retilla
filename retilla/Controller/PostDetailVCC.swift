@@ -27,6 +27,8 @@ class PostDetailVCC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.isNavigationBarHidden = false
+        
         if post.postStory != nil {
             postStoryLbl.text = post.postStory
         } else {
@@ -51,8 +53,8 @@ class PostDetailVCC: UIViewController {
             imageUrlLbl.text = "NO URL found"
         }
         
-        if post.likes != nil {
-            likesLbl.text = "\(String(describing: post.likes))"
+        if let likes = post.likes, post.likes != nil {
+            likesLbl.text = String(likes)
         } else {
             likesLbl.text = "NO likes found"
         }
@@ -60,18 +62,16 @@ class PostDetailVCC: UIViewController {
         if post.username != nil {
             usernameLbl.text = post.username
         } else {
-            likesLbl.text = "NO username found"
+            usernameLbl.text = "NO username found"
         }
-        
-        //need to correct: image downloads, but needs to be taken from cache (otherwise need to wait until downloads
-        if post.imageUrl != nil {
-        //let imageView = UIImageView()
-        let data = NSData(contentsOf: NSURL(string: post.imageUrl!)! as URL)
-        
-        imageLbl.image = UIImage(data: data! as Data)
 
+        // NEED TO adjust if image fails to download (make default value)
+        if post.imageUrl != nil {
+        let cacheImage = FeedVCC.imageCache.object(forKey: post.imageUrl as AnyObject) as? UIImage
+        imageLbl.image = cacheImage
         } else {
-            return
+           return
+            
         }
 
        

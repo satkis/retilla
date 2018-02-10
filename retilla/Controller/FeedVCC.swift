@@ -14,10 +14,17 @@ class FeedVCC: UITableViewController {
     var posts = [Post]()
     static var imageCache = NSCache<AnyObject, AnyObject>()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
-
+        
+        
+        
         //posts.removeAll()
 
         //even this is in viewdidload, below will be called only when data changes
