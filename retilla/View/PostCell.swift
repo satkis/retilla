@@ -42,6 +42,7 @@ class PostCell: UICollectionViewCell {
             self.reactionCountLbl.text = String()
         }
         
+        
         if post.imageUrl != "" {
             //if image is not nil, it means it's cached image which is passed. otherwise Alamofire request is needed to download img
             if image != nil {
@@ -56,7 +57,6 @@ class PostCell: UICollectionViewCell {
                         //add to cache if image was downloaded
                         FeedVCC.imageCache.setObject(image, forKey: self.post.imageUrl as AnyObject)
                     } else {
-                        //                        self.postImg.isHidden = true
                         print("ALAMOFIRE ERROR::: \(String(describing: response.result.error))")
                     }
                 })

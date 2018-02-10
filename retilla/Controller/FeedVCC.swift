@@ -17,12 +17,9 @@ class FeedVCC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
-       
-//        posts.removeAll()
 
-//        tableView.delegate = self
-//        tableView.dataSource = self
-        
+        //posts.removeAll()
+
         //even this is in viewdidload, below will be called only when data changes
         DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
             print(snapshot.value as Any)
@@ -32,7 +29,7 @@ class FeedVCC: UITableViewController {
             //snapshot is like "posts" or "users" in Firebase, and snap is "likes", "hashtag" etc
             if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshots {
-                    //print("SNAP::: \(snap)")
+                    print("SNAP::: \(snap)")
                     
                     if let postDictionary = snap.value as? Dictionary<String, AnyObject> {
                         //key is user/post ID
@@ -83,33 +80,37 @@ class FeedVCC: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare for Segue")
         if segue.identifier == SEGUE_POSTDETAILVC {
+            print("Segue identified is for PostDetailVCC")
             let detailVC = segue.destination as? PostDetailVCC
+            
             if let posty = sender as? Post {
                 detailVC?.post = posty
             }
         }
     }
-    
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 221
-//    }
 
     
+    
 }
+
+
 
 extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
  
     //identify which postcell was selected
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let post = posts[collectionView.tag][indexPath.item]
+        debugPrint("collectionView.tag", collectionView.tag)
+        debugPrint("indexPath.item", indexPath.item)
         let post = posts[indexPath.row]
         self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: post)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        return posts[collectionView.tag].count
+        print("NumberOfItemsInSection:::::")
         return posts.count
     }
     
@@ -120,8 +121,7 @@ extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
             //cell.request?.cancel()
             var image: UIImage?
-            debugPrint("collectionView.tag", collectionView.tag)
-            debugPrint("indexPath.item", indexPath.item)
+
             
             if let url = post.imageUrl {
                 //set image in cache as image(if it exists). if not, then image will be downloaded
@@ -129,7 +129,7 @@ extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             //cell.configureCell(post: posts[collectionView.tag][indexPath.row], image: image)
             cell.configureCell(post: post, image: image)
-
+ 
             return cell
         } else {
             return UICollectionViewCell()
