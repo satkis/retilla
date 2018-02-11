@@ -17,6 +17,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var descriptionText: String? = "user didn't include text"
     var hashtagText: String? = "user didn't include #hashtag"
     var posts = [Post]()
+    var newPostKey = DataService.instance.URL_POSTS.childByAutoId().key
+    
     private var image: UIImage!
     
     @IBOutlet weak var hashtagField: UITextField?
@@ -75,9 +77,11 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        if hashtagField?.text != "" {
 //            post ["hashtag"] = hashtagField
 //        }
-
-    let firebasePost = DataService.instance.URL_POSTS.childByAutoId()
+//self.newPostKey = firebasePost
+    let firebasePost = DataService.instance.URL_POSTS.child(newPostKey)
+        print("firebasePost:: \(firebasePost)")
         firebasePost.setValue(post)
+        print("post:: \(post)")
         
         hashtagField?.text = ""
         descriptionField?.text = ""
@@ -85,8 +89,6 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         imageSelected = false
         
         //NEED TO reload data somehow here // or maybe not. looks like tables reload after posting (but need to adjust sequence of posts).
-        
-    
         
     }
         
@@ -104,6 +106,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print("newPostRef::: \(newPostRef)")
                 let newPostKey = newPostRef.key
                 print("newPostKey::: \(newPostKey)")
+                
+                self.newPostKey = newPostKey
                 let imageStorageRef = Storage.storage().reference().child("images")
                 print("imageStorageRef::: \(imageStorageRef)")
                 let newImageRef = imageStorageRef.child(newPostKey + ".jpeg")
