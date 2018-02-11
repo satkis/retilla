@@ -13,13 +13,15 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     var imagePicker: UIImagePickerController!
     var imageSelected = false
-    var imageDowloadURL: String?
+    var imageDowloadURL: String!
+    var descriptionText: String? = "user didn't include text"
+    var hashtagText: String? = "user didn't include #hashtag"
     var posts = [Post]()
     private var image: UIImage!
     
-    @IBOutlet weak var hashtagField: UITextField!
+    @IBOutlet weak var hashtagField: UITextField?
     
-    @IBOutlet weak var descriptionField: UITextField!
+    @IBOutlet weak var descriptionField: UITextField?
     
     @IBOutlet weak var imageSelectorImage: UIImageView!
     
@@ -56,46 +58,33 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.dismiss(animated: true, completion: nil)
         
     }
+
     
-   // func save() {
-//        let newPostKey = DataService.instance.URL_POSTS.key
-//
-//        if let imageData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.6) {
-//        //create a new storage reference
-//        let imageStorageRef = Storage.storage().reference().child("images")
-//        let newImageRef = imageStorageRef.child(newPostKey)
-//            //save img to storage
-//            newImageRef.putData(imageData).observe(.success, handler: { (snapshot) in
-//                //save the post caption & download url
-//                self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
-//                self.postToFirebase(imageDownloadURL: self.imageDowloadURL)
-//
-//            })
-//    }
-    //}
-    
-    func postToFirebase(imageDownloadURL: String!) {
-        var post: Dictionary<String, Any> = [
+    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?) {
+        let post: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
+            "description": descriptionField?.text as Any,
+            "hashtag": hashtagField?.text as Any,
             "likes": 0
             ]
         
-        if descriptionField.text != "" {
-           post ["description"] = descriptionField
-        }
-        
-        if hashtagField.text != "" {
-            post ["hashtag"] = hashtagField
-        }
+//        if descriptionField?.text != "" {
+//           post ["description"] = descriptionField
+//        }
+//
+//        if hashtagField?.text != "" {
+//            post ["hashtag"] = hashtagField
+//        }
 
     let firebasePost = DataService.instance.URL_POSTS.childByAutoId()
         firebasePost.setValue(post)
         
-        descriptionField.text = ""
+        hashtagField?.text = ""
+        descriptionField?.text = ""
         imageSelectorImage.image = UIImage(named: "camera-icon-hi")
         imageSelected = false
         
-        //NEED TO reload data somehow here
+        //NEED TO reload data somehow here // or maybe not. looks like tables reload after posting (but need to adjust sequence of posts).
         
     
         
@@ -124,12 +113,12 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
                     print("imageDowloadURL:: \(self.imageDowloadURL)")
-                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL)
+                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText)
                     self.dismiss(animated: true, completion: nil)
                 })
             } else {
                 print("image not selected but SHARE tapped")
-                postToFirebase(imageDownloadURL: nil)
+                postToFirebase(imageDownloadURL: nil, descriptionText: "somehow user posted without image included", hashtagText: "somehow user posted without image included")
                 print("saved to Firebase nil image")
                 dismiss(animated: true, completion: nil)
             }
