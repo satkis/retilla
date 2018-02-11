@@ -15,6 +15,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var imageSelected = false
     var imageDowloadURL: String?
     var posts = [Post]()
+    private var image: UIImage!
     
     @IBOutlet weak var hashtagField: UITextField!
     
@@ -88,7 +89,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
 
     let firebasePost = DataService.instance.URL_POSTS.childByAutoId()
-    firebasePost.setValue(post)
+        firebasePost.setValue(post)
         
         descriptionField.text = ""
         imageSelectorImage.image = UIImage(named: "camera-icon-hi")
@@ -106,35 +107,74 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func sharePost(_ sender: Any) {
         if let imageIsSelected = imageSelectorImage.image, imageSelected == true {
-            let newPostKey = DataService.instance.URL_POSTS.key
-            
-            if let imageData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.6) {
-                //create a new storage reference
+            if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.6) {
+                print("uploadData::: \(uploadData)")
+                let metadata = StorageMetadata()
+                print("metadata::: \(uploadData)")
+                let newPostRef = DataService.instance.URL_POSTS.childByAutoId()
+                print("newPostRef::: \(newPostRef)")
+                let newPostKey = newPostRef.key
+                print("newPostKey::: \(newPostKey)")
                 let imageStorageRef = Storage.storage().reference().child("images")
-                let newImageRef = imageStorageRef.child(newPostKey)
-                //save img to storage
-                newImageRef.putData(imageData).observe(.success, handler: { (snapshot) in
+                print("imageStorageRef::: \(imageStorageRef)")
+                let newImageRef = imageStorageRef.child(newPostKey + ".jpeg")
+                print("newImageRef::: \(newImageRef)")
+                newImageRef.putData(uploadData, metadata: metadata).observe(.success, handler: { (snapshot) in
                     //save the post caption & download url
+                    print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
+                    print("imageDowloadURL:: \(self.imageDowloadURL)")
                     self.postToFirebase(imageDownloadURL: self.imageDowloadURL)
                     self.dismiss(animated: true, completion: nil)
                 })
+            } else {
+                print("image not selected but SHARE tapped")
+                postToFirebase(imageDownloadURL: nil)
+                print("saved to Firebase nil image")
+                dismiss(animated: true, completion: nil)
             }
-        } else {
-            print("image not selected but SHARE tapped")
-            postToFirebase(imageDownloadURL: nil)
-            print("saved to Firebase nil image")
-            dismiss(animated: true, completion: nil)
         }
     }
-    /*
+            
+            
+            
+//            let newPostKey = DataService.instance.URL_POSTS.key
+//            let new posss = DataSnapshot.childSnapshot(DataSnapshot
+//            print("newPostKey:: \(newPostKey)")
+//            if let imageData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.6){
+//                print("imageData:: \(imageData)")
+//                //create a new storage reference
+//                let imageStorageRef = Storage.storage().reference().child("images")
+//                print("imageStorageRef:: \(imageStorageRef)")
+//                let newImageRef = imageStorageRef.child(newPostKey)
+//                print("newImageRef:: \(newImageRef)")
+//                //save img to storage
+//                newImageRef.putData(imageData).observe(.success, handler: { (snapshot) in
+//                    //save the post caption & download url
+//                    print("snapshot:: \(snapshot)")
+//                    self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
+//                    print("imageDowloadURL:: \(self.imageDowloadURL)")
+//                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL)
+//                    self.dismiss(animated: true, completion: nil)
+//                })
+//            }
+//        } else {
+//            print("image not selected but SHARE tapped")
+//            postToFirebase(imageDownloadURL: nil)
+//            print("saved to Firebase nil image")
+//            dismiss(animated: true, completion: nil)
+//        }
+//    }
+    
+    
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//        // Pass the selected object to the new view controller.
+//    }
+//    */
 
 }

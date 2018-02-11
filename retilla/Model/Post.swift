@@ -47,6 +47,14 @@ var postStory: String? {
         return _sectionNumber
     }
     
+    
+    
+    var postKey: String? {
+        return _postKey
+    }
+    
+    
+    
 
     init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?) {
         self._postStory = postStory
