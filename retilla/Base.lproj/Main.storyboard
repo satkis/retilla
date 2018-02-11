@@ -95,19 +95,37 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="c4U-3w-3Yj">
+                                <rect key="frame" x="42.5" y="25" width="290" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="Rjv-F5-neW"/>
+                                    <constraint firstAttribute="width" constant="290" id="vjN-AV-xbs"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Section 0"/>
+                                    <segment title="Section 1"/>
+                                    <segment title="Section 2"/>
+                                    <segment title="Section 3"/>
+                                </segments>
+                                <connections>
+                                    <action selector="selectedSectionn:" destination="E2X-nO-2OY" eventType="valueChanged" id="DBX-5q-tUw"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="3Gy-uZ-0O4" firstAttribute="leading" secondItem="A4Y-gA-xaI" secondAttribute="leading" constant="36" id="87F-uB-oyG"/>
-                            <constraint firstItem="6EQ-pj-obc" firstAttribute="top" secondItem="A4Y-gA-xaI" secondAttribute="top" constant="55" id="LCg-oT-eaN"/>
                             <constraint firstItem="xTd-bi-51T" firstAttribute="leading" secondItem="A4Y-gA-xaI" secondAttribute="leading" constant="36" id="San-S0-I6o"/>
                             <constraint firstItem="A4Y-gA-xaI" firstAttribute="trailing" secondItem="DfJ-Z7-069" secondAttribute="trailing" constant="32" id="gLJ-M8-mrM"/>
+                            <constraint firstItem="c4U-3w-3Yj" firstAttribute="centerX" secondItem="9de-Xs-gdM" secondAttribute="centerX" id="jaF-cV-Sdx"/>
+                            <constraint firstItem="6EQ-pj-obc" firstAttribute="top" secondItem="c4U-3w-3Yj" secondAttribute="bottom" constant="22" id="mSb-iM-riB"/>
                             <constraint firstItem="DfJ-Z7-069" firstAttribute="top" secondItem="6EQ-pj-obc" secondAttribute="bottom" constant="81" id="pPZ-ER-eJc"/>
                             <constraint firstItem="ECn-35-9vU" firstAttribute="top" secondItem="6EQ-pj-obc" secondAttribute="bottom" constant="19" id="sZk-K8-Hus"/>
                             <constraint firstItem="ECn-35-9vU" firstAttribute="leading" secondItem="A4Y-gA-xaI" secondAttribute="leading" constant="94" id="tuj-Rj-61u"/>
                             <constraint firstItem="xTd-bi-51T" firstAttribute="top" secondItem="6EQ-pj-obc" secondAttribute="bottom" constant="106" id="vfU-dY-k5b"/>
                             <constraint firstItem="6EQ-pj-obc" firstAttribute="centerX" secondItem="9de-Xs-gdM" secondAttribute="centerX" id="wz2-t3-2pp"/>
                             <constraint firstItem="3Gy-uZ-0O4" firstAttribute="top" secondItem="xTd-bi-51T" secondAttribute="bottom" constant="34" id="xBL-g8-Q8Y"/>
+                            <constraint firstItem="c4U-3w-3Yj" firstAttribute="top" secondItem="A4Y-gA-xaI" secondAttribute="top" constant="5" id="xXO-fU-H4B"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A4Y-gA-xaI"/>
                     </view>
@@ -327,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Hb-Dq-Owp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3466" y="-1173"/>
+            <point key="canvasLocation" x="2497" y="-1156"/>
         </scene>
         <!--FeedVCC-->
         <scene sceneID="A6n-P7-zeL">

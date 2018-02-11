@@ -10,7 +10,7 @@ import Firebase
 
 class FeedVCC: UITableViewController {
    
-    var categories = ["Section 1", "Section 2", "Section 3", "Section 4"]
+    let categories = ["0", "1", "2", "3"]
     var posts = [Post]()
     static var imageCache = NSCache<AnyObject, AnyObject>()
     
@@ -25,9 +25,10 @@ class FeedVCC: UITableViewController {
         super.viewDidLoad()
         print("viewDidLoad")
         
+        tableView.dataSource = self
+        tableView.delegate = self
         
-        
-        //posts.removeAll()
+       // posts.removeAll()
 
         //even this is in viewdidload, below will be called only when data changes
         DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
@@ -44,7 +45,63 @@ class FeedVCC: UITableViewController {
                         //key is user/post ID
                         let key = snap.key
                         let post = Post(postKey: key, dictionary: postDictionary)
-                        self.posts.append(post)
+                        
+                        let section = post.sectionNumber?.hashValue
+                        print("SECTIONN: \(String(describing: section))")
+                        
+                        self.posts.insert(post, at: 0)
+//                        self.tableView.beginUpdates()
+//                        self.tableView.insertRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
+//                        self.tableView.endUpdates()
+                        
+                        
+                        
+                        
+//                        self.posts.append(post)
+//                        print("POST::::::::: \(post)")
+                        //if self.categories[0] == "\(section)" {
+//                        let indexxxx = IndexPath(row: 1, section: 1)
+//                        print("indexxxx: \(indexxxx)")
+                        //self.tableView.beginUpdates()
+                       
+                        //self.tableView.insertRows(at: [indexxxx], with: .automatic)
+//                        let indexPathh = IndexPath(row: 0, section: 1)
+//                        self.tableView.beginUpdates()
+//                        self.tableView.insertRows(at: [indexPathh], with: .automatic)
+                      //  self.tableView.endUpdates()
+                        
+//                        let groupedDictionary = Dictionary(grouping: self.posts) {(post) -> Int in
+//                            return post.sectionNumber!
+//                        }
+                        
+//                        if self.categories[0] == String(describing: section) {
+//                            self.posts.append(post)
+//                        } else {
+//                            if self.categories[1] == String(describing: section) {
+//                                self.posts.append(post)
+//                            } else {
+//                                if self.categories[2] == String(describing: section) {
+//                                    self.posts.append(post)
+//                                } else {
+//                                    if self.categories[3] == String(describing: section) {
+//                                        self.posts.append(post)
+//                                    }
+//                                }
+//                            }
+//                        }
+                    
+                    
+                        
+                        
+                        //if categories[IndexPath] == section {
+//                            categories[IndexPath.init(row: 0, section: 1)]
+//                            self.posts.insert(post, at: 1)
+                        //self.posts.insert(contentsOf: post, at: 3)
+//                        let indexPathhh = IndexPath(row: self.categories//.count - 2, section: 2)
+//                        self.posts.insert(post, at: indexPathhh)
+                        //}
+                        //self.posts[IndexPath.init(row: 2, section: 2).append(post)]
+                        
                     }
                 }
             }
@@ -53,7 +110,7 @@ class FeedVCC: UITableViewController {
         }
         print("ViewDidLoad Ended")
     }
-
+    
 
     
     override func numberOfSections(in tableView: UITableView) -> Int {

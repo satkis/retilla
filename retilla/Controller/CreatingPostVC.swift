@@ -18,6 +18,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var hashtagText: String? = "user didn't include #hashtag"
     var posts = [Post]()
     var newPostKey = DataService.instance.URL_POSTS.childByAutoId().key
+    var selectedSection: Int! = nil
     
     private var image: UIImage!
     
@@ -62,12 +63,13 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     
-    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?) {
+    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!) {
         let post: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
             "description": descriptionField?.text as Any,
             "hashtag": hashtagField?.text as Any,
-            "likes": 0
+            "likes": 0,
+            "section": selectedSection as Int
             ]
         
 //        if descriptionField?.text != "" {
@@ -96,8 +98,38 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(imagePicker, animated: true, completion: nil)
     }
     
+    
+    @IBAction func selectedSectionn(_ sender: UISegmentedControl) {
+        
+        selectedSection = sender.selectedSegmentIndex
+//        sender.selectedSegmentIndex = selectedSection.hashValue
+        print("segment selected::: \(selectedSection)")
+    }
+//        if sender.selectedSegmentIndex == 0 {
+//            sender.selectedSegmentIndex = selectedSection.hashValue
+//            print("segment selected::: \(selectedSection.hashValue)")
+//        } else {
+//            if sender.selectedSegmentIndex == 1 {
+//                sender.selectedSegmentIndex = selectedSection.hashValue
+//                print("segment selected::: \(selectedSection.hashValue)")
+//            } else {
+//                if sender.selectedSegmentIndex == 2 {
+//                    sender.selectedSegmentIndex = selectedSection.hashValue
+//                    print("segment selected::: \(selectedSection.hashValue)")
+//                } else {
+//                    if sender.selectedSegmentIndex == 3 {
+//                        sender.selectedSegmentIndex = selectedSection.hashValue
+//                        print("segment selected::: \(selectedSection.hashValue)")
+//                    }
+//                }
+//            }
+//        }
+//            print("smth wrong with selectedSectionn value")
+        
+//    }
+    
     @IBAction func sharePost(_ sender: Any) {
-        if let imageIsSelected = imageSelectorImage.image, imageSelected == true {
+        if let imageIsSelected = imageSelectorImage.image, imageSelected == true && selectedSection != nil {
             if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.6) {
                 print("uploadData::: \(uploadData)")
                 let metadata = StorageMetadata()
@@ -117,12 +149,12 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
                     print("imageDowloadURL:: \(self.imageDowloadURL)")
-                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText)
+                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection)
                     self.dismiss(animated: true, completion: nil)
                 })
             } else {
                 print("image not selected but SHARE tapped")
-                postToFirebase(imageDownloadURL: nil, descriptionText: "somehow user posted without image included", hashtagText: "somehow user posted without image included")
+                postToFirebase(imageDownloadURL: nil, descriptionText: "somehow user posted without image included", hashtagText: "somehow user posted without image included", selectedSection: 0)
                 print("saved to Firebase nil image")
                 dismiss(animated: true, completion: nil)
             }
