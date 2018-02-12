@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class MainMapVC: UIViewController, MKMapViewDelegate {
 
@@ -27,6 +28,9 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         map.delegate = self
         locationAuthStatus()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startUpdatingLocation()
+        
         
         for add in addresses {
             getPlaceMarkFromAddress(address: add)
@@ -57,8 +61,38 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if let loc = userLocation.location {
             centerMapOnLocation(location: loc)
+            print("location loc: \(loc)")
+            let lat = loc.coordinate.latitude
+            let long = loc.coordinate.longitude
+            
+            print("latitude: \(lat)", "longitude: \(long)")
+            
+            CLGeocoder().reverseGeocodeLocation(loc, completionHandler: { (placemark, error) in
+                if error != nil {
+                    debugPrint("location error: \(error)")
+                } else {
+                    if let place = placemark?[0] {
+                        print("administrativeArea: \(String(describing: place.administrativeArea))")
+                        print("areasOfInterest: \(String(describing: place.areasOfInterest))")
+                        print("country: \(String(describing: place.country))")
+                        print("inlandWater: \(String(describing: place.inlandWater))")
+                        print("locality: \(String(describing: place.locality))")
+                        print("isoCountryCode: \(String(describing: place.isoCountryCode))")
+                        print("name: \(String(describing: place.name))")
+                        print("ocean: \(String(describing: place.ocean))")
+                        print("postalCode: \(String(describing: place.postalCode))")
+                        print("region: \(String(describing: place.region))")
+                        print("subAdministrativeArea: \(String(describing: place.subAdministrativeArea))")
+                        print("subLocality: \(String(describing: place.subLocality))")
+                        print("subThoroughfare: \(String(describing: place.subThoroughfare))")
+                        print("timeZone: \(String(describing: place.timeZone))")
+                    }
+                }
+            })
         }
     }
+    
+
     
     func createAnnotationforLocation(location: CLLocation) {
         let anot = Annotations(coordinate: location.coordinate)
