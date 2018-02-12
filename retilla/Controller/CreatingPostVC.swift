@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import CoreLocation
 
-class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 
     var imagePicker: UIImagePickerController!
     var imageSelected = false
@@ -19,6 +20,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var posts = [Post]()
     var newPostKey = DataService.instance.URL_POSTS.childByAutoId().key
     var selectedSection: Int! = nil
+    let locationManager = CLLocationManager()
     
     private var image: UIImage!
     
@@ -28,12 +30,27 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var imageSelectorImage: UIImageView!
     
+    @IBOutlet weak var locationLbl: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad of CreatingPostVC")
+        locationManager.delegate = self
+        locationAuthStatus()
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-       
+        
+        
+
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("viewDidAppear of CreatingPostVC")
+        
+        
     }
     
     // NEED TO CORRECT doesnt disable if image not selected
@@ -93,6 +110,89 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         //NEED TO reload data somehow here // or maybe not. looks like tables reload after posting (but need to adjust sequence of posts).
         
     }
+
+    
+    func locationAuthStatus() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let loc = locations.first {
+            print(loc)
+            let lat = loc.coordinate.latitude
+            let long = loc.coordinate.longitude
+            
+            print("latitudeeeeeeeee: \(lat)", "longitudeeeeeeeeee: \(long)")
+            
+            CLGeocoder().reverseGeocodeLocation(loc, completionHandler: { (placemark, error) in
+                if error == nil {
+                    if let place = placemark?[0] {
+                        if let locality = place.locality {
+                            self.locationLbl.text = locality
+                        } else {
+                            if let country = place.country {
+                                self.locationLbl.text = country
+                            } else {
+                                self.locationLbl.text = "n/a"
+                            }
+                        }
+                    }
+                } else {
+                    debugPrint("location error: \(error)")
+                }
+            })
+        }
+    }
+    
+//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+//        if let loc = userLocation.location {
+//            print("location loc: \(loc)")
+//            let lat = loc.coordinate.latitude
+//            let long = loc.coordinate.longitude
+//
+//            print("latitude: \(lat)", "longitude: \(long)")
+//
+//            CLGeocoder().reverseGeocodeLocation(loc, completionHandler: { (placemark, error) in
+//                if error != nil {
+//                    debugPrint("location error: \(error)")
+//                } else {
+//                    if let place = placemark?[0] {
+//                        if let locality = place.locality {
+//                            self.locationLbl.text = locality
+//                        } else {
+//                            print("nil value for locationLbl")
+//                        }
+//
+//
+//
+//
+//                        print("administrativeArea: \(String(describing: place.administrativeArea))")
+//                        print("areasOfInterest: \(String(describing: place.areasOfInterest))")
+//                        print("country: \(String(describing: place.country))")
+//                        print("inlandWater: \(String(describing: place.inlandWater))")
+//                        print("locality: \(String(describing: place.locality))")
+//                        print("isoCountryCode: \(String(describing: place.isoCountryCode))")
+//                        print("name: \(String(describing: place.name))")
+//                        print("ocean: \(String(describing: place.ocean))")
+//                        print("postalCode: \(String(describing: place.postalCode))")
+//                        print("region: \(String(describing: place.region))")
+//                        print("subAdministrativeArea: \(String(describing: place.subAdministrativeArea))")
+//                        print("subLocality: \(String(describing: place.subLocality))")
+//                        print("subThoroughfare: \(String(describing: place.subThoroughfare))")
+//                        print("timeZone: \(String(describing: place.timeZone))")
+//                    }
+//                }
+//            })
+//        }
+//    }
+    
+    
+    
+    
         
     @IBAction func selectImageTapped(_ sender: UITapGestureRecognizer) {
         present(imagePicker, animated: true, completion: nil)
@@ -161,45 +261,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
             
-            
-            
-//            let newPostKey = DataService.instance.URL_POSTS.key
-//            let new posss = DataSnapshot.childSnapshot(DataSnapshot
-//            print("newPostKey:: \(newPostKey)")
-//            if let imageData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.6){
-//                print("imageData:: \(imageData)")
-//                //create a new storage reference
-//                let imageStorageRef = Storage.storage().reference().child("images")
-//                print("imageStorageRef:: \(imageStorageRef)")
-//                let newImageRef = imageStorageRef.child(newPostKey)
-//                print("newImageRef:: \(newImageRef)")
-//                //save img to storage
-//                newImageRef.putData(imageData).observe(.success, handler: { (snapshot) in
-//                    //save the post caption & download url
-//                    print("snapshot:: \(snapshot)")
-//                    self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
-//                    print("imageDowloadURL:: \(self.imageDowloadURL)")
-//                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL)
-//                    self.dismiss(animated: true, completion: nil)
-//                })
-//            }
-//        } else {
-//            print("image not selected but SHARE tapped")
-//            postToFirebase(imageDownloadURL: nil)
-//            print("saved to Firebase nil image")
-//            dismiss(animated: true, completion: nil)
-//        }
-//    }
-    
-    
 
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-//        // Pass the selected object to the new view controller.
-//    }
-//    */
 
 }
+    
+
+

@@ -134,6 +134,7 @@
                         <outlet property="descriptionField" destination="3Gy-uZ-0O4" id="MGf-8G-4D1"/>
                         <outlet property="hashtagField" destination="xTd-bi-51T" id="zq6-WL-V81"/>
                         <outlet property="imageSelectorImage" destination="kRY-0Q-jPU" id="nBi-G4-wci"/>
+                        <outlet property="locationLbl" destination="DfJ-Z7-069" id="KMe-sg-fYB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYo-O7-Qwc" userLabel="First Responder" sceneMemberID="firstResponder"/>
