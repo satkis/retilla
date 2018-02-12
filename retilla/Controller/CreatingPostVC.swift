@@ -20,6 +20,10 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var posts = [Post]()
     var newPostKey = DataService.instance.URL_POSTS.childByAutoId().key
     var selectedSection: Int! = nil
+    var postLocation: String! = "no city"
+    var postCoordinates: String!
+
+    
     let locationManager = CLLocationManager()
     
     private var image: UIImage!
@@ -42,14 +46,10 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
-        
-
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear of CreatingPostVC")
-        
         
     }
     
@@ -79,15 +79,27 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
-    
-    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!) {
+    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation: String!, postCoordinates: String!) {
+        
+        let lat = locationManager.location?.coordinate.latitude
+        let long = locationManager.location?.coordinate.longitude
+        
         let post: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
             "description": descriptionField?.text as Any,
             "hashtag": hashtagField?.text as Any,
             "likes": 0,
-            "section": selectedSection as Int
+            "section": selectedSection as Int,
+            "location": locationLbl.text as Any,
+            "coordinates": String(describing: (lat!) as Any)+","+String(describing: (long!) as Any)
+            
+            
+//            Double(lat!) as Any \"(+","+)" Double(long!)
+//            "\((lat) as Any)"+","+"\((long) as Any)"
+            
+//            "coordinates": String(describing: ((locationManager.location?.coordinate.latitude)) as Any )+","+String(describing: ((locationManager.location?.coordinate.longitude)) as Any )
             ]
+        
         
 //        if descriptionField?.text != "" {
 //           post ["description"] = descriptionField
@@ -249,12 +261,12 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
                     print("imageDowloadURL:: \(self.imageDowloadURL)")
-                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection)
+                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation: self.postLocation, postCoordinates: self.postCoordinates)
                     self.dismiss(animated: true, completion: nil)
                 })
             } else {
                 print("image not selected but SHARE tapped")
-                postToFirebase(imageDownloadURL: nil, descriptionText: "somehow user posted without image included", hashtagText: "somehow user posted without image included", selectedSection: 0)
+                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation: "WRONG", postCoordinates: "WRONG")
                 print("saved to Firebase nil image")
                 dismiss(animated: true, completion: nil)
             }
