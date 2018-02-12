@@ -46,10 +46,11 @@ class FeedVCC: UITableViewController {
                         let key = snap.key
                         let post = Post(postKey: key, dictionary: postDictionary)
                         
-                        let section = post.sectionNumber?.hashValue
+                        var section = post.sectionNumber?.hashValue
                         print("SECTIONN: \(String(describing: section))")
                         
                         self.posts.insert(post, at: 0)
+                        
 //                        self.tableView.beginUpdates()
 //                        self.tableView.insertRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
 //                        self.tableView.endUpdates()
@@ -110,7 +111,6 @@ class FeedVCC: UITableViewController {
         }
         print("ViewDidLoad Ended")
     }
-    
 
     
     override func numberOfSections(in tableView: UITableView) -> Int {
