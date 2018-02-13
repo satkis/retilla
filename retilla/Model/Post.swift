@@ -12,12 +12,13 @@ class Post {
     
     private var _postStory: String?
     private var _hashtag: String?
-    private var _coordinatesGps: Double?
+    private var _coordinatesGps: String!
     private var _imageUrl: String?
     private var _likes: Int?
     private var _username: String?
     private var _postKey: String?
     private var _sectionNumber: Int?
+    private var _location: String!
     
 var postStory: String? {
     return _postStory
@@ -27,7 +28,7 @@ var postStory: String? {
         return _hashtag
     }
     
-    var coordinatesGps: Double? {
+    var coordinatesGps: String! {
         return _coordinatesGps
     }
     
@@ -47,21 +48,25 @@ var postStory: String? {
         return _sectionNumber
     }
     
-    
-    
     var postKey: String? {
         return _postKey
+    }
+    
+    var location: String? {
+        return _location
     }
     
     
     
 
-    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?) {
+    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location: String!) {
         self._postStory = postStory
         self._hashtag = hashtag
         self._imageUrl = imageUrl
         self._username = username
         self._sectionNumber = sectionNumber
+        self._coordinatesGps = coordinatesGps
+        self._location = location
     }
     
     //calling this when downloading data from Firebase
@@ -85,6 +90,14 @@ var postStory: String? {
         }
         if let sectionNumber = dictionary["section"] as? Int {
             self._sectionNumber = sectionNumber
+        }
+        
+        if let postCoordinates = dictionary["coordinates"] as? String {
+            self._coordinatesGps = postCoordinates
+        }
+        
+        if let location = dictionary["location"] as? String {
+            self._location = location
         }
     }
     

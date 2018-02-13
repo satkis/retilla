@@ -427,7 +427,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="8mp-pV-7cX">
-                                                                        <rect key="frame" x="5" y="1" width="125.5" height="17"/>
+                                                                        <rect key="frame" x="5.5" y="1" width="125.5" height="17"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAK-QY-VNN">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="55.5" height="17"/>

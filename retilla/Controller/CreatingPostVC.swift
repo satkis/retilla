@@ -93,11 +93,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             "location": locationLbl.text as Any,
             "coordinates": String(describing: (lat!) as Any)+","+String(describing: (long!) as Any)
             
-            
-//            Double(lat!) as Any \"(+","+)" Double(long!)
-//            "\((lat) as Any)"+","+"\((long) as Any)"
-            
-//            "coordinates": String(describing: ((locationManager.location?.coordinate.latitude)) as Any )+","+String(describing: ((locationManager.location?.coordinate.longitude)) as Any )
+
             ]
         
         

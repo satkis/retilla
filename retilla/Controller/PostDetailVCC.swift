@@ -28,6 +28,7 @@ class PostDetailVCC: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = false
+        self.title = "some"
         
         if post.postStory != nil {
             postStoryLbl.text = post.postStory
@@ -42,7 +43,7 @@ class PostDetailVCC: UIViewController {
         }
         
         if post.coordinatesGps != nil {
-            coordinatesLbl.text = "\(String(describing: post.coordinatesGps))"
+            coordinatesLbl.text = post.coordinatesGps
         } else {
             coordinatesLbl.text = "NO coordinates found"
         }

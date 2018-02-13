@@ -42,6 +42,18 @@ class PostCell: UICollectionViewCell {
             self.reactionCountLbl.text = String()
         }
         
+        if let location = post.location, post.location != "" {
+            self.locationLbl.text = location
+        } else {
+            self.locationLbl.text = "no location"
+        }
+        
+        if let story = post.postStory, post.postStory != "" {
+            self.readStoryLbl.text = "Read story"
+        } else {
+            self.readStoryLbl.text = ""
+        }
+        
         
         if post.imageUrl != "" {
             //if image is not nil, it means it's cached image which is passed. otherwise Alamofire request is needed to download img

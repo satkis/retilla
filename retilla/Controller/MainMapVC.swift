@@ -19,6 +19,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     
     //these will need to be downloaded from Firebase and here should be coordinates
     let addresses = [
+        
     "Ozo g. 14, Vilnius 08200",
     "Verkių g. 29, Vilnius 09108",
     "Bow Bridge, New York, NY 10024, Jungtinės Valstijos"
