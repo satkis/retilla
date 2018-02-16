@@ -14,7 +14,7 @@ class Post {
     private var _hashtag: String?
     private var _coordinatesGps: String!
     private var _imageUrl: String?
-    private var _likes: Int?
+    private var _likes: Int! = 0
     private var _username: String?
     private var _postKey: String!
     private var _sectionNumber: Int?
@@ -38,7 +38,7 @@ class Post {
         return _imageUrl
     }
     
-    var likes: Int? {
+    var likes: Int {
         return _likes
     }
     
@@ -115,9 +115,9 @@ class Post {
     
     func adjustReactions(addReaction: Bool) {
         if addReaction {
-            _likes = _likes! + 1
+            _likes = _likes + 1
         } else {
-            _likes = _likes! - 1
+            _likes = _likes - 1
         }
         
         _postRef.child("reactions").setValue(_likes)

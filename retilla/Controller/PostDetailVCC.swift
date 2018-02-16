@@ -56,11 +56,13 @@ class PostDetailVCC: UIViewController {
             imageUrlLbl.text = "n/a URL"
         }
         
-        if let likes = post.likes, post.likes != nil {
-            likesLbl.text = String(likes)
-        } else {
-            likesLbl.text = "n/a likes"
-        }
+        self.likesLbl.text = "\(post.likes)"
+        
+//        if let likes = post.likes, post.likes != nil {
+//            likesLbl.text = String(likes)
+//        } else {
+//            likesLbl.text = "n/a likes"
+//        }
         
         if post.username != nil {
             usernameLbl.text = post.username

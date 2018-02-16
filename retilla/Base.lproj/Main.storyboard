@@ -475,7 +475,7 @@
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hear2" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-tA-Jld">
+                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heartEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="MgI-tA-Jld">
                                                                                 <rect key="frame" x="103.5" y="0.0" width="25" height="25"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="25" id="kpw-em-it1"/>
@@ -614,8 +614,8 @@
     <resources>
         <image name="beach" width="802" height="451"/>
         <image name="camera-icon-hi" width="600" height="430"/>
-        <image name="hear2" width="740" height="720"/>
         <image name="heart" width="2400" height="2186"/>
+        <image name="heartEmpty" width="2400" height="2186"/>
         <image name="icons8-topic-50" width="50" height="50"/>
     </resources>
 </document>

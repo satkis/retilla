@@ -38,7 +38,7 @@ class PostCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         //need to call this with code. from Storyboard these won't work because this is collection view. also because this is reusable cell
-        let tap = UITapGestureRecognizer(target: self, action: "reactionTapped:")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.reactionTapped(_:)))
         tap.numberOfTapsRequired = 1
         reactionImg.addGestureRecognizer(tap)
         reactionImg.isUserInteractionEnabled = true
@@ -49,11 +49,12 @@ class PostCell: UICollectionViewCell {
         //this function happens when cell is configured. liked/disliked / adjusted, whatever
         self.post = post
         
-        if let reactionCount = post.likes, post.likes != nil {
-            self.reactionCountLbl.text = String(reactionCount)
-        } else {
-            self.reactionCountLbl.text = String()
-        }
+        self.reactionCountLbl.text = "\(post.likes)"
+//        if let reactionCount = post.likes, post.likes != nil {
+//            self.reactionCountLbl.text = String(reactionCount)
+//        } else {
+//            self.reactionCountLbl.text = String()
+//        }
         
         if let location = post.location, post.location != "" {
             self.locationLbl.text = location
@@ -103,7 +104,7 @@ class PostCell: UICollectionViewCell {
         
         reactionRef = DataService.instance.URL_USER_CURRENT.child("reactions").child(post.postKey)
         //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
-        reactionRef.observeSingleEvent(of: .value) { (snapshot) in
+        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
             //in Firebase if there's no data, then it's NSNULL. nil won't work
             if let doesNotExist = snapshot.value as? NSNull {
                 //this means user hasn't liked this specific post
@@ -112,14 +113,14 @@ class PostCell: UICollectionViewCell {
             } else {
                 self.reactionImg.image = UIImage(named: "heartFull")
             }
-        }
+        })
         
         
     }
     
     
-    func reactionTapped(sender: UITapGestureRecognizer) {
-        reactionRef.observeSingleEvent(of: .value) { (snapshot) in
+    @objc func reactionTapped(_ sender: UITapGestureRecognizer) {
+        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
             //in Firebase if there's no data, then it's NSNULL. nil won't work
             if let doesNotExist = snapshot.value as? NSNull {
                 //this means user hasn't liked this specific post
@@ -131,7 +132,7 @@ class PostCell: UICollectionViewCell {
                 self.post.adjustReactions(addReaction: false)
                 self.reactionRef.removeValue()
             }
-        }
+        })
     }
     
     
