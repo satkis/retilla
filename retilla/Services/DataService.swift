@@ -35,6 +35,12 @@ class DataService {
         return _REF_USERS
     }
     
+    var URL_USER_CURRENT: DatabaseReference! {
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
+        let user = URL_USERS.child(uid)
+        return user
+    }
+    
 
 
     

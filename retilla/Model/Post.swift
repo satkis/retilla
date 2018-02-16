@@ -7,23 +7,24 @@
 //
 
 import Foundation
+import Firebase
 
 class Post {
-    
     private var _postStory: String?
     private var _hashtag: String?
     private var _coordinatesGps: String!
     private var _imageUrl: String?
     private var _likes: Int?
     private var _username: String?
-    private var _postKey: String?
+    private var _postKey: String!
     private var _sectionNumber: Int?
     private var _location: String!
     private var _timestamp: String!
+    private var _postRef: DatabaseReference!
     
-var postStory: String? {
-    return _postStory
-}
+    var postStory: String? {
+        return _postStory
+    }
     
     var hashtag: String? {
         return _hashtag
@@ -49,7 +50,7 @@ var postStory: String? {
         return _sectionNumber
     }
     
-    var postKey: String? {
+    var postKey: String {
         return _postKey
     }
     
@@ -78,7 +79,7 @@ var postStory: String? {
     init(postKey: String, dictionary: Dictionary<String, AnyObject>) {
         self._postKey = postKey
         
-        if let likes = dictionary["likes"] as? Int {
+        if let likes = dictionary["reactions"] as? Int {
             self._likes = likes
         }
         
@@ -108,9 +109,19 @@ var postStory: String? {
         if let timestamp = dictionary["timestamp"] as? String {
             self._timestamp = timestamp
         }
+        
+        self._postRef = DataService.instance.URL_POSTS.child(self._postKey)
     }
     
-    
+    func adjustReactions(addReaction: Bool) {
+        if addReaction {
+            _likes = _likes! + 1
+        } else {
+            _likes = _likes! - 1
+        }
+        
+        _postRef.child("reactions").setValue(_likes)
+    }
     
     
 

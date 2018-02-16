@@ -548,6 +548,7 @@
                                                         <outlet property="postDateLbl" destination="i8s-77-wbn" id="uLY-0q-s6o"/>
                                                         <outlet property="postImg" destination="cHy-HN-MFU" id="F3e-AP-kDT"/>
                                                         <outlet property="reactionCountLbl" destination="Fjf-h9-2Is" id="PJk-Jv-EZa"/>
+                                                        <outlet property="reactionImg" destination="MgI-tA-Jld" id="JJI-rk-Sfa"/>
                                                         <outlet property="readStoryLbl" destination="hmf-lR-AZB" id="cqc-fO-Sef"/>
                                                         <outlet property="userNameLbl" destination="cl8-4c-8Sl" id="dPS-ne-heK"/>
                                                     </connections>

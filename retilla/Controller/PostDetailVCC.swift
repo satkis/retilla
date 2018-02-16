@@ -69,7 +69,7 @@ class PostDetailVCC: UIViewController {
         }
         
         if post.timestamp != nil {
-            postTimestampLbl.text = "\(post.timestamp)"
+            postTimestampLbl.text = "\(post.timestamp!.prefix(6))"
         } else {
             postTimestampLbl.text = "n/a time"
         }

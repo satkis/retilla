@@ -77,6 +77,7 @@ class ViewController: UIViewController {
                                 let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "timezone": timeZone as Any, "picture": profileImgUrl as Any, "email": email as Any]
                                 
                                 DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
+                                print("USER IDDD UID::: \(authData?.uid))")
                                 
                                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                                 
@@ -114,6 +115,7 @@ class ViewController: UIViewController {
                                 
                                 
                                 print("USER LOGGED IN WITH ID::: \(String(describing: Auth.auth().currentUser?.uid))")
+                             
                                 
                                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                             }
@@ -136,8 +138,12 @@ class ViewController: UIViewController {
         Auth.auth().signInAnonymously { (user, error) in
             if error == nil {
                 // successfully sign in anonymously
+                
+                UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+                let user = ["name": "Anonymous"]
+                DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-                print("anonymous user: \(String(describing: user))")
+                print("anonymous user: \((Auth.auth().currentUser?.uid)!)")
             }
         }
     }
