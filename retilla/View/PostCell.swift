@@ -48,7 +48,7 @@ class PostCell: UICollectionViewCell {
     func configureCell(post: Post, image: UIImage?) {
         //this function happens when cell is configured. liked/disliked / adjusted, whatever
         self.post = post
-        
+        reactionRef = DataService.instance.URL_USER_CURRENT.child("reactions").child(post.postKey)
         self.reactionCountLbl.text = "\(post.likes)"
 //        if let reactionCount = post.likes, post.likes != nil {
 //            self.reactionCountLbl.text = String(reactionCount)
@@ -102,7 +102,7 @@ class PostCell: UICollectionViewCell {
             self.postImg.isHidden = true
         }
         
-        reactionRef = DataService.instance.URL_USER_CURRENT.child("reactions").child(post.postKey)
+        
         //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
         reactionRef.observeSingleEvent(of: .value, with: { snapshot in
             //in Firebase if there's no data, then it's NSNULL. nil won't work

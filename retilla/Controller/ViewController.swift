@@ -79,6 +79,7 @@ class ViewController: UIViewController {
                                 DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
                                 print("USER IDDD UID::: \(authData?.uid))")
                                 
+                                
                                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                                 
                             }

@@ -46,8 +46,17 @@ class DataService {
     
     func createFirebaseUser(uid: String, user: Dictionary<String, AnyObject>) {
         URL_USERS.child(uid).setValue(user)
-    }
+        URL_USERS.updateChildValues(user, withCompletionBlock: { (err, ref) in
+            
+            if err != nil {
+                debugPrint(err as Any)
+                return
+            } else {
+                print("saves user to FIrebase SUcessfully")
+            }
+        })
     
-    
+}
+
 }
 
