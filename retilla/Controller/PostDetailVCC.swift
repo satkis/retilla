@@ -20,6 +20,8 @@ class PostDetailVCC: UIViewController {
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var sectionNumberLbl: UILabel!
     
+    @IBOutlet weak var postTimestampLbl: UILabel!
+    
    
     @IBOutlet weak var imageLbl: UIImageView!
     
@@ -45,25 +47,31 @@ class PostDetailVCC: UIViewController {
         if post.coordinatesGps != nil {
             coordinatesLbl.text = post.coordinatesGps
         } else {
-            coordinatesLbl.text = "NO coordinates found"
+            coordinatesLbl.text = "n/a coordinates"
         }
         
         if post.imageUrl != nil {
             imageUrlLbl.text = post.imageUrl
         } else {
-            imageUrlLbl.text = "NO URL found"
+            imageUrlLbl.text = "n/a URL"
         }
         
         if let likes = post.likes, post.likes != nil {
             likesLbl.text = String(likes)
         } else {
-            likesLbl.text = "NO likes found"
+            likesLbl.text = "n/a likes"
         }
         
         if post.username != nil {
             usernameLbl.text = post.username
         } else {
-            usernameLbl.text = "NO username found"
+            usernameLbl.text = "n/a username"
+        }
+        
+        if post.timestamp != nil {
+            postTimestampLbl.text = "\(post.timestamp)"
+        } else {
+            postTimestampLbl.text = "n/a time"
         }
 
         // NEED TO adjust if image fails to download (make default value)

@@ -54,6 +54,15 @@ class PostCell: UICollectionViewCell {
             self.readStoryLbl.text = ""
         }
         
+        if let postTime = post.timestamp, post.timestamp != "" {
+            //let dateee = postTime.Substring(post.timestamp.prefix(6))
+           // self.postDateLbl.text = "\(postTime.index(postTime.startIndex, offsetBy: 6))"
+            self.postDateLbl.text = "\(postTime.prefix(6))"
+            //self.postDateLbl.text = postTime.
+        } else {
+            self.postDateLbl.text = "n/a"
+        }
+        
         
         if post.imageUrl != "" {
             //if image is not nil, it means it's cached image which is passed. otherwise Alamofire request is needed to download img
