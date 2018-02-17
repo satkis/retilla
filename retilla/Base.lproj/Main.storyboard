@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
+        <!--Creating PostVC-->
         <scene sceneID="vRL-LC-fnO">
             <objects>
                 <viewController id="E2X-nO-2OY" customClass="CreatingPostVC" customModule="retilla" customModuleProvider="target" sceneMemberID="viewController">
@@ -129,7 +129,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="A4Y-gA-xaI"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="kYE-Z2-Yrr"/>
+                    <tabBarItem key="tabBarItem" systemItem="featured" id="kYE-Z2-Yrr"/>
                     <connections>
                         <outlet property="descriptionField" destination="3Gy-uZ-0O4" id="MGf-8G-4D1"/>
                         <outlet property="hashtagField" destination="xTd-bi-51T" id="zq6-WL-V81"/>
@@ -146,7 +146,7 @@
             </objects>
             <point key="canvasLocation" x="924" y="-460.11994002998506"/>
         </scene>
-        <!--Item-->
+        <!--Map-->
         <scene sceneID="RJ1-UJ-fss">
             <objects>
                 <viewController id="Vre-ix-tMU" customClass="MainMapVC" customModule="retilla" customModuleProvider="target" sceneMemberID="viewController">
@@ -167,7 +167,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dgX-xm-v1V"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="KmI-8k-jnc"/>
+                    <tabBarItem key="tabBarItem" title="Map" id="KmI-8k-jnc"/>
                     <connections>
                         <outlet property="map" destination="IuO-tI-EPr" id="67Y-zB-vSM"/>
                     </connections>
@@ -591,11 +591,11 @@
             </objects>
             <point key="canvasLocation" x="1751" y="-1156"/>
         </scene>
-        <!--Item-->
+        <!--Feed-->
         <scene sceneID="haC-3h-UwD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cvv-4y-b6v" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="aRP-Ed-77D"/>
+                    <tabBarItem key="tabBarItem" title="Feed" id="aRP-Ed-77D"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="l0U-Fn-vy2">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

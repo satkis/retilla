@@ -61,5 +61,9 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Location needed to show posted items on map</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location needed to show posted items on map</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location needed to show posted items on map</string>
 </dict>
 </plist>

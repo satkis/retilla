@@ -9,31 +9,40 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
 
 class MainMapVC: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var map: MKMapView!
     
+   // var posts = [Post]()
+    var post: Post!
+    var coordinatesss: DatabaseReference!
+    
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 5000
     
     //these will need to be downloaded from Firebase and here should be coordinates
-    let addresses = [
-        
-    "Ozo g. 14, Vilnius 08200",
-    "Verkių g. 29, Vilnius 09108",
-    "Bow Bridge, New York, NY 10024, Jungtinės Valstijos"
-    ]
+//    let addresses = [
+//
+//    "Ozo g. 14, Vilnius 08200",
+//    "Verkių g. 29, Vilnius 09108",
+//    "Bow Bridge, New York, NY 10024, Jungtinės Valstijos"
+//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
         locationAuthStatus()
 
+        fetchCoordinates()
         
-        for add in addresses {
-            getPlaceMarkFromAddress(address: add)
-        }
+//        for add in addresses {
+//            getPlaceMarkFromAddress(address: add)
+//        }
+        
+        
+        
         
         
     }
@@ -74,24 +83,123 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
         let anot = Annotations(coordinate: location.coordinate)
         map.addAnnotation(anot)
     }
+
     
-    func getPlaceMarkFromAddress(address: String) {
-        CLGeocoder().geocodeAddressString(address) { (placemark, error) in
-            if let marks = placemark, marks.count > 0 {
-                if let loc = marks[0].location {
-                    //we have a valid location with coordinates
-                    self.createAnnotationforLocation(location: loc)
+//    func getPlaceMarkFromAddress(address: String) {
+//        CLGeocoder().geocodeAddressString(address) { (placemark, error) in
+//            if let marks = placemark, marks.count > 0 {
+//                if let loc = marks[0].location {
+//                    //we have a valid location with coordinates
+//                    self.createAnnotationforLocation(location: loc)
+//                }
+//            }
+//        }
+//    }
+    
+    
+    
+    func fetchCoordinates() {
+         //URL_BASE.child("users").child(uid!).child("reactions").child(post.postKey)
+        coordinatesss = DataService.instance.URL_BASE.child("posts")
+        coordinatesss.observeSingleEvent(of: .value, with: { snapshot in
+           
+            for snap in snapshot.children {
+                let postSnap = snap as! DataSnapshot
+                if let dict = postSnap.value as? [String:AnyObject] {
+                    let lat = dict["latitude"] as! CLLocationDegrees
+                    let long = dict["longitude"] as! CLLocationDegrees
+                    let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
+                    let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08))
+                    
+                    self.map.setRegion(region, animated: true)
+                    
+                    let pinCoordrinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = pinCoordrinate
+                    self.map.addAnnotation(annotation)
                 }
             }
-        }
+        })
     }
+        
+        
+//
+//        //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
+//        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
+//
+//            //in Firebase if there's no data, then it's NSNULL. nil won't work
+//            if let doesNotExist = snapshot.value as? NSNull {
+//                //this means user hasn't liked this specific post
+//                self.reactionImg.image = UIImage(named: "heartEmpty")
+//
+//            } else {
+//                self.reactionImg.image = UIImage(named: "heartFull")
+//            }
+//        })
+//    }
+//
+//
+//        DataService.instance.URL_POSTS.observeSingleEvent(of: .value) { (snapshot) in
+//            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+//                for snap in snapshots {
+//                    print("SNAP IN MAPVC \(snap)")
+//
+//                    if let postDisctionary = snap.value as? Dictionary<String, AnyObject> {
+//                        let lattt = self.post.lat
+//                        let longgg = self.post.long
+////                        let key = snap.key
+////                        let post = Post(postKey: key, Dictionary: postDisctionary)
+////                        let lat =
+////
+////                        let lat = post.
+//                }
+////            }
+//        }
+//    }
+//
+//
+//
+//
+//
+//
+//
+//    DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
+//    print(snapshot.value as Any)
+//    self.posts = []
+//
+//    //this gives us data individual (every post separate array/dict?)
+//    //snapshot is like "posts" or "users" in Firebase, and snap is "likes", "hashtag" etc
+//    if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+//    for snap in snapshots {
+//    print("SNAP::: \(snap)")
+//
+//    if let postDictionary = snap.value as? Dictionary<String, AnyObject> {
+//    //key is user/post ID
+//    let key = snap.key
+//    let post = Post(postKey: key, dictionary: postDictionary)
+//
+//    var section = post.sectionNumber?.hashValue
+//    print("SECTIONN: \(String(describing: section))")
+//
+//    self.posts.insert(post, at: 0)
+//
+//    }
+//    }
+//    }
+//
+//    self.tableView.reloadData()
+//    }
+//    print("ViewDidLoad Ended")
+//}
+//
+//
+//
+//
     
     
     
     
     
-    
-    
-    
+ 
     
 }

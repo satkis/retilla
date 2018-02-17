@@ -48,7 +48,7 @@ class PostCell: UICollectionViewCell {
     func configureCell(post: Post, image: UIImage?) {
         //this function happens when cell is configured. liked/disliked / adjusted, whatever
         self.post = post
-        
+       
         reactionRef = DataService.instance.URL_USER_CURRENT.child("reactions").child(post.postKey)
         
         print("printtt: \(reactionRef)")

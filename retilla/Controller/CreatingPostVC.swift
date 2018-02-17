@@ -22,6 +22,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var selectedSection: Int! = nil
     var postLocation: String! = "no city"
     var postCoordinates: String!
+    var lat: String!
+    var long: String!
     var postTimestamp: String! = "mmmm"
 
     
@@ -80,7 +82,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
-    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation: String!, postCoordinates: String!, postTimestamp: String!) {
+    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!) {
         
        let postTimestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
      
@@ -95,9 +97,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             "section": selectedSection as Int,
             "location": locationLbl.text as Any,
             "coordinates": String(describing: (lat!) as Any)+","+String(describing: (long!) as Any),
-            "timestamp": postTimestamp
-            
-
+            "timestamp": postTimestamp as Any,
+            "latitude": lat as Any,
+            "longitude": long as Any
             ]
         
         
@@ -257,13 +259,13 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
                     print("imageDowloadURL:: \(self.imageDowloadURL)")
-                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation: self.postLocation, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp)
+                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation: self.postLocation, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long)
                     
                     self.dismiss(animated: true, completion: nil)
                 })
             } else {
                 print("image not selected but SHARE tapped")
-                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa")
+                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa")
                 print("saved to Firebase nil image")
                 dismiss(animated: true, completion: nil)
             }
