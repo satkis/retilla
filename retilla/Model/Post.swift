@@ -31,7 +31,7 @@ class Post {
     var hashtag: String? {
         return _hashtag
     }
-    
+
     var coordinatesGps: String! {
         return _coordinatesGps
     }
@@ -94,7 +94,7 @@ class Post {
         if let likes = dictionary["reactions"] as? Int {
             self._likes = likes
         }
-        
+
         if let imageUrl = dictionary["imageUrl"] as? String {
             self._imageUrl = imageUrl
         }

@@ -155,21 +155,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IuO-tI-EPr">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vAr-zY-OeP">
+                                <rect key="frame" x="0.0" y="617" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.071334958249999997" green="0.88354616119999996" blue="0.82925039550000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Gii-gU-vDh"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePM-Td-bCb">
+                                <rect key="frame" x="310" y="572" width="65" height="24"/>
+                                <color key="backgroundColor" red="0.82311767339999997" green="0.84026795629999995" blue="0.87847632170000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="65" id="7i7-je-rLs"/>
+                                    <constraint firstAttribute="height" constant="24" id="tNj-MZ-NAa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <state key="normal" title="my location"/>
+                                <connections>
+                                    <action selector="centerUserLocation:" destination="Vre-ix-tMU" eventType="touchUpInside" id="hfP-9j-DxT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="vAr-zY-OeP" firstAttribute="leading" secondItem="dRi-cP-j2s" secondAttribute="leading" id="F3H-pk-5YH"/>
                             <constraint firstItem="IuO-tI-EPr" firstAttribute="trailing" secondItem="dgX-xm-v1V" secondAttribute="trailing" id="Rhm-hk-RsQ"/>
+                            <constraint firstItem="vAr-zY-OeP" firstAttribute="top" secondItem="ePM-Td-bCb" secondAttribute="bottom" constant="21" id="UsQ-ZH-aHN"/>
+                            <constraint firstItem="dgX-xm-v1V" firstAttribute="trailing" secondItem="ePM-Td-bCb" secondAttribute="trailing" id="VNc-wa-ov5"/>
+                            <constraint firstAttribute="trailing" secondItem="vAr-zY-OeP" secondAttribute="trailing" id="f6r-XD-H8u"/>
                             <constraint firstItem="IuO-tI-EPr" firstAttribute="top" secondItem="dRi-cP-j2s" secondAttribute="top" id="lKe-yG-rZO"/>
+                            <constraint firstItem="vAr-zY-OeP" firstAttribute="top" secondItem="IuO-tI-EPr" secondAttribute="bottom" id="pah-9R-qwH"/>
+                            <constraint firstItem="dgX-xm-v1V" firstAttribute="bottom" secondItem="vAr-zY-OeP" secondAttribute="bottom" id="xr3-Bd-1R4"/>
                             <constraint firstItem="IuO-tI-EPr" firstAttribute="leading" secondItem="dgX-xm-v1V" secondAttribute="leading" id="yQL-0e-JqU"/>
-                            <constraint firstItem="IuO-tI-EPr" firstAttribute="bottom" secondItem="dgX-xm-v1V" secondAttribute="bottom" id="zVC-wh-5EP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dgX-xm-v1V"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" id="KmI-8k-jnc"/>
                     <connections>
                         <outlet property="map" destination="IuO-tI-EPr" id="67Y-zB-vSM"/>
+                        <outlet property="pullUpView" destination="vAr-zY-OeP" id="74T-U7-OIx"/>
+                        <outlet property="pullUpViewHeightConstraint" destination="Gii-gU-vDh" id="HVY-N4-XfU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1AK-1y-Odv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -204,7 +231,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31H-34-SQc">
-                                <rect key="frame" x="123" y="138" width="128" height="30"/>
+                                <rect key="frame" x="123.5" y="138" width="128" height="30"/>
                                 <color key="backgroundColor" red="0.82311767339999997" green="0.84026795629999995" blue="0.87847632170000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="FACEBOOK LOGIN"/>
                                 <connections>
@@ -239,7 +266,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4h-8n-RT1">
-                                <rect key="frame" x="128.5" y="407" width="117" height="30"/>
+                                <rect key="frame" x="129" y="407" width="117" height="30"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="LOGIN / SIGN UP"/>
                                 <connections>

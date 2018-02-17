@@ -124,7 +124,6 @@
 				FF85071120276B81003CB080 /* PostDetailVCC.swift */,
 				FF850739202F549C003CB080 /* CreatingPostVC.swift */,
 				FFE40489203174D900B70B12 /* MainMapVC.swift */,
-				FFE4048B2031803E00B70B12 /* Annotations.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -141,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				FF919B10201A70EE00270B65 /* Post.swift */,
+				FFE4048B2031803E00B70B12 /* Annotations.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

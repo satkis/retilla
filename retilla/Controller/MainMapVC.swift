@@ -14,8 +14,11 @@ import Firebase
 class MainMapVC: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var map: MKMapView!
+
+    @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
     
-   // var posts = [Post]()
+    @IBOutlet weak var pullUpView: UIView!
+    // var posts = [Post]()
     var post: Post!
     var coordinatesss: DatabaseReference!
     
@@ -80,7 +83,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
 
     
     func createAnnotationforLocation(location: CLLocation) {
-        let anot = Annotations(coordinate: location.coordinate)
+        let anot = Annotations(coordinate: location.coordinate, identifier: "droppablePin")
         map.addAnnotation(anot)
     }
 
@@ -108,20 +111,71 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
                 if let dict = postSnap.value as? [String:AnyObject] {
                     let lat = dict["latitude"] as! CLLocationDegrees
                     let long = dict["longitude"] as! CLLocationDegrees
+                    let titlee = dict["location"] as! String
+                    
                     let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08))
                     
                     self.map.setRegion(region, animated: true)
                     
-                    let pinCoordrinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = pinCoordrinate
+                    let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
+                    let annotation = Annotations(coordinate: pinCoordinate, identifier: "droppablePin")
+                    annotation.coordinate = pinCoordinate
                     self.map.addAnnotation(annotation)
+//                        MKPointAnnotation(title: titlee, coordinate: pinCoordrinate, info: postSnap)
+                    
+                    
+//                    let annotation = MKPointAnnotation()
+//                    annotation.coordinate = pinCoordrinate
+//                    self.map.addAnnotation(annotation)
                 }
             }
         })
     }
+    
+    
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            //nill to not make user location as a pin
+            return nil
+        } else {
+        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
+        pinAnnotation.pinTintColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        pinAnnotation.animatesDrop = true
+        return pinAnnotation
+        }
+    }
+    
+    func animateViewUp() {
+        pullUpViewHeightConstraint.constant = 300
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
         
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        animateViewUp()
+    }
+    
+    
+    @IBAction func centerUserLocation(_ sender: Any) {
+    }
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
         
 //
 //        //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.

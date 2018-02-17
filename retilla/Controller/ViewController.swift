@@ -165,7 +165,7 @@ class ViewController: UIViewController {
                 // successfully sign in anonymously
                 
                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                let user = ["name": "Anonymous"]
+                let user = ["email": "Anonymous"]
                 DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                 print("anonymous user: \((Auth.auth().currentUser?.uid)!)")
