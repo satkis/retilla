@@ -36,8 +36,10 @@ class DataService {
     }
     
     var URL_USER_CURRENT: DatabaseReference! {
-        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
-        let user = URL_USERS.child(uid)
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as? String
+        print("UIDDDDDDD: \(String(describing: uid))")
+        let user = URL_BASE.child("users").child(uid!)
+         print("USERRRRRR: \(user)")
         return user
     }
     
@@ -46,15 +48,7 @@ class DataService {
     
     func createFirebaseUser(uid: String, user: Dictionary<String, AnyObject>) {
         URL_USERS.child(uid).setValue(user)
-        URL_USERS.updateChildValues(user, withCompletionBlock: { (err, ref) in
-            
-            if err != nil {
-                debugPrint(err as Any)
-                return
-            } else {
-                print("saves user to FIrebase SUcessfully")
-            }
-        })
+
     
 }
 

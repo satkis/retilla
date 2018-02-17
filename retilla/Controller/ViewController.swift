@@ -52,6 +52,19 @@ class ViewController: UIViewController {
                     } else {
                         print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
                         
+                        // adding a reference to our firebase database
+                        let ref = Database.database().reference(fromURL: "https://retilla-220b1.firebaseio.com/")
+                        // guard for user id
+                        guard let uid = authData?.uid else {
+                            return }
+                        // create a child reference - uid will let us wrap each users data in a unique user id for later reference
+                        let usersReference = ref.child("users").child(uid)
+                        
+                        
+                        
+                        
+                        
+                        
                         let graphPath = "me"
                         
                         let parameters = ["fields": "name, first_name, last_name, timezone, picture, email"]
@@ -75,13 +88,21 @@ class ViewController: UIViewController {
                                 let email : NSString? = data["email"]! as? NSString
                                 
                                 let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "timezone": timeZone as Any, "picture": profileImgUrl as Any, "email": email as Any]
+                               
+                                UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
                                 
                                 DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
                                 print("USER IDDD UID::: \(authData?.uid))")
                                 
-                                
+                                usersReference.updateChildValues(user, withCompletionBlock: { (err, ref) in
+                                    if err != nil {
+                                        print(err!)
+                                        return
+                                    }
+                                    print("Save the user successfully into Firebase database")
                                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                                 
+                            })
                             }
                         })
                     }
@@ -106,14 +127,15 @@ class ViewController: UIViewController {
                             }  else {
                                 //UserDefaults.standard.set(result[KEY_UID], forKey: KEY_UID)
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                                
+                            
+                   
 //                                let data:[String:AnyObject] = result as! [String : AnyObject]
 //
 //                                let userName : NSString? = data["email"]! as? NSString
                                 let user = ["email": self.emailTxt.text]
                                 
-                                DataService.instance.createFirebaseUser(uid: (result?.uid)!, user: user as Dictionary<String, AnyObject>)
-                                
+                                DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
+                      
                                 
                                 print("USER LOGGED IN WITH ID::: \(String(describing: Auth.auth().currentUser?.uid))")
                              
@@ -133,6 +155,8 @@ class ViewController: UIViewController {
             self.showErrorAlert(title: "enter email or password", msg: "enter email or password")
         }
     }
+    
+
     
     
     @IBAction func loginAnonymouslyTapped(_ sender: Any) {
