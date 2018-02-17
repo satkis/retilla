@@ -46,7 +46,7 @@ class FeedVCC: UITableViewController {
                         let key = snap.key
                         let post = Post(postKey: key, dictionary: postDictionary)
                         
-                        var section = post.sectionNumber?.hashValue
+                        let section = post.sectionNumber?.hashValue
                         print("SECTIONN: \(String(describing: section))")
                         
                         self.posts.insert(post, at: 0)

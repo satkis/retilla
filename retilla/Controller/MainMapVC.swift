@@ -14,16 +14,25 @@ import Firebase
 class MainMapVC: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var map: MKMapView!
-
     @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var pullUpView: UIView!
-    // var posts = [Post]()
-    var post: Post!
-    var coordinatesss: DatabaseReference!
+    @IBOutlet weak var reactionLbl: UILabel!
     
+    var annotationn = [Post]()
+    //var post: Post!
+    var ref: DatabaseReference!
+    
+    var lat: CLLocationDegrees = 0.0
+    var long: CLLocationDegrees = 0.0
+    var titlee: String? = "aaaa"
+    var timestamp: String! = "aaaa"
+    var imageUrl: String! = "aaaa"
+    var story: String? = "aaaa"
+    var hashtag: String? = "aaaa"
+    var reactions: String? = "aaaa"
+
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 5000
+    let regionRadius: CLLocationDistance = 1000
     
     //these will need to be downloaded from Firebase and here should be coordinates
 //    let addresses = [
@@ -37,21 +46,29 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         map.delegate = self
         locationAuthStatus()
+        
+        
 
-        fetchCoordinates()
+        
+        
+        }
         
 //        for add in addresses {
 //            getPlaceMarkFromAddress(address: add)
 //        }
-        
-        
-        
-        
-        
-    }
+    
 
     override func viewDidAppear(_ animated: Bool) {
+        fetchCoordinates()
         
+//
+//
+//                if self.annotationn. != "" {
+//                    self.reactionLbl.text = self.timestamp
+//                } else {
+//                    self.reactionLbl.text = "time n/aa"
+//                }
+//
     }
 
 
@@ -103,16 +120,34 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     
     func fetchCoordinates() {
          //URL_BASE.child("users").child(uid!).child("reactions").child(post.postKey)
-        coordinatesss = DataService.instance.URL_BASE.child("posts")
-        coordinatesss.observeSingleEvent(of: .value, with: { snapshot in
+        ref = DataService.instance.URL_BASE.child("posts")
+        ref.observe(.value) { snapshot in
            
             for snap in snapshot.children {
                 let postSnap = snap as! DataSnapshot
                 if let dict = postSnap.value as? [String:AnyObject] {
                     let lat = dict["latitude"] as! CLLocationDegrees
                     let long = dict["longitude"] as! CLLocationDegrees
-                    let titlee = dict["location"] as! String
                     
+                    let key = postSnap.key
+                    let annotationn = Post(postKey: key, dictionary: dict)
+                    
+                    
+                    if annotationn.hashtag != "" {
+                        self.reactionLbl.text = annotationn.hashtag
+                    } else {
+                        self.reactionLbl.text = "noo dataa"
+                    }
+                    
+                    
+//                    var titlee = dict["location"] as! String
+//                    var timestamp = dict["timestamp"] as! String
+//                    var reactions = dict["reactions"] as? String
+//                    var location = dict["location"] as! String
+//                    var imageUrl = dict["imageUrl"] as! String
+//                    var story = dict["description"] as? String
+//                    var hashtag = dict["hashtah"] as? String
+                    print("snap in MainMapVC:::: \(snap)")
                     let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08))
                     
@@ -130,7 +165,10 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
 //                    self.map.addAnnotation(annotation)
                 }
             }
-        })
+        
+        }
+        
+        self.map.reloadInputViews()
     }
     
     
@@ -147,16 +185,33 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func addSwipe() {
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
+        swipe.direction = .down
+        pullUpView.addGestureRecognizer(swipe)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
+//        swipe.direction = .down
+//        view.addGestureRecognizer(tap)
+    }
+
     func animateViewUp() {
-        pullUpViewHeightConstraint.constant = 300
+        pullUpViewHeightConstraint.constant = 200
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
-        
+    }
+    
+    @objc func animateViewDown() {
+        pullUpViewHeightConstraint.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         animateViewUp()
+        addSwipe()
+
     }
     
     
