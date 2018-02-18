@@ -20,6 +20,7 @@ pod 'FBSDKLoginKit'
 pod 'Alamofire', '~> 4.5'
 
 pod 'SwiftyJSON'
+pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
 
 
 end

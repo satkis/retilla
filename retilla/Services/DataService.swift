@@ -11,6 +11,7 @@ import Firebase
 
 let URL_GENERAL = Database.database().reference(fromURL: "https://retilla-220b1.firebaseio.com/")
 
+
 class DataService {
     
     static let instance = DataService()

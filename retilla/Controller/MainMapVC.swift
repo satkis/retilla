@@ -10,13 +10,19 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
+import GeoFire
 
-class MainMapVC: UIViewController, MKMapViewDelegate {
+class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pullUpView: UIView!
     @IBOutlet weak var reactionLbl: UILabel!
+    
+    var geoFire: GeoFire!
+    //var geoFireRef: DatabaseReference! - same like 'URL_GENERAL'
+    
+    var selectedAnnotaton: Annotations?
     
     var annotationn = [Post]()
     //var post: Post!
@@ -31,8 +37,12 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     var hashtag: String? = "aaaa"
     var reactions: String? = "aaaa"
 
+//    var annotationnn: Annotations?
+    var titleeee: String? = "klkl"
+//    var hashh: String?
+    
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 1000
+    let regionRadius: CLLocationDistance = 10000
     
     //these will need to be downloaded from Firebase and here should be coordinates
 //    let addresses = [
@@ -46,8 +56,8 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         map.delegate = self
         locationAuthStatus()
-        
-        
+       updatePulledUpView()
+        geoFire = GeoFire(firebaseRef: URL_GENERAL)
 
         
         
@@ -61,6 +71,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         fetchCoordinates()
         
+        self.map.addAnnotations(annotationn as! [MKAnnotation])
 //
 //
 //                if self.annotationn. != "" {
@@ -82,7 +93,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     }
     
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2, regionRadius * 2)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
         map.setRegion(coordinateRegion, animated: true)
     }
     
@@ -99,10 +110,10 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     
 
     
-    func createAnnotationforLocation(location: CLLocation) {
-        let anot = Annotations(coordinate: location.coordinate, identifier: "droppablePin")
-        map.addAnnotation(anot)
-    }
+//    func createAnnotationforLocation(location: CLLocation) {
+//        let anot = Annotations(coordinate: location.coordinate, identifier: "droppablePin")
+//        map.addAnnotation(anot)
+//    }
 
     
 //    func getPlaceMarkFromAddress(address: String) {
@@ -130,15 +141,10 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
                     let long = dict["longitude"] as! CLLocationDegrees
                     
                     let key = postSnap.key
-                    let annotationn = Post(postKey: key, dictionary: dict)
+                    let annotationnnnn = Post(postKey: key, dictionary: dict)
                     
-                    
-                    if annotationn.hashtag != "" {
-                        self.reactionLbl.text = annotationn.hashtag
-                    } else {
-                        self.reactionLbl.text = "noo dataa"
-                    }
-                    
+                
+                   
                     
 //                    var titlee = dict["location"] as! String
 //                    var timestamp = dict["timestamp"] as! String
@@ -146,7 +152,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
 //                    var location = dict["location"] as! String
 //                    var imageUrl = dict["imageUrl"] as! String
 //                    var story = dict["description"] as? String
-//                    var hashtag = dict["hashtah"] as? String
+                   // var hashtag = dict["hashtag"] as? String
                     print("snap in MainMapVC:::: \(snap)")
                     let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08))
@@ -154,23 +160,19 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
                     self.map.setRegion(region, animated: true)
                     
                     let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
-                    let annotation = Annotations(coordinate: pinCoordinate, identifier: "droppablePin")
-                    annotation.coordinate = pinCoordinate
-                    self.map.addAnnotation(annotation)
-//                        MKPointAnnotation(title: titlee, coordinate: pinCoordrinate, info: postSnap)
+                    let annotationnn = Annotations(coordinate: pinCoordinate, title: annotationnnnn.hashtag, locationName: "blaah")
+                    self.titleeee = annotationnn.title
+                    print("self.Titleeee::: \(self.titleeee)")
                     
+                    annotationnn.coordinate = pinCoordinate
                     
-//                    let annotation = MKPointAnnotation()
-//                    annotation.coordinate = pinCoordrinate
-//                    self.map.addAnnotation(annotation)
+                    self.map.addAnnotation(annotationnn)
+
                 }
             }
         
         }
-        
-        self.map.reloadInputViews()
     }
-    
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -178,12 +180,60 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
             //nill to not make user location as a pin
             return nil
         } else {
-        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
-        pinAnnotation.pinTintColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
-        pinAnnotation.animatesDrop = true
-        return pinAnnotation
+            if let annotation = annotation as? Annotations {
+                let identifier = "pin"
+                var view: MKPinAnnotationView
+                if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+                    dequeuedView.annotation = annotation
+                    view = dequeuedView
+                    updatePulledUpView()
+                    
+                } else {
+                    view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    view.canShowCallout = true
+                    view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
+                    updatePulledUpView()
+                    
+                }
+                return view
+            }
+            return nil
+    }
+}
+    
+    func updatePulledUpView() {
+        //let aaaa = self.hashh
+        print("updatePulledUpView:::")
+        if self.titleeee != "" {
+            self.reactionLbl.text = self.titleeee
+            print("hashh in func: \(String(describing: self.titleeee))")
+        } else {
+            self.reactionLbl.text = "noo dataa"
         }
     }
+    
+    
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        if annotation is MKUserLocation {
+//            //nill to not make user location as a pin
+//            return nil
+//        } else {
+//        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
+//        pinAnnotation.pinTintColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+//        pinAnnotation.animatesDrop = true
+//        return pinAnnotation
+//        }
+//    }
+    
+    
+    
+    
+    
+//    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//        print("call out accessory Control Tapped::: \(annotationn)")
+//    }
+    
     
     func addSwipe() {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
@@ -198,6 +248,9 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
         pullUpViewHeightConstraint.constant = 200
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
+            
+            
+            
         }
     }
     
@@ -209,8 +262,28 @@ class MainMapVC: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("Annotation selected")
+        updatePulledUpView()
+        print("updatePulledUoView in didSelect \(updatePulledUpView())")
+       // self.selectedAnnotaton = view.annotation as? Annotations
+        
+//        let anno = annotationn[index(ofAccessibilityElement: selectedAnnotaton!)]
+//        print("annnnnnooo::: \(anno)")
+       
         animateViewUp()
         addSwipe()
+
+        
+//        if case self.selectedAnnotaton = view.annotation as? Annotations {
+//            print("selected annotation coordinate::: \(String(describing: self.selectedAnnotaton))")
+//
+//
+//        }
+        
+        
+        
+//        animateViewUp()
+//        addSwipe()
 
     }
     

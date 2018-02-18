@@ -143,6 +143,5 @@ class Post {
         _postRef.child("reactions").setValue(_likes)
     }
     
-    
 
 }

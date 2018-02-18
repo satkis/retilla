@@ -11,13 +11,22 @@ import MapKit
 import UIKit
 
 class Annotations: NSObject, MKAnnotation {
-    dynamic var coordinate: CLLocationCoordinate2D
-    var identifier: String?
+    var coordinate: CLLocationCoordinate2D
+//    var identifier: String?
+    var title: String?
+    var locationName: String?
     
-    init(coordinate: CLLocationCoordinate2D, identifier: String) {
+    
+    init(coordinate: CLLocationCoordinate2D, title: String?, locationName: String?) {
         self.coordinate = coordinate
-        self.identifier = identifier
+        self.title = title
+        self.locationName = locationName
+        
         super.init()
+    }
+    
+    var subtitle: String? {
+        return locationName
     }
     
 }
