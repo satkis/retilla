@@ -157,7 +157,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IuO-tI-EPr">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                             </mapView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vAr-zY-OeP" customClass="PullUpView" customModule="retilla" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vAr-zY-OeP">
                                 <rect key="frame" x="0.0" y="450" width="375" height="150"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Unknown" translatesAutoresizingMaskIntoConstraints="NO" id="Bl0-56-xN3">
@@ -407,15 +407,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="v5n-36-nnS">
+                                <rect key="frame" x="0.0" y="63" width="375" height="252"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" red="0.33114862849999999" green="0.88354616119999996" blue="0.20916114080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="64H-rM-x4P" firstAttribute="top" secondItem="97y-Od-e2I" secondAttribute="bottom" constant="32.5" id="0be-8A-NJj"/>
                             <constraint firstItem="4ba-S1-df5" firstAttribute="bottom" secondItem="64H-rM-x4P" secondAttribute="bottom" constant="8" id="1RY-qC-IRN"/>
                             <constraint firstItem="97y-Od-e2I" firstAttribute="leading" secondItem="mdZ-WK-qsu" secondAttribute="trailing" constant="34" id="8dT-wc-OBX"/>
+                            <constraint firstItem="v5n-36-nnS" firstAttribute="top" secondItem="kZ1-jk-EXf" secondAttribute="top" id="Aj0-2Q-idq"/>
                             <constraint firstItem="mdZ-WK-qsu" firstAttribute="leading" secondItem="4ba-S1-df5" secondAttribute="leading" constant="10" id="BL9-Oq-mXM"/>
+                            <constraint firstItem="v5n-36-nnS" firstAttribute="trailing" secondItem="4ba-S1-df5" secondAttribute="trailing" id="CQC-w9-SIb"/>
                             <constraint firstItem="64H-rM-x4P" firstAttribute="leading" secondItem="4ba-S1-df5" secondAttribute="leading" constant="16" id="XzQ-e1-LRs"/>
                             <constraint firstItem="64H-rM-x4P" firstAttribute="top" secondItem="mdZ-WK-qsu" secondAttribute="bottom" constant="19.5" id="m2d-nu-wt0"/>
+                            <constraint firstItem="97y-Od-e2I" firstAttribute="top" secondItem="v5n-36-nnS" secondAttribute="bottom" constant="8.5" id="qQd-rZ-Pgo"/>
+                            <constraint firstItem="v5n-36-nnS" firstAttribute="leading" secondItem="4ba-S1-df5" secondAttribute="leading" id="szQ-iH-eDw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4ba-S1-df5"/>
                     </view>
@@ -427,6 +434,7 @@
                         <outlet property="imageLbl" destination="mdZ-WK-qsu" id="Phs-AO-C3S"/>
                         <outlet property="imageUrlLbl" destination="Dob-C9-rmR" id="yPg-z0-W1A"/>
                         <outlet property="likesLbl" destination="YBw-UA-qlE" id="vYz-qq-KpI"/>
+                        <outlet property="map" destination="v5n-36-nnS" id="yu4-vj-QQH"/>
                         <outlet property="postStoryLbl" destination="64H-rM-x4P" id="ecx-C1-BOn"/>
                         <outlet property="postTimestampLbl" destination="vQ3-xG-74y" id="gEG-9A-BRE"/>
                         <outlet property="sectionNumberLbl" destination="xbS-cL-FW6" id="qdg-HS-gJ5"/>
@@ -435,7 +443,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Hb-Dq-Owp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2497" y="-1156"/>
+            <point key="canvasLocation" x="2496.8000000000002" y="-1156.3718140929536"/>
         </scene>
         <!--FeedVCC-->
         <scene sceneID="A6n-P7-zeL">

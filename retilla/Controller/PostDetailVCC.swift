@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import MapKit
 
 class PostDetailVCC: UIViewController {
 
     var post: Post!
+    
+    @IBOutlet weak var map: MKMapView!
+    let regionRadius: CLLocationDistance = 1000
     
     @IBOutlet weak var postStoryLbl: UILabel!
     @IBOutlet weak var hashtagLbl: UILabel!
@@ -28,6 +32,7 @@ class PostDetailVCC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        map.delegate = self
         
         self.navigationController?.isNavigationBarHidden = false
         self.title = "some"
@@ -96,4 +101,27 @@ class PostDetailVCC: UIViewController {
     
     
 }
+
+
+
+
+
+
+
+extension PostDetailVCC: MKMapViewDelegate {
+    
+//    func centerMapOnLocation(locationL CLLocation) {
+//        let coordinateRegion  MKCoordinateRegionMakeWithDistance(location , <#T##latitudinalMeters: CLLocationDistance##CLLocationDistance#>, <#T##longitudinalMeters: CLLocationDistance##CLLocationDistance#>)
+//    }
+    
+    
+    
+    
+    
+}
+
+
+
+
+
 

@@ -1,14 +1,14 @@
 //
-//  PullUpView.swift
+//  detailPinView.swift
 //  retilla
 //
-//  Created by satkis on 2/17/18.
+//  Created by satkis on 2/24/18.
 //  Copyright © 2018 satkis. All rights reserved.
 //
 
 import UIKit
 
-class PullUpView: UIView {
+class DetailPinView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.

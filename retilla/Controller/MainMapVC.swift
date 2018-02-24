@@ -19,13 +19,16 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     @IBOutlet weak var pullUpView: UIView!
     @IBOutlet weak var reactionLbl: UILabel!
     
+    @IBOutlet var DetailPinView: DetailPinView!
+    @IBOutlet weak var labelNewView: UILabel!
+    
     var geoFire: GeoFire!
     //var geoFireRef: DatabaseReference! - same like 'URL_GENERAL'
     
-    var selectedAnnotaton: Annotations?
+    var annotationnn: Annotations?
     
     var annotationn = [Post]()
-    //var post: Post!
+    var annotationnnnn: Post?
     var ref: DatabaseReference!
     
     var lat: CLLocationDegrees = 0.0
@@ -55,10 +58,18 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
+        //self.view.addSubview(DetailPinView)
+        
+
+        
         locationAuthStatus()
-       updatePulledUpView()
+   
         geoFire = GeoFire(firebaseRef: URL_GENERAL)
 
+       // reactionLbl.text = annotationnnnn?.hashtag
+       // print("reactionLBL.text in viewdidLoad: \(reactionLbl.text)")
+        
+      
         
         
         }
@@ -72,14 +83,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         fetchCoordinates()
         
         self.map.addAnnotations(annotationn as! [MKAnnotation])
-//
-//
-//                if self.annotationn. != "" {
-//                    self.reactionLbl.text = self.timestamp
-//                } else {
-//                    self.reactionLbl.text = "time n/aa"
-//                }
-//
+
     }
 
 
@@ -143,9 +147,6 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     let key = postSnap.key
                     let annotationnnnn = Post(postKey: key, dictionary: dict)
                     
-                
-                   
-                    
 //                    var titlee = dict["location"] as! String
 //                    var timestamp = dict["timestamp"] as! String
 //                    var reactions = dict["reactions"] as? String
@@ -161,16 +162,21 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     
                     let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
                     let annotationnn = Annotations(coordinate: pinCoordinate, title: annotationnnnn.hashtag, locationName: "blaah")
-                    self.titleeee = annotationnn.title
-                    print("self.Titleeee::: \(self.titleeee)")
+                    self.titleeee = annotationnnnn.hashtag
+                   // print("self.Titleeee::: \(String(describing: self.titleeee))")
+                    
+                    self.reactionLbl.text = self.titleeee
+                    print("reactionLbl.text::: \(String(describing: self.reactionLbl.text))")
                     
                     annotationnn.coordinate = pinCoordinate
                     
                     self.map.addAnnotation(annotationnn)
 
                 }
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+                
             }
-        
         }
     }
     
@@ -186,13 +192,14 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                 if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
                     dequeuedView.annotation = annotation
                     view = dequeuedView
-                    updatePulledUpView()
+//                    self.reactionLbl.text = self.titleeee
+               
                     
                 } else {
                     view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                     view.canShowCallout = true
                     view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
-                    updatePulledUpView()
+//                    self.reactionLbl.text = self.titleeee
                     
                 }
                 return view
@@ -201,16 +208,19 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     }
 }
     
-    func updatePulledUpView() {
-        //let aaaa = self.hashh
-        print("updatePulledUpView:::")
-        if self.titleeee != "" {
-            self.reactionLbl.text = self.titleeee
-            print("hashh in func: \(String(describing: self.titleeee))")
-        } else {
-            self.reactionLbl.text = "noo dataa"
-        }
-    }
+//    func updatePulledUpView() {
+//        let labelll = self.titleeee
+//
+//         print("c\(String(describing: labelll))")
+//        print("updatePulledUpView:::")
+//        if labelll != "" {
+//            self.reactionLbl.text = labelll
+//            print("hashh in func: \(String(describing: labelll))")
+//        } else {
+//            self.reactionLbl.text = "noo dataa"
+//        }
+//        reloadInputViews()
+//    }
     
     
     
@@ -247,6 +257,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     func animateViewUp() {
         pullUpViewHeightConstraint.constant = 200
         UIView.animate(withDuration: 0.3) {
+            self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
             
             
@@ -261,16 +272,32 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         }
     }
     
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
-        updatePulledUpView()
-        print("updatePulledUoView in didSelect \(updatePulledUpView())")
+     
+        
+        if let detailAnnotView = Bundle.main.loadNibNamed("DetailAnnotationView", owner: self, options: nil)?.first as? DetailAnnotationView {
+            let pinToZoon = view.annotation?.title
+            detailAnnotView.xibLabel.text = pinToZoon!
+            self.view.addSubview(detailAnnotView)
+            
+//            detailAnnotView.setNeedsLayout()
+//            detailAnnotView.layoutIfNeeded()
+          
+        }
+        
+        
+        
+        
+       
        // self.selectedAnnotaton = view.annotation as? Annotations
         
 //        let anno = annotationn[index(ofAccessibilityElement: selectedAnnotaton!)]
 //        print("annnnnnooo::: \(anno)")
        
         animateViewUp()
+//        updatePulledUpView()
         addSwipe()
 
         
