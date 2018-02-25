@@ -240,7 +240,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func sharePost(_ sender: Any) {
         if let imageIsSelected = imageSelectorImage.image, imageSelected == true && selectedSection != nil {
-            if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.6) {
+            if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.3) {
                 print("uploadData::: \(uploadData)")
                 let metadata = StorageMetadata()
                 print("metadata::: \(uploadData)")

@@ -260,6 +260,7 @@
                     <connections>
                         <outlet property="hashtagLbl" destination="KKW-ik-yPi" id="Pqi-xb-cQ6"/>
                         <outlet property="imageUrlLbl" destination="VmS-M9-klQ" id="Zii-id-bEa"/>
+                        <outlet property="imgLbl" destination="Bl0-56-xN3" id="AWl-Ym-Fvg"/>
                         <outlet property="locationLbl" destination="XVY-fN-XVO" id="lL9-Hr-j5c"/>
                         <outlet property="map" destination="IuO-tI-EPr" id="67Y-zB-vSM"/>
                         <outlet property="postStoryLbl" destination="tx9-UC-0Ay" id="Ygm-bC-CVN"/>
@@ -457,15 +458,34 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="v5n-36-nnS">
                                 <rect key="frame" x="0.0" y="63" width="375" height="252"/>
                             </mapView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bHm-Rd-MZk">
+                                <rect key="frame" x="228.5" y="238" width="33.5" height="41"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUC-sE-Wpg">
+                                        <rect key="frame" x="0.0" y="0.0" width="33.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3n-A2-wZh">
+                                        <rect key="frame" x="0.0" y="20.5" width="33.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.33114862849999999" green="0.88354616119999996" blue="0.20916114080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="64H-rM-x4P" firstAttribute="top" secondItem="97y-Od-e2I" secondAttribute="bottom" constant="32.5" id="0be-8A-NJj"/>
                             <constraint firstItem="4ba-S1-df5" firstAttribute="bottom" secondItem="64H-rM-x4P" secondAttribute="bottom" constant="8" id="1RY-qC-IRN"/>
+                            <constraint firstItem="97y-Od-e2I" firstAttribute="top" secondItem="bHm-Rd-MZk" secondAttribute="bottom" constant="44.5" id="1y0-KE-RSy"/>
                             <constraint firstItem="97y-Od-e2I" firstAttribute="leading" secondItem="mdZ-WK-qsu" secondAttribute="trailing" constant="34" id="8dT-wc-OBX"/>
                             <constraint firstItem="v5n-36-nnS" firstAttribute="top" secondItem="kZ1-jk-EXf" secondAttribute="top" id="Aj0-2Q-idq"/>
                             <constraint firstItem="mdZ-WK-qsu" firstAttribute="leading" secondItem="4ba-S1-df5" secondAttribute="leading" constant="10" id="BL9-Oq-mXM"/>
                             <constraint firstItem="v5n-36-nnS" firstAttribute="trailing" secondItem="4ba-S1-df5" secondAttribute="trailing" id="CQC-w9-SIb"/>
+                            <constraint firstItem="4ba-S1-df5" firstAttribute="trailing" secondItem="bHm-Rd-MZk" secondAttribute="trailing" constant="113" id="I6z-Qp-eWR"/>
                             <constraint firstItem="64H-rM-x4P" firstAttribute="leading" secondItem="4ba-S1-df5" secondAttribute="leading" constant="16" id="XzQ-e1-LRs"/>
                             <constraint firstItem="64H-rM-x4P" firstAttribute="top" secondItem="mdZ-WK-qsu" secondAttribute="bottom" constant="19.5" id="m2d-nu-wt0"/>
                             <constraint firstItem="97y-Od-e2I" firstAttribute="top" secondItem="v5n-36-nnS" secondAttribute="bottom" constant="8.5" id="qQd-rZ-Pgo"/>
@@ -480,7 +500,9 @@
                         <outlet property="hashtagLbl" destination="uEB-P3-b4W" id="KXr-FF-sUP"/>
                         <outlet property="imageLbl" destination="mdZ-WK-qsu" id="Phs-AO-C3S"/>
                         <outlet property="imageUrlLbl" destination="Dob-C9-rmR" id="yPg-z0-W1A"/>
+                        <outlet property="latitudee" destination="OUC-sE-Wpg" id="I8W-IH-tMI"/>
                         <outlet property="likesLbl" destination="YBw-UA-qlE" id="vYz-qq-KpI"/>
+                        <outlet property="longitudee" destination="q3n-A2-wZh" id="HNk-oT-khM"/>
                         <outlet property="map" destination="v5n-36-nnS" id="yu4-vj-QQH"/>
                         <outlet property="postStoryLbl" destination="64H-rM-x4P" id="ecx-C1-BOn"/>
                         <outlet property="postTimestampLbl" destination="vQ3-xG-74y" id="gEG-9A-BRE"/>

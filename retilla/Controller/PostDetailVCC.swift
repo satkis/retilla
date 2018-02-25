@@ -9,12 +9,16 @@
 import UIKit
 import MapKit
 
-class PostDetailVCC: UIViewController {
+class PostDetailVCC: UIViewController, MKMapViewDelegate {
 
+    let annotation = MKPointAnnotation()
+    
     var post: Post!
+    var lat: CLLocationDegrees = 0.0
+    var long: CLLocationDegrees = 0.0
     
     @IBOutlet weak var map: MKMapView!
-    let regionRadius: CLLocationDistance = 1000
+    //let regionRadius: CLLocationDistance = 1000
     
     @IBOutlet weak var postStoryLbl: UILabel!
     @IBOutlet weak var hashtagLbl: UILabel!
@@ -29,7 +33,10 @@ class PostDetailVCC: UIViewController {
    
     @IBOutlet weak var imageLbl: UIImageView!
     
+    @IBOutlet weak var latitudee: UILabel!
     
+    
+    @IBOutlet weak var longitudee: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
@@ -90,7 +97,47 @@ class PostDetailVCC: UIViewController {
             
         }
 
+        if post.lat != nil {
+            latitudee.text = "\(post.lat!)"
+        } else {
+            latitudee.text = "n/a lat"
+        }
+        
+        if post.long != nil {
+           longitudee.text = "\(post.long!)"
+        } else {
+            longitudee.text = "n/a long"
+        }
+        
+        annotation.coordinate = CLLocationCoordinate2D(latitude: post.lat, longitude: post.long)
+        self.map.addAnnotation(annotation)
+        
+
+        //let coor = post.coordinatesGps
+       // let latt = coor?.prefix(16)
+        //let indexx = coor?.index(of: ",")
+        //let long = coor?.suffix(from: indexx!).dropFirst()
+       // let longg = String(describing: long?.dropFirst())
+        
+       // let lat = coor?.prefix(16)
+
+        //let long = coor?.suffix(from: indexx!).dropFirst()
+        //let doubleLong = Double(long)
+        
+        
+//        let annotation = MKPointAnnotation()
+//        annotation.coordinate = CLLocationCoordinate2D(latitude: doubl, longitude: <#T##CLLocationDegrees#>)
+        
+       // let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
+        
+        
+        print("coor: \(String(describing: coor!))")
+        print("latt: \(String(describing: lat!))")
+        print("long: \(String(describing: long!))")
        
+//        let annotation = MKPointAnnotation()
+//        annotation.coordinate = CLLocationCoordinate2D(latitude: Double("\(String(describing: latt))")!, longitude: Double("\(String(describing: long))")!)
+//
     }
 
     
@@ -106,19 +153,6 @@ class PostDetailVCC: UIViewController {
 
 
 
-
-
-extension PostDetailVCC: MKMapViewDelegate {
-    
-//    func centerMapOnLocation(locationL CLLocation) {
-//        let coordinateRegion  MKCoordinateRegionMakeWithDistance(location , <#T##latitudinalMeters: CLLocationDistance##CLLocationDistance#>, <#T##longitudinalMeters: CLLocationDistance##CLLocationDistance#>)
-//    }
-    
-    
-    
-    
-    
-}
 
 
 

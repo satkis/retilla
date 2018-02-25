@@ -19,8 +19,8 @@ class Post {
     private var _postKey: String!
     private var _sectionNumber: Int?
     private var _location: String?
-    private var _lat: String!
-    private var _long: String!
+    private var _lat: Double!
+    private var _long: Double!
     private var _timestamp: String!
     private var _postRef: DatabaseReference!
     
@@ -60,11 +60,11 @@ class Post {
         return _location
     }
     
-    var lat: String! {
+    var lat: Double! {
         return _lat
     }
     
-    var long: String! {
+    var long: Double! {
         return _long
     }
     
@@ -74,7 +74,7 @@ class Post {
     
     
 
-    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location: String!, timestamp: String!, lat: String!, long: String!, likes: Int!) {
+    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location: String!, timestamp: String!, lat: Double!, long: Double!, likes: Int!) {
         self._postStory = postStory
         self._hashtag = hashtag
         self._imageUrl = imageUrl
@@ -115,11 +115,11 @@ class Post {
             self._coordinatesGps = postCoordinates
         }
         
-        if let lat = dictionary["latitude"] as? String {
+        if let lat = dictionary["latitude"] as? Double {
             self._lat = lat
         }
         
-        if let long = dictionary["longitude"] as? String {
+        if let long = dictionary["longitude"] as? Double {
             self._long = long
         }
         

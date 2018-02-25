@@ -25,6 +25,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     @IBOutlet weak var locationLbl: UILabel!
     @IBOutlet weak var timeStampLbl: UILabel!
     @IBOutlet weak var postStoryLbl: UILabel!
+    @IBOutlet weak var imgLbl: UIImageView!
     
     
     
@@ -36,8 +37,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 //    var location: String?
 //    var timeStamp: String!
 //
-    
-    
+
     
     var geoFire: GeoFire!
     //var geoFireRef: DatabaseReference! - same like 'URL_GENERAL'
@@ -55,6 +55,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     var story: String? = "aaaa"
     var hashtag: String? = "aaaa"
     var reactions: Int? = 0
+
 
 //    var annotationnn: Annotations?
 //    var titleeee: String? = "klkl"
@@ -213,16 +214,14 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             return nil
         } else {
             if let annotation = annotation as? Annotations {
-                let identifier = "pin"
                 var view: MKPinAnnotationView
-                if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+                if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView {
                     dequeuedView.annotation = annotation
                     view = dequeuedView
                 } else {
-                    view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                    view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
                     view.canShowCallout = true
                     view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
-
                     
                 }
                 return view
@@ -298,6 +297,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
+
         
         if let tappedPin = view.annotation as? Annotations {
             if let reactions = tappedPin.reactions {
@@ -341,6 +341,28 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             } else {
                 postStoryLbl?.text = "no story"
             }
+            
+
+            
+//             NEED TO adjust if image fails to download (make default value)
+            //NEED TO cache img. Plus, NEED TO make new .swift file for UIView and place all view details there
+            if let url = tappedPin.imageUrl {
+                let url = URL(string: url)
+                let data = try? Data(contentsOf: url!)
+                
+                imgLbl.image = UIImage(data: data!)
+                
+//                var image: UIImage?
+//                print("url::: \(url)")
+//                image = MainMapVC.imageCach.object(forKey: url as AnyObject) as? UIImage
+//                imgLbl.image = image
+//                print("imgLbl.image \(String(describing: imgLbl.image))")
+//            } else {
+//                imgLbl.image = UIImage(named: "Unknown")
+//            }
+            
+
+            
  
 //        let hashtag = view.annotation?.title
 //        print("hashtag::: \(String(describing: hashtag))")
@@ -397,6 +419,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 
     }
     
+    }
     
     @IBAction func centerUserLocation(_ sender: Any) {
     }
