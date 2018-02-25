@@ -17,31 +17,47 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pullUpView: UIView!
-    @IBOutlet weak var reactionLbl: UILabel!
     
-    @IBOutlet var DetailPinView: DetailPinView!
-    @IBOutlet weak var labelNewView: UILabel!
+    @IBOutlet weak var reactionLbl: UILabel!
+    @IBOutlet weak var imageUrlLbl: UILabel!
+    @IBOutlet weak var hashtagLbl: UILabel!
+    @IBOutlet weak var sectionNrLbl: UILabel!
+    @IBOutlet weak var locationLbl: UILabel!
+    @IBOutlet weak var timeStampLbl: UILabel!
+    @IBOutlet weak var postStoryLbl: UILabel!
+    
+    
+    
+//    var reactions: Int?
+//    var imageUrl: String!
+//    var postStory: String?
+//    var hashtag: String?
+//    var sectionNumber: Int!
+//    var location: String?
+//    var timeStamp: String!
+//
+    
+    
     
     var geoFire: GeoFire!
     //var geoFireRef: DatabaseReference! - same like 'URL_GENERAL'
     
-    var annotationnn: Annotations?
+    var annot: Annotations?
     
     var annotationn = [Post]()
-    var annotationnnnn: Post?
+   // var pinDetails: Post?
     var ref: DatabaseReference!
     
     var lat: CLLocationDegrees = 0.0
     var long: CLLocationDegrees = 0.0
-    var titlee: String? = "aaaa"
     var timestamp: String! = "aaaa"
-    var imageUrl: String! = "aaaa"
+    var imageUrl: String? = "aaaa"
     var story: String? = "aaaa"
     var hashtag: String? = "aaaa"
-    var reactions: String? = "aaaa"
+    var reactions: Int? = 0
 
 //    var annotationnn: Annotations?
-    var titleeee: String? = "klkl"
+//    var titleeee: String? = "klkl"
 //    var hashh: String?
     
     let locationManager = CLLocationManager()
@@ -145,15 +161,15 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     let long = dict["longitude"] as! CLLocationDegrees
                     
                     let key = postSnap.key
-                    let annotationnnnn = Post(postKey: key, dictionary: dict)
+                    let pinDetails = Post(postKey: key, dictionary: dict)
                     
 //                    var titlee = dict["location"] as! String
 //                    var timestamp = dict["timestamp"] as! String
 //                    var reactions = dict["reactions"] as? String
 //                    var location = dict["location"] as! String
 //                    var imageUrl = dict["imageUrl"] as! String
-//                    var story = dict["description"] as? String
-                   // var hashtag = dict["hashtag"] as? String
+                    //                    var story = dict["description"] as? String
+                    // var hashtag = dict["hashtag"] as? String
                     print("snap in MainMapVC:::: \(snap)")
                     let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08))
@@ -161,21 +177,31 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     self.map.setRegion(region, animated: true)
                     
                     let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
-                    let annotationnn = Annotations(coordinate: pinCoordinate, title: annotationnnnn.hashtag, locationName: "blaah")
-                    self.titleeee = annotationnnnn.hashtag
+                    
+//                    let annot = Annotations(
+//                        coordinate: pinCoordinate,
+//                        reactions: pinDetails.likes,
+//                        imageUrl: pinDetails.imageUrl,
+//                        postStory: pinDetails.postStory,
+//                        hashtag: pinDetails.hashtag,
+//                        sectionNumber: pinDetails.sectionNumber,
+//                        location: pinDetails.location,
+//                        timeStamp: pinDetails.timestamp
+//                    )
+                    
+                    let aaaa = Annotations(coordinate: pinCoordinate, reactions: pinDetails.likes, imageUrl: pinDetails.imageUrl, postStory: pinDetails.postStory, hashtag: pinDetails.hashtag, sectionNumber: pinDetails.sectionNumber, location: pinDetails.location, timeStamp: pinDetails.timestamp)
+                    print("aaaa::: \(aaaa)")
+//                    self.titleeee = annotationnnnn.hashtag
                    // print("self.Titleeee::: \(String(describing: self.titleeee))")
                     
-                    self.reactionLbl.text = self.titleeee
-                    print("reactionLbl.text::: \(String(describing: self.reactionLbl.text))")
+//                    self.reactionLbl.text = self.titleeee
+//                    print("reactionLbl.text::: \(String(describing: self.reactionLbl.text))")
                     
-                    annotationnn.coordinate = pinCoordinate
+                    aaaa.coordinate = pinCoordinate
                     
-                    self.map.addAnnotation(annotationnn)
+                    self.map.addAnnotation(aaaa)
 
                 }
-                self.view.setNeedsLayout()
-                self.view.layoutIfNeeded()
-                
             }
         }
     }
@@ -192,14 +218,11 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                 if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
                     dequeuedView.annotation = annotation
                     view = dequeuedView
-//                    self.reactionLbl.text = self.titleeee
-               
-                    
                 } else {
                     view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                     view.canShowCallout = true
                     view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
-//                    self.reactionLbl.text = self.titleeee
+
                     
                 }
                 return view
@@ -209,7 +232,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 }
     
 //    func updatePulledUpView() {
-//        let labelll = self.titleeee
+//        let labelll = view.annotation
 //
 //         print("c\(String(describing: labelll))")
 //        print("updatePulledUpView:::")
@@ -275,17 +298,77 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
-     
         
-        if let detailAnnotView = Bundle.main.loadNibNamed("DetailAnnotationView", owner: self, options: nil)?.first as? DetailAnnotationView {
-            let pinToZoon = view.annotation?.title
-            detailAnnotView.xibLabel.text = pinToZoon!
-            self.view.addSubview(detailAnnotView)
+        if let tappedPin = view.annotation as? Annotations {
+            if let reactions = tappedPin.reactions {
+                reactionLbl?.text = "\(reactions)"
+            } else {
+                reactionLbl?.text = "no reactions"
+            }
             
-//            detailAnnotView.setNeedsLayout()
-//            detailAnnotView.layoutIfNeeded()
-          
+            if let imageUrl = tappedPin.imageUrl {
+                imageUrlLbl.text = imageUrl
+            } else {
+                imageUrlLbl.text = "no url"
+            }
+            
+            if let hashtag = tappedPin.hashtag {
+                hashtagLbl?.text = hashtag
+            } else {
+                hashtagLbl?.text = "no hashtag"
+            }
+            
+            if let sectionNr = tappedPin.sectionNumber {
+                sectionNrLbl.text = "\(sectionNr)"
+            } else {
+                sectionNrLbl.text = "no sectionNr"
+            }
+            
+            if let location = tappedPin.location {
+                locationLbl?.text = location
+            } else {
+                locationLbl?.text = "no location"
+            }
+            
+            if let time = tappedPin.timeStamp {
+                timeStampLbl.text = time
+            } else {
+                timeStampLbl.text = "no post time"
+            }
+            
+            if let story = tappedPin.postStory {
+                postStoryLbl?.text = story
+            } else {
+                postStoryLbl?.text = "no story"
+            }
+ 
+//        let hashtag = view.annotation?.title
+//        print("hashtag::: \(String(describing: hashtag))")
+//        if let hashtag = view.annotation?.title {
+//            reactionLbl.text = hashtag
+//        } else {
+//         reactionLbl.text = "no hashtag"
+//        }
+//
+//        let timeee = annotationnn?.timeStampp
+//        print("timeee::: \(String(describing: timeee))")
+//
+            
         }
+
+        
+        
+        
+        
+//        if let detailAnnotView = Bundle.main.loadNibNamed("DetailAnnotationView", owner: self, options: nil)?.first as? DetailAnnotationView {
+//            let pinToZoon = view.annotation?.title
+//            detailAnnotView.xibLabel.text = pinToZoon!
+//            self.view.addSubview(detailAnnotView)
+//
+////            detailAnnotView.setNeedsLayout()
+////            detailAnnotView.layoutIfNeeded()
+//
+//        }
         
         
         

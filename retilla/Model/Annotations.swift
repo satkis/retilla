@@ -12,21 +12,34 @@ import UIKit
 
 class Annotations: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
-//    var identifier: String?
-    var title: String?
-    var locationName: String?
+    var reactions: Int?
+    var imageUrl: String?
+    var postStory: String?
+    var hashtag: String?
+    var sectionNumber: Int?
+    var location: String?
+    var timeStamp: String!
     
     
-    init(coordinate: CLLocationCoordinate2D, title: String?, locationName: String?) {
+    
+    init(coordinate: CLLocationCoordinate2D, reactions: Int?, imageUrl: String?, postStory: String?, hashtag: String?, sectionNumber: Int?, location: String?, timeStamp: String!) {
         self.coordinate = coordinate
-        self.title = title
-        self.locationName = locationName
+        self.reactions = reactions
+        self.imageUrl = imageUrl
+        self.postStory = postStory
+        self.hashtag = hashtag
+        self.sectionNumber = sectionNumber
+        self.location = location
+        self.timeStamp = timeStamp
         
         super.init()
     }
     
     var subtitle: String? {
-        return locationName
+        return "dummy subtitle"
+    }
+    var title: String? {
+        return "dummy title"
     }
     
 }

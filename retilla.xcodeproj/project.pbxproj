@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		384E3630A61D15FC054DFDC5 /* Pods_retilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */; };
 		FF421D472017E4B00023D9BF /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF421D462017E4B00023D9BF /* CategoryRow.swift */; };
-		FF6FCC502041D3E7002D6209 /* DetailPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6FCC4F2041D3E7002D6209 /* DetailPinView.swift */; };
-		FF6FCC522041D722002D6209 /* DetailAnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF6FCC512041D722002D6209 /* DetailAnnotationView.xib */; };
-		FF6FCC542041D778002D6209 /* DetailAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6FCC532041D778002D6209 /* DetailAnnotationView.swift */; };
 		FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D1D201672E70016F853 /* AppDelegate.swift */; };
 		FF7D5D20201672E70016F853 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D1F201672E70016F853 /* ViewController.swift */; };
 		FF7D5D23201672E70016F853 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D21201672E70016F853 /* Main.storyboard */; };
@@ -34,9 +31,6 @@
 		EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_retilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.debug.xcconfig"; sourceTree = "<group>"; };
 		FF421D462017E4B00023D9BF /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
-		FF6FCC4F2041D3E7002D6209 /* DetailPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPinView.swift; sourceTree = "<group>"; };
-		FF6FCC512041D722002D6209 /* DetailAnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailAnnotationView.xib; sourceTree = "<group>"; };
-		FF6FCC532041D778002D6209 /* DetailAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAnnotationView.swift; sourceTree = "<group>"; };
 		FF7D5D1A201672E70016F853 /* retilla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = retilla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF7D5D1D201672E70016F853 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF7D5D1F201672E70016F853 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -138,9 +132,6 @@
 			isa = PBXGroup;
 			children = (
 				FF919B12201AAE7200270B65 /* PostCell.swift */,
-				FF6FCC4F2041D3E7002D6209 /* DetailPinView.swift */,
-				FF6FCC512041D722002D6209 /* DetailAnnotationView.xib */,
-				FF6FCC532041D778002D6209 /* DetailAnnotationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -235,7 +226,6 @@
 				FF7D5D28201672E70016F853 /* LaunchScreen.storyboard in Resources */,
 				FF7D5D302016868B0016F853 /* GoogleService-Info.plist in Resources */,
 				FF7D5D25201672E70016F853 /* Assets.xcassets in Resources */,
-				FF6FCC522041D722002D6209 /* DetailAnnotationView.xib in Resources */,
 				FF7D5D23201672E70016F853 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,14 +312,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF919B13201AAE7200270B65 /* PostCell.swift in Sources */,
-				FF6FCC502041D3E7002D6209 /* DetailPinView.swift in Sources */,
 				FF7D5D20201672E70016F853 /* ViewController.swift in Sources */,
 				FFE4048C2031803E00B70B12 /* Annotations.swift in Sources */,
 				FFE4048A203174D900B70B12 /* MainMapVC.swift in Sources */,
 				FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */,
 				FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */,
 				FF85071220276B81003CB080 /* PostDetailVCC.swift in Sources */,
-				FF6FCC542041D778002D6209 /* DetailAnnotationView.swift in Sources */,
 				FF85073A202F549C003CB080 /* CreatingPostVC.swift in Sources */,
 				FF7D5D372016885B0016F853 /* Constants.swift in Sources */,
 				FF7D5D3920168A620016F853 /* DataService.swift in Sources */,

@@ -18,7 +18,7 @@ class Post {
     private var _username: String?
     private var _postKey: String!
     private var _sectionNumber: Int?
-    private var _location: String!
+    private var _location: String?
     private var _lat: String!
     private var _long: String!
     private var _timestamp: String!
@@ -31,7 +31,7 @@ class Post {
     var hashtag: String? {
         return _hashtag
     }
-
+    
     var coordinatesGps: String! {
         return _coordinatesGps
     }
@@ -40,7 +40,7 @@ class Post {
         return _imageUrl
     }
     
-    var likes: Int {
+    var likes: Int! {
         return _likes
     }
     
@@ -74,7 +74,7 @@ class Post {
     
     
 
-    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location: String!, timestamp: String!, lat: String!, long: String!) {
+    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location: String!, timestamp: String!, lat: String!, long: String!, likes: Int!) {
         self._postStory = postStory
         self._hashtag = hashtag
         self._imageUrl = imageUrl
@@ -85,6 +85,7 @@ class Post {
         self._lat = lat
         self._long = long
         self._timestamp = timestamp
+        self._likes = likes
     }
     
     //calling this when downloading data from Firebase
@@ -94,7 +95,7 @@ class Post {
         if let likes = dictionary["reactions"] as? Int {
             self._likes = likes
         }
-
+        
         if let imageUrl = dictionary["imageUrl"] as? String {
             self._imageUrl = imageUrl
         }
@@ -143,5 +144,5 @@ class Post {
         _postRef.child("reactions").setValue(_likes)
     }
     
-
+    
 }

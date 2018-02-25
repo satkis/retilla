@@ -52,7 +52,7 @@ class PostCell: UICollectionViewCell {
         reactionRef = DataService.instance.URL_USER_CURRENT.child("reactions").child(post.postKey)
         
         print("printtt: \(reactionRef)")
-        self.reactionCountLbl.text = "\(post.likes)"
+        self.reactionCountLbl.text = "\(post.likes!)"
 
         if let location = post.location, post.location != "" {
             self.locationLbl.text = location
