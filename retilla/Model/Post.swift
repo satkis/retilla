@@ -73,7 +73,7 @@ class Post {
     }
     
     
-
+    
     init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location: String!, timestamp: String!, lat: Double!, long: Double!, likes: Int!) {
         self._postStory = postStory
         self._hashtag = hashtag

@@ -116,6 +116,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         firebasePost.setValue(post)
         print("post:: \(post)")
         
+        let firebasePostToUser = DataService.instance.URL_USER_CURRENT.child("posts").child(newPostKey)
+        firebasePostToUser.setValue(true)
+        
         hashtagField?.text = ""
         descriptionField?.text = ""
         imageSelectorImage.image = UIImage(named: "camera-icon-hi")

@@ -48,12 +48,12 @@ class PostCell: UICollectionViewCell {
     func configureCell(post: Post, image: UIImage?) {
         //this function happens when cell is configured. liked/disliked / adjusted, whatever
         self.post = post
-       
+        
         reactionRef = DataService.instance.URL_USER_CURRENT.child("reactions").child(post.postKey)
         
         print("printtt: \(reactionRef)")
         self.reactionCountLbl.text = "\(post.likes!)"
-
+        
         if let location = post.location, post.location != "" {
             self.locationLbl.text = location
         } else {
@@ -68,7 +68,7 @@ class PostCell: UICollectionViewCell {
         
         if let postTime = post.timestamp, post.timestamp != "" {
             //let dateee = postTime.Substring(post.timestamp.prefix(6))
-           // self.postDateLbl.text = "\(postTime.index(postTime.startIndex, offsetBy: 6))"
+            // self.postDateLbl.text = "\(postTime.index(postTime.startIndex, offsetBy: 6))"
             self.postDateLbl.text = "\(postTime.prefix(6))"
             //self.postDateLbl.text = postTime.
         } else {
@@ -98,19 +98,19 @@ class PostCell: UICollectionViewCell {
             self.postImg.isHidden = true
         }
         
-       
+        
         //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
         reactionRef.observeSingleEvent(of: .value, with: { snapshot in
-
+            
             //in Firebase if there's no data, then it's NSNULL. nil won't work
             if let doesNotExist = snapshot.value as? NSNull {
                 //this means user hasn't liked this specific post
                 self.reactionImg.image = UIImage(named: "heartEmpty")
-              
+                
             } else {
                 self.reactionImg.image = UIImage(named: "heartFull")
             }
-        })    
+        })
     }
     
     

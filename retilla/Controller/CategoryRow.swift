@@ -27,17 +27,6 @@ class CategoryRow: UITableViewCell {
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     
 

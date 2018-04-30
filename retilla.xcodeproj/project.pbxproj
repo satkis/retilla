@@ -22,6 +22,8 @@
 		FF919B11201A70EE00270B65 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B10201A70EE00270B65 /* Post.swift */; };
 		FF919B13201AAE7200270B65 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B12201AAE7200270B65 /* PostCell.swift */; };
 		FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B1A201CB7D800270B65 /* FeedVCC.swift */; };
+		FFAFEAB42097B6B1001C7C1B /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFEAB32097B6B0001C7C1B /* UserVC.swift */; };
+		FFAFEAB62097C36F001C7C1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFEAB52097C36F001C7C1B /* User.swift */; };
 		FFE4048A203174D900B70B12 /* MainMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE40489203174D900B70B12 /* MainMapVC.swift */; };
 		FFE4048C2031803E00B70B12 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4048B2031803E00B70B12 /* Annotations.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +48,8 @@
 		FF919B10201A70EE00270B65 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		FF919B12201AAE7200270B65 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		FF919B1A201CB7D800270B65 /* FeedVCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVCC.swift; sourceTree = "<group>"; };
+		FFAFEAB32097B6B0001C7C1B /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
+		FFAFEAB52097C36F001C7C1B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FFE40489203174D900B70B12 /* MainMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapVC.swift; sourceTree = "<group>"; };
 		FFE4048B2031803E00B70B12 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,6 +128,7 @@
 				FF85071120276B81003CB080 /* PostDetailVCC.swift */,
 				FF850739202F549C003CB080 /* CreatingPostVC.swift */,
 				FFE40489203174D900B70B12 /* MainMapVC.swift */,
+				FFAFEAB32097B6B0001C7C1B /* UserVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -141,6 +146,7 @@
 			children = (
 				FF919B10201A70EE00270B65 /* Post.swift */,
 				FFE4048B2031803E00B70B12 /* Annotations.swift */,
+				FFAFEAB52097C36F001C7C1B /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -317,10 +323,12 @@
 				FFE4048A203174D900B70B12 /* MainMapVC.swift in Sources */,
 				FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */,
 				FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */,
+				FFAFEAB62097C36F001C7C1B /* User.swift in Sources */,
 				FF85071220276B81003CB080 /* PostDetailVCC.swift in Sources */,
 				FF85073A202F549C003CB080 /* CreatingPostVC.swift in Sources */,
 				FF7D5D372016885B0016F853 /* Constants.swift in Sources */,
 				FF7D5D3920168A620016F853 /* DataService.swift in Sources */,
+				FFAFEAB42097B6B1001C7C1B /* UserVC.swift in Sources */,
 				FF919B11201A70EE00270B65 /* Post.swift in Sources */,
 				FF421D472017E4B00023D9BF /* CategoryRow.swift in Sources */,
 			);

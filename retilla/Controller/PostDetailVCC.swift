@@ -111,7 +111,9 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         
         annotation.coordinate = CLLocationCoordinate2D(latitude: post.lat, longitude: post.long)
         self.map.addAnnotation(annotation)
-        
+        let center = CLLocationCoordinate2D(latitude: post.lat, longitude: post.long)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5))
+        self.map.setRegion(region, animated: true)
 
         //let coor = post.coordinatesGps
        // let latt = coor?.prefix(16)
@@ -124,24 +126,13 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         //let long = coor?.suffix(from: indexx!).dropFirst()
         //let doubleLong = Double(long)
         
-        
-//        let annotation = MKPointAnnotation()
-//        annotation.coordinate = CLLocationCoordinate2D(latitude: doubl, longitude: <#T##CLLocationDegrees#>)
-        
        // let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
-        
-        
-        print("coor: \(String(describing: coor!))")
-        print("latt: \(String(describing: lat!))")
-        print("long: \(String(describing: long!))")
-       
+
 //        let annotation = MKPointAnnotation()
 //        annotation.coordinate = CLLocationCoordinate2D(latitude: Double("\(String(describing: latt))")!, longitude: Double("\(String(describing: long))")!)
 //
     }
 
-    
-    
     @IBAction func backBtnTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

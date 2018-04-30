@@ -19,13 +19,14 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     @IBOutlet weak var pullUpView: UIView!
     
     @IBOutlet weak var reactionLbl: UILabel!
-    @IBOutlet weak var imageUrlLbl: UILabel!
+    //@IBOutlet weak var imageUrlLbl: UILabel!
     @IBOutlet weak var hashtagLbl: UILabel!
     @IBOutlet weak var sectionNrLbl: UILabel!
     @IBOutlet weak var locationLbl: UILabel!
     @IBOutlet weak var timeStampLbl: UILabel!
     @IBOutlet weak var postStoryLbl: UILabel!
-    @IBOutlet weak var imgLbl: UIImageView!
+    //@IBOutlet weak var imgLbl: UIImageView!
+    @IBOutlet weak var postStoryTest: UITextView!
     
     
     
@@ -45,7 +46,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     var annot: Annotations?
     
     var annotationn = [Post]()
-   // var pinDetails: Post?
+    // var pinDetails: Post?
     var ref: DatabaseReference!
     
     var lat: CLLocationDegrees = 0.0
@@ -55,55 +56,52 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     var story: String? = "aaaa"
     var hashtag: String? = "aaaa"
     var reactions: Int? = 0
-
-
-//    var annotationnn: Annotations?
-//    var titleeee: String? = "klkl"
-//    var hashh: String?
+    
+    //    var annotationnn: Annotations?
+    //    var titleeee: String? = "klkl"
+    //    var hashh: String?
     
     let locationManager = CLLocationManager()
     let regionRadius: CLLocationDistance = 10000
     
     //these will need to be downloaded from Firebase and here should be coordinates
-//    let addresses = [
-//
-//    "Ozo g. 14, Vilnius 08200",
-//    "Verkių g. 29, Vilnius 09108",
-//    "Bow Bridge, New York, NY 10024, Jungtinės Valstijos"
-//    ]
+    //    let addresses = [
+    //
+    //    "Ozo g. 14, Vilnius 08200",
+    //    "Verkių g. 29, Vilnius 09108",
+    //    "Bow Bridge, New York, NY 10024, Jungtinės Valstijos"
+    //    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
         //self.view.addSubview(DetailPinView)
         
-
-        
-        locationAuthStatus()
-   
-        geoFire = GeoFire(firebaseRef: URL_GENERAL)
-
-       // reactionLbl.text = annotationnnnn?.hashtag
-       // print("reactionLBL.text in viewdidLoad: \(reactionLbl.text)")
-        
-      
-        
-        
-        }
-        
-//        for add in addresses {
-//            getPlaceMarkFromAddress(address: add)
-//        }
     
+        locationAuthStatus()
+        
+        geoFire = GeoFire(firebaseRef: URL_GENERAL)
+        
+        // reactionLbl.text = annotationnnnn?.hashtag
+        // print("reactionLBL.text in viewdidLoad: \(reactionLbl.text)")
+        
 
+    }
+    
+    //        for add in addresses {
+    //            getPlaceMarkFromAddress(address: add)
+    //        }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         fetchCoordinates()
         
         self.map.addAnnotations(annotationn as! [MKAnnotation])
-
+        
     }
-
-
+    
+    
+    
     
     func locationAuthStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
@@ -125,36 +123,35 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             let lat = loc.coordinate.latitude
             let long = loc.coordinate.longitude
             print(lat, long)
-
+            
         }
     }
     
-
     
-//    func createAnnotationforLocation(location: CLLocation) {
-//        let anot = Annotations(coordinate: location.coordinate, identifier: "droppablePin")
-//        map.addAnnotation(anot)
-//    }
-
     
-//    func getPlaceMarkFromAddress(address: String) {
-//        CLGeocoder().geocodeAddressString(address) { (placemark, error) in
-//            if let marks = placemark, marks.count > 0 {
-//                if let loc = marks[0].location {
-//                    //we have a valid location with coordinates
-//                    self.createAnnotationforLocation(location: loc)
-//                }
-//            }
-//        }
-//    }
+    //    func createAnnotationforLocation(location: CLLocation) {
+    //        let anot = Annotations(coordinate: location.coordinate, identifier: "droppablePin")
+    //        map.addAnnotation(anot)
+    //    }
+    
+    //    func getPlaceMarkFromAddress(address: String) {
+    //        CLGeocoder().geocodeAddressString(address) { (placemark, error) in
+    //            if let marks = placemark, marks.count > 0 {
+    //                if let loc = marks[0].location {
+    //                    //we have a valid location with coordinates
+    //                    self.createAnnotationforLocation(location: loc)
+    //                }
+    //            }
+    //        }
+    //    }
     
     
     
     func fetchCoordinates() {
-         //URL_BASE.child("users").child(uid!).child("reactions").child(post.postKey)
+        //URL_BASE.child("users").child(uid!).child("reactions").child(post.postKey)
         ref = DataService.instance.URL_BASE.child("posts")
         ref.observe(.value) { snapshot in
-           
+            
             for snap in snapshot.children {
                 let postSnap = snap as! DataSnapshot
                 if let dict = postSnap.value as? [String:AnyObject] {
@@ -164,11 +161,11 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     let key = postSnap.key
                     let pinDetails = Post(postKey: key, dictionary: dict)
                     
-//                    var titlee = dict["location"] as! String
-//                    var timestamp = dict["timestamp"] as! String
-//                    var reactions = dict["reactions"] as? String
-//                    var location = dict["location"] as! String
-//                    var imageUrl = dict["imageUrl"] as! String
+                    //                    var titlee = dict["location"] as! String
+                    //                    var timestamp = dict["timestamp"] as! String
+                    //                    var reactions = dict["reactions"] as? String
+                    //                    var location = dict["location"] as! String
+                    //                    var imageUrl = dict["imageUrl"] as! String
                     //                    var story = dict["description"] as? String
                     // var hashtag = dict["hashtag"] as? String
                     print("snap in MainMapVC:::: \(snap)")
@@ -179,29 +176,29 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     
                     let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
                     
-//                    let annot = Annotations(
-//                        coordinate: pinCoordinate,
-//                        reactions: pinDetails.likes,
-//                        imageUrl: pinDetails.imageUrl,
-//                        postStory: pinDetails.postStory,
-//                        hashtag: pinDetails.hashtag,
-//                        sectionNumber: pinDetails.sectionNumber,
-//                        location: pinDetails.location,
-//                        timeStamp: pinDetails.timestamp
-//                    )
+                    //                    let annot = Annotations(
+                    //                        coordinate: pinCoordinate,
+                    //                        reactions: pinDetails.likes,
+                    //                        imageUrl: pinDetails.imageUrl,
+                    //                        postStory: pinDetails.postStory,
+                    //                        hashtag: pinDetails.hashtag,
+                    //                        sectionNumber: pinDetails.sectionNumber,
+                    //                        location: pinDetails.location,
+                    //                        timeStamp: pinDetails.timestamp
+                    //                    )
                     
                     let aaaa = Annotations(coordinate: pinCoordinate, reactions: pinDetails.likes, imageUrl: pinDetails.imageUrl, postStory: pinDetails.postStory, hashtag: pinDetails.hashtag, sectionNumber: pinDetails.sectionNumber, location: pinDetails.location, timeStamp: pinDetails.timestamp)
                     print("aaaa::: \(aaaa)")
-//                    self.titleeee = annotationnnnn.hashtag
-                   // print("self.Titleeee::: \(String(describing: self.titleeee))")
+                    //                    self.titleeee = annotationnnnn.hashtag
+                    // print("self.Titleeee::: \(String(describing: self.titleeee))")
                     
-//                    self.reactionLbl.text = self.titleeee
-//                    print("reactionLbl.text::: \(String(describing: self.reactionLbl.text))")
+                    //                    self.reactionLbl.text = self.titleeee
+                    //                    print("reactionLbl.text::: \(String(describing: self.reactionLbl.text))")
                     
                     aaaa.coordinate = pinCoordinate
                     
                     self.map.addAnnotation(aaaa)
-
+                    
                 }
             }
         }
@@ -227,65 +224,65 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                 return view
             }
             return nil
+        }
     }
-}
     
-//    func updatePulledUpView() {
-//        let labelll = view.annotation
-//
-//         print("c\(String(describing: labelll))")
-//        print("updatePulledUpView:::")
-//        if labelll != "" {
-//            self.reactionLbl.text = labelll
-//            print("hashh in func: \(String(describing: labelll))")
-//        } else {
-//            self.reactionLbl.text = "noo dataa"
-//        }
-//        reloadInputViews()
-//    }
-    
+    //    func updatePulledUpView() {
+    //        let labelll = view.annotation
+    //
+    //         print("c\(String(describing: labelll))")
+    //        print("updatePulledUpView:::")
+    //        if labelll != "" {
+    //            self.reactionLbl.text = labelll
+    //            print("hashh in func: \(String(describing: labelll))")
+    //        } else {
+    //            self.reactionLbl.text = "noo dataa"
+    //        }
+    //        reloadInputViews()
+    //    }
     
     
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        if annotation is MKUserLocation {
-//            //nill to not make user location as a pin
-//            return nil
-//        } else {
-//        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
-//        pinAnnotation.pinTintColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
-//        pinAnnotation.animatesDrop = true
-//        return pinAnnotation
-//        }
-//    }
     
+    //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    //        if annotation is MKUserLocation {
+    //            //nill to not make user location as a pin
+    //            return nil
+    //        } else {
+    //        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
+    //        pinAnnotation.pinTintColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+    //        pinAnnotation.animatesDrop = true
+    //        return pinAnnotation
+    //        }
+    //    }
     
     
     
     
-//    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        print("call out accessory Control Tapped::: \(annotationn)")
-//    }
+    
+    //    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    //        print("call out accessory Control Tapped::: \(annotationn)")
+    //    }
     
     
     func addSwipe() {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
         swipe.direction = .down
         pullUpView.addGestureRecognizer(swipe)
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
-//        swipe.direction = .down
-//        view.addGestureRecognizer(tap)
+        //        let tap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
+        //        swipe.direction = .down
+        //        view.addGestureRecognizer(tap)
     }
-
+    
     func animateViewUp() {
-        pullUpViewHeightConstraint.constant = 200
+        pullUpViewHeightConstraint.constant = 150
         UIView.animate(withDuration: 0.3) {
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
             
-            
-            
         }
     }
+    
+    
     
     @objc func animateViewDown() {
         pullUpViewHeightConstraint.constant = 0
@@ -294,10 +291,36 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         }
     }
     
+
+    
+   func addSwipeUp() {
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(animateViewUpUpUp))
+        swipeUp.direction = .up
+    
+        pullUpView.addGestureRecognizer(swipeUp)
+    }
+
+//    func animateViewUpUp() {
+//        pullUpViewHeightConstraint.constant = 200
+//        UIView.animate(withDuration: 0.2) {
+//            self.view.setNeedsLayout()
+//            self.view.layoutIfNeeded()
+//        }
+//    }
+    
+    @objc func animateViewUpUpUp() {
+        
+        pullUpViewHeightConstraint.constant = 250
+    }
+    
+    
+    
+    
+    
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
-
+        
         
         if let tappedPin = view.annotation as? Annotations {
             if let reactions = tappedPin.reactions {
@@ -306,11 +329,11 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                 reactionLbl?.text = "no reactions"
             }
             
-            if let imageUrl = tappedPin.imageUrl {
-                imageUrlLbl.text = imageUrl
-            } else {
-                imageUrlLbl.text = "no url"
-            }
+//            if let imageUrl = tappedPin.imageUrl {
+//                imageUrlLbl.text = imageUrl
+//            } else {
+//                imageUrlLbl.text = "no url"
+//            }
             
             if let hashtag = tappedPin.hashtag {
                 hashtagLbl?.text = hashtag
@@ -337,88 +360,99 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             }
             
             if let story = tappedPin.postStory {
-                postStoryLbl?.text = story
+                postStoryTest.text = story
             } else {
-                postStoryLbl?.text = "no story"
+                postStoryTest.text = "no story"
             }
             
-
             
-//             NEED TO adjust if image fails to download (make default value)
+            
+            //             NEED TO adjust if image fails to download (make default value)
             //NEED TO cache img. Plus, NEED TO make new .swift file for UIView and place all view details there
-            if let url = tappedPin.imageUrl {
-                let url = URL(string: url)
-                let data = try? Data(contentsOf: url!)
-                
-                imgLbl.image = UIImage(data: data!)
-                
-//                var image: UIImage?
-//                print("url::: \(url)")
-//                image = MainMapVC.imageCach.object(forKey: url as AnyObject) as? UIImage
-//                imgLbl.image = image
-//                print("imgLbl.image \(String(describing: imgLbl.image))")
-//            } else {
-//                imgLbl.image = UIImage(named: "Unknown")
+            
+            
+            
+            
+            
+            
+//            if let url = tappedPin.imageUrl {
+//                let url = URL(string: url)
+//                let data = try? Data(contentsOf: url!)
+//
+//                imgLbl.image = UIImage(data: data!)
+//
+//                //                var image: UIImage?
+//                //                print("url::: \(url)")
+//                //                image = MainMapVC.imageCach.object(forKey: url as AnyObject) as? UIImage
+//                //                imgLbl.image = image
+//                //                print("imgLbl.image \(String(describing: imgLbl.image))")
+//                //            } else {
+//                //                imgLbl.image = UIImage(named: "Unknown")
+//                //            }
+//
+//
+//
+//
+//                //        let hashtag = view.annotation?.title
+//                //        print("hashtag::: \(String(describing: hashtag))")
+//                //        if let hashtag = view.annotation?.title {
+//                //            reactionLbl.text = hashtag
+//                //        } else {
+//                //         reactionLbl.text = "no hashtag"
+//                //        }
+//                //
+//                //        let timeee = annotationnn?.timeStampp
+//                //        print("timeee::: \(String(describing: timeee))")
+//                //
+//
 //            }
             
+            
+            
+            
+            
+            
+            
+            
+            //        if let detailAnnotView = Bundle.main.loadNibNamed("DetailAnnotationView", owner: self, options: nil)?.first as? DetailAnnotationView {
+            //            let pinToZoon = view.annotation?.title
+            //            detailAnnotView.xibLabel.text = pinToZoon!
+            //            self.view.addSubview(detailAnnotView)
+            //
+            ////            detailAnnotView.setNeedsLayout()
+            ////            detailAnnotView.layoutIfNeeded()
+            //
+            //        }
+            
+            
+            
+            
+            
+            // self.selectedAnnotaton = view.annotation as? Annotations
+            
+            //        let anno = annotationn[index(ofAccessibilityElement: selectedAnnotaton!)]
+            //        print("annnnnnooo::: \(anno)")
+            
+            animateViewUp()
+            //animateViewUpUp()
+            //        updatePulledUpView()
+            addSwipe()
+            
+       
+                addSwipeUp()
 
+            //        if case self.selectedAnnotaton = view.annotation as? Annotations {
+            //            print("selected annotation coordinate::: \(String(describing: self.selectedAnnotaton))")
+            //
+            //
+            //        }
             
- 
-//        let hashtag = view.annotation?.title
-//        print("hashtag::: \(String(describing: hashtag))")
-//        if let hashtag = view.annotation?.title {
-//            reactionLbl.text = hashtag
-//        } else {
-//         reactionLbl.text = "no hashtag"
-//        }
-//
-//        let timeee = annotationnn?.timeStampp
-//        print("timeee::: \(String(describing: timeee))")
-//
             
+            
+            //        animateViewUp()
+            //        addSwipe()
         }
-
         
-        
-        
-        
-//        if let detailAnnotView = Bundle.main.loadNibNamed("DetailAnnotationView", owner: self, options: nil)?.first as? DetailAnnotationView {
-//            let pinToZoon = view.annotation?.title
-//            detailAnnotView.xibLabel.text = pinToZoon!
-//            self.view.addSubview(detailAnnotView)
-//
-////            detailAnnotView.setNeedsLayout()
-////            detailAnnotView.layoutIfNeeded()
-//
-//        }
-        
-        
-        
-        
-       
-       // self.selectedAnnotaton = view.annotation as? Annotations
-        
-//        let anno = annotationn[index(ofAccessibilityElement: selectedAnnotaton!)]
-//        print("annnnnnooo::: \(anno)")
-       
-        animateViewUp()
-//        updatePulledUpView()
-        addSwipe()
-
-        
-//        if case self.selectedAnnotaton = view.annotation as? Annotations {
-//            print("selected annotation coordinate::: \(String(describing: self.selectedAnnotaton))")
-//
-//
-//        }
-        
-        
-        
-//        animateViewUp()
-//        addSwipe()
-
-    }
-    
     }
     
     @IBAction func centerUserLocation(_ sender: Any) {
@@ -430,91 +464,91 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     
     
-
     
     
     
     
     
     
-        
-//
-//        //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
-//        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
-//
-//            //in Firebase if there's no data, then it's NSNULL. nil won't work
-//            if let doesNotExist = snapshot.value as? NSNull {
-//                //this means user hasn't liked this specific post
-//                self.reactionImg.image = UIImage(named: "heartEmpty")
-//
-//            } else {
-//                self.reactionImg.image = UIImage(named: "heartFull")
-//            }
-//        })
-//    }
-//
-//
-//        DataService.instance.URL_POSTS.observeSingleEvent(of: .value) { (snapshot) in
-//            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
-//                for snap in snapshots {
-//                    print("SNAP IN MAPVC \(snap)")
-//
-//                    if let postDisctionary = snap.value as? Dictionary<String, AnyObject> {
-//                        let lattt = self.post.lat
-//                        let longgg = self.post.long
-////                        let key = snap.key
-////                        let post = Post(postKey: key, Dictionary: postDisctionary)
-////                        let lat =
-////
-////                        let lat = post.
-//                }
-////            }
-//        }
-//    }
-//
-//
-//
-//
-//
-//
-//
-//    DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
-//    print(snapshot.value as Any)
-//    self.posts = []
-//
-//    //this gives us data individual (every post separate array/dict?)
-//    //snapshot is like "posts" or "users" in Firebase, and snap is "likes", "hashtag" etc
-//    if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
-//    for snap in snapshots {
-//    print("SNAP::: \(snap)")
-//
-//    if let postDictionary = snap.value as? Dictionary<String, AnyObject> {
-//    //key is user/post ID
-//    let key = snap.key
-//    let post = Post(postKey: key, dictionary: postDictionary)
-//
-//    var section = post.sectionNumber?.hashValue
-//    print("SECTIONN: \(String(describing: section))")
-//
-//    self.posts.insert(post, at: 0)
-//
-//    }
-//    }
-//    }
-//
-//    self.tableView.reloadData()
-//    }
-//    print("ViewDidLoad Ended")
-//}
-//
-//
-//
-//
+    
+    
+    //
+    //        //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
+    //        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
+    //
+    //            //in Firebase if there's no data, then it's NSNULL. nil won't work
+    //            if let doesNotExist = snapshot.value as? NSNull {
+    //                //this means user hasn't liked this specific post
+    //                self.reactionImg.image = UIImage(named: "heartEmpty")
+    //
+    //            } else {
+    //                self.reactionImg.image = UIImage(named: "heartFull")
+    //            }
+    //        })
+    //    }
+    //
+    //
+    //        DataService.instance.URL_POSTS.observeSingleEvent(of: .value) { (snapshot) in
+    //            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+    //                for snap in snapshots {
+    //                    print("SNAP IN MAPVC \(snap)")
+    //
+    //                    if let postDisctionary = snap.value as? Dictionary<String, AnyObject> {
+    //                        let lattt = self.post.lat
+    //                        let longgg = self.post.long
+    ////                        let key = snap.key
+    ////                        let post = Post(postKey: key, Dictionary: postDisctionary)
+    ////                        let lat =
+    ////
+    ////                        let lat = post.
+    //                }
+    ////            }
+    //        }
+    //    }
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //    DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
+    //    print(snapshot.value as Any)
+    //    self.posts = []
+    //
+    //    //this gives us data individual (every post separate array/dict?)
+    //    //snapshot is like "posts" or "users" in Firebase, and snap is "likes", "hashtag" etc
+    //    if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
+    //    for snap in snapshots {
+    //    print("SNAP::: \(snap)")
+    //
+    //    if let postDictionary = snap.value as? Dictionary<String, AnyObject> {
+    //    //key is user/post ID
+    //    let key = snap.key
+    //    let post = Post(postKey: key, dictionary: postDictionary)
+    //
+    //    var section = post.sectionNumber?.hashValue
+    //    print("SECTIONN: \(String(describing: section))")
+    //
+    //    self.posts.insert(post, at: 0)
+    //
+    //    }
+    //    }
+    //    }
+    //
+    //    self.tableView.reloadData()
+    //    }
+    //    print("ViewDidLoad Ended")
+    //}
+    //
+    //
+    //
+    //
     
     
     
     
     
- 
+    
     
 }
