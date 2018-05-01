@@ -159,7 +159,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                         }
                     }
                 } else {
-                    debugPrint("location error: \(error)")
+                    debugPrint("location error: \(String(describing: error))")
                 }
             })
         }

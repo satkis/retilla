@@ -37,6 +37,8 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     
     
     @IBOutlet weak var longitudee: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self

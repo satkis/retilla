@@ -19,11 +19,11 @@ class User {
     private var _last_name: String?
     private var _name: String?
     
-    var userKey: String! {
+    var userKey: String {
         return _userKey
     }
     
-    var email: String! {
+    var email: String {
         return _email
     }
     
@@ -39,7 +39,7 @@ class User {
         return _name
     }
     
-    init(email: String!, first_name: String?, last_name: String?, name: String?) {
+    init(email: String, first_name: String?, last_name: String?, name: String?) {
         self._email = email
         self._first_name = first_name
         self._last_name = last_name
@@ -66,7 +66,7 @@ class User {
             self._name = name
         }
         
-        self._userRef = DataService.instance.URL_USERS.child(self._userKey)
+        self._userRef = DataService.instance.URL_USER_CURRENT
     }
 }
 

@@ -102,7 +102,7 @@ class PostCell: UICollectionViewCell {
         //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
         reactionRef.observeSingleEvent(of: .value, with: { snapshot in
             
-            //in Firebase if there's no data, then it's NSNULL. nil won't work
+            //in Firebase if there's no data, then it's NSNULL. 'nil' won't work
             if let doesNotExist = snapshot.value as? NSNull {
                 //this means user hasn't liked this specific post
                 self.reactionImg.image = UIImage(named: "heartEmpty")
