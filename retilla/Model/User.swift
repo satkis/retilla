@@ -66,7 +66,7 @@ class User {
             self._name = name
         }
         
-        self._userRef = DataService.instance.URL_USER_CURRENT
+       // self._userRef = DataService.instance.URL_USER_CURRENT
     }
 }
 

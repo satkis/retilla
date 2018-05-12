@@ -60,11 +60,6 @@ class ViewController: UIViewController {
                         // create a child reference - uid will let us wrap each users data in a unique user id for later reference
                         let usersReference = ref.child("users").child(uid)
                         
-                        
-                        
-                        
-                        
-                        
                         let graphPath = "me"
                         
                         let parameters = ["fields": "name, first_name, last_name, timezone, picture, email"]
@@ -92,7 +87,7 @@ class ViewController: UIViewController {
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
                                 
                                 DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
-                                print("USER IDDD UID::: \(authData?.uid))")
+                                print("USER IDDD UID::: \(String(describing: authData?.uid)))")
                                 
                                 usersReference.updateChildValues(user, withCompletionBlock: { (err, ref) in
                                     if err != nil {
@@ -114,7 +109,25 @@ class ViewController: UIViewController {
     
     @IBAction func emailLoginPressed(_ sender: Any) {
         if let email = emailTxt.text, email != "", let pwd = passwordTxt.text, pwd != "" {
-            
+//            Auth.auth().signIn(withEmail: email, password: pwd, completion: { authData, error in
+//                if error != nil {
+//                    print("errooor::: \(error)")
+//                    if let error = AuthErrorCode(rawValue: STATUS_ACCOUNT_NONEXIST) {
+//                        Auth.auth().createUser(withEmail: email, password: pwd, completion: { (result, err) in
+//                            if error != nil {
+//                            }
+//                        })
+//                    } else {
+//                        showErrorAlert(title: "kitokia error", msg: "neaisku kas negerai")
+//                    }
+//                } else {
+//                    //login if user already exists
+//                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+//                }
+//                )
+//            }
+//        }
+//    }
             Auth.auth().signIn(withEmail: self.emailTxt.text!, password: self.passwordTxt.text!, completion: { (authData, error) in
                 
                 if error != nil {
@@ -125,21 +138,15 @@ class ViewController: UIViewController {
                             if error != nil {
                                 self.showErrorAlert(title: "smth wrong with acct creation", msg: "try later or continue  Anonymously")
                             }  else {
-                                //UserDefaults.standard.set(result[KEY_UID], forKey: KEY_UID)
+//                                UserDefaults.standard.set(result[KEY_UID], forKey: KEY_UID)
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                            
-                   
+                        
 //                                let data:[String:AnyObject] = result as! [String : AnyObject]
-//
 //                                let userName : NSString? = data["email"]! as? NSString
                                 let user = ["email": self.emailTxt.text]
                                 
                                 DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
-                      
-                                
                                 print("USER LOGGED IN WITH ID::: \(String(describing: Auth.auth().currentUser?.uid))")
-                             
-                                
                                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                             }
                         }

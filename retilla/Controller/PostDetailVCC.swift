@@ -11,9 +11,11 @@ import MapKit
 
 class PostDetailVCC: UIViewController, MKMapViewDelegate {
 
+
     let annotation = MKPointAnnotation()
     
     var post: Post!
+    var user: User!
     var lat: CLLocationDegrees = 0.0
     var long: CLLocationDegrees = 0.0
     
@@ -44,7 +46,12 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         map.delegate = self
         
         self.navigationController?.isNavigationBarHidden = false
+        
         self.title = "some"
+        
+
+        
+
         
         if post.postStory != nil {
             postStoryLbl.text = post.postStory

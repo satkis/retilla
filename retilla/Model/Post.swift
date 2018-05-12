@@ -131,6 +131,10 @@ class Post {
             self._timestamp = timestamp
         }
         
+        if let username = dictionary["username"] as? String {
+            self._username = username
+        }
+        
         self._postRef = DataService.instance.URL_POSTS.child(self._postKey)
     }
     

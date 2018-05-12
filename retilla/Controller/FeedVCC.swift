@@ -28,6 +28,8 @@ class FeedVCC: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        self.navigationController?.isNavigationBarHidden = false
+        self.title = "home"
         
         
         
@@ -62,6 +64,8 @@ class FeedVCC: UITableViewController {
         print("ViewDidLoad Ended")
     }
     
+    
+
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // guard posts.count != 0 else { return 1 }

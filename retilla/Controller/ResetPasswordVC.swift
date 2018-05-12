@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import Firebase
 
 class ResetPasswordVC: UIViewController {
 
+    let mainVC = ViewController()
 
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    
+    @IBOutlet weak var emailField: UITextField!
+    
+
     
     var effect: UIVisualEffect!
     
@@ -38,15 +44,28 @@ class ResetPasswordVC: UIViewController {
         }
     }
     
+    func resetPassword(email: String) {
+        if let email = emailField.text, email != "" || email.contains("@") || email.contains(".") {
+  
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            if error == nil {
+                print("pasword was reset successfully")
+            } else {
+                self.mainVC.showErrorAlert(title: "something went wrong", msg: "check your email or smth")
+            }
+            }
+        }
+    }
+    
+    
     @IBAction func closePopUP(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBOutlet weak var emailField: UITextField!
+    @IBAction func resterPwdPressed(_ sender: Any) {
+        resetPassword(email: emailField.text!)
+    }
     
-    @IBOutlet weak var resetPwdButton: UIButton!
-    
-
 
 
 }

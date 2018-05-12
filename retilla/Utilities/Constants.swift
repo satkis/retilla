@@ -11,6 +11,7 @@ import Foundation
 // Segues
 let SEGUE_LOGGED_IN = "loggedIn"
 let SEGUE_POSTDETAILVC = "PostDetailVC"
+let SEGUE_TOSETTINGSVC = "SettingsVC"
 
 
 // Keys

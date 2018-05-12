@@ -37,9 +37,9 @@ class DataService {
     }
     
     var URL_USER_CURRENT: DatabaseReference! {
-        let uid = UserDefaults.standard.value(forKey: KEY_UID) as? String
+        let uid = UserDefaults.standard.value(forKey: KEY_UID) as! String
         print("UIDDDDDDD: \(String(describing: uid))")
-        let user = URL_BASE.child("users").child(uid!)
+        let user = URL_USERS.child(uid)
         print("USERRRRRR: \(user)")
         return user
     }

@@ -12,6 +12,8 @@ import CoreLocation
 
 class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
 
+    var currentUser: DatabaseReference!
+    var user: User!
     var imagePicker: UIImagePickerController!
     var imageSelected = false
     var imageDowloadURL: String!
@@ -25,9 +27,12 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var lat: String!
     var long: String!
     var postTimestamp: String! = "mmmm"
+    var username: String! = "usrnm na"
+    
 
     
     let locationManager = CLLocationManager()
+    //let userVCRef = UserVC()
     
     private var image: UIImage!
     
@@ -49,7 +54,29 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
+        currentUser = DataService.instance.URL_USER_CURRENT
+        
+        currentUser.observeSingleEvent(of: .value) { (snapshot) in
+            
+            let snap = snapshot.value as? Dictionary<String, AnyObject>
+            print("snap::: \(String(describing: snap))")
+            
+            let key = snapshot.key
+            let user = User(userKey: key, dictionary: snap!)
+            
+            if user.first_name != nil {
+                self.username = user.first_name
+            } else if user.email.contains("@") {
+                let emailCutOff = user.email.components(separatedBy: "@").first
+                self.username = emailCutOff
+            } else if user.email.contains("Anonymous") {
+                self.username = "Anonymous"
+            } else {
+                self.username = "no user ID"
+            }
+        }
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear of CreatingPostVC")
@@ -82,13 +109,19 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
-    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!) {
+    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!, username: String!) {
         
        let postTimestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
      
         let lat = locationManager.location?.coordinate.latitude
         let long = locationManager.location?.coordinate.longitude
         
+        
+        //let ree = self.userVCRef.currentUser_DBRef.key
+        
+        //let tyy = DataService.instance.URL_USER_CURRENT.
+
+       // print("ree:: \(ree)")
         let post: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
             "description": descriptionField?.text as Any,
@@ -99,7 +132,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             "coordinates": String(describing: (lat!) as Any)+","+String(describing: (long!) as Any),
             "timestamp": postTimestamp as Any,
             "latitude": lat as Any,
-            "longitude": long as Any
+            "longitude": long as Any,
+            "username": username as Any
             ]
         
         
@@ -142,6 +176,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             print(loc)
             let lat = loc.coordinate.latitude
             let long = loc.coordinate.longitude
+           
             
             print("latitudeeeeeeeee: \(lat)", "longitudeeeeeeeeee: \(long)")
             
@@ -262,13 +297,13 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
                     print("imageDowloadURL:: \(self.imageDowloadURL)")
-                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation: self.postLocation, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long)
+                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation: self.postLocation, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
                     
                     self.dismiss(animated: true, completion: nil)
                 })
             } else {
                 print("image not selected but SHARE tapped")
-                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa")
+                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
                 print("saved to Firebase nil image")
                 dismiss(animated: true, completion: nil)
             }

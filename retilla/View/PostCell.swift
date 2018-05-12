@@ -66,6 +66,12 @@ class PostCell: UICollectionViewCell {
             self.readStoryLbl.text = ""
         }
         
+        if let user = post.username, post.username != "" {
+            self.userNameLbl.text = user
+        } else {
+            self.userNameLbl.text = "no user ID"
+        }
+        
         if let postTime = post.timestamp, post.timestamp != "" {
             //let dateee = postTime.Substring(post.timestamp.prefix(6))
             // self.postDateLbl.text = "\(postTime.index(postTime.startIndex, offsetBy: 6))"
