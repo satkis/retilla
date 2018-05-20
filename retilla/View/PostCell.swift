@@ -18,6 +18,7 @@ class PostCell: UICollectionViewCell {
     
     
     
+    
     @IBOutlet weak var locationLbl: UILabel!
     
     @IBOutlet weak var postDateLbl: UILabel!
@@ -54,7 +55,7 @@ class PostCell: UICollectionViewCell {
         print("printtt: \(reactionRef)")
         self.reactionCountLbl.text = "\(post.likes!)"
         
-        if let location = post.location, post.location != "" {
+        if let location = post.location_country, post.location_country != "" {
             self.locationLbl.text = location
         } else {
             self.locationLbl.text = "no location"
@@ -67,15 +68,69 @@ class PostCell: UICollectionViewCell {
         }
         
         if let user = post.username, post.username != "" {
-            self.userNameLbl.text = user
-        } else {
-            self.userNameLbl.text = "no user ID"
+            if user.contains("Anonymous") {
+                self.userNameLbl.text = "Anonymous"
+            } else {
+                self.userNameLbl.text = user
+            }
         }
+    
+//
+//
+//        if let user = post.username, post.username != "", user.contains("Anonymous") {
+//            self.userNameLbl.text = "Anonymous"
+//            } else {
+//                self.userNameLbl.text = user
+//            } else {
+//                self.userNameLbl.text = "no user ID"
+//            }
+    
+
         
-        if let postTime = post.timestamp, post.timestamp != "" {
+        if let postTime = post.timestamp, postTime != "" {
+            
+            let fff = postTime.hashValue
+            let kk = post.timestamp as NSString
+            let tt = kk.doubleValue
+            let converted = Date(timeIntervalSince1970: TimeInterval(fff / 1000))
+            let conv = NSDate()
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = NSTimeZone.local
+            dateFormatter.dateFormat = "yyyy-mm-dd hh:mm:ss"
+            let timee = dateFormatter.string(from: converted)
+            
+            let sss: Double = (postTime as NSString).doubleValue
+             print("ss \(sss)")
+            
+            print("kk \(kk)")
+            print("tt \(tt)")
+            print("fff \(fff)")
+            print("converted \(converted)")
+            print("dateFormatter \(dateFormatter)")
+            print("timee \(timee)")
+            
+            
+//            let eee = fff.doubleValue
+            let ww  = postTime.description
+            
+            
+//            print("eee \(eee)")
+            print("ww \(ww)")
+          
+            
+            let now = Date()
+            print("dateee \(now)")
+            
+            //print("fff \(fff)")
+            let tii = Double(post.timestamp)
+            print("tii \(tii)")
+            print("post.timestamp \(post.timestamp)")
+//            let pastDate = Date(timeIntervalSinceNow: tt!)
+//self.postDateLbl.text = pastDate.timeAgoDisplay()
+            
             //let dateee = postTime.Substring(post.timestamp.prefix(6))
             // self.postDateLbl.text = "\(postTime.index(postTime.startIndex, offsetBy: 6))"
-            self.postDateLbl.text = "\(postTime.prefix(6))"
+    self.postDateLbl.text = "\(postTime.prefix(6))"
             //self.postDateLbl.text = postTime.
         } else {
             self.postDateLbl.text = "n/a"
@@ -138,3 +193,39 @@ class PostCell: UICollectionViewCell {
     
     
 }
+
+
+extension Date {
+    func timeAgoDisplay() -> String {
+        let secondsAgo = Int(Date().timeIntervalSince(self))
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        let month = 4 * week
+        let year = 12 * month
+        
+        if secondsAgo < minute {
+            return "Just now"
+        } else if secondsAgo < hour {
+            return "\(secondsAgo / minute)mins ago"
+        } else if secondsAgo < day {
+            return "\(secondsAgo / hour)h ago"
+        } else if secondsAgo < week {
+            return "\(secondsAgo / day)d ago"
+        } else if secondsAgo < month {
+            return "\(secondsAgo / week)w ago"
+        } else if secondsAgo < year {
+            return "\(secondsAgo / month)m ago"
+        }
+        
+        return "\(secondsAgo / year)y ago"
+    }
+}
+
+
+
+
+
+
+

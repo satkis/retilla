@@ -19,6 +19,7 @@ class UserVC: UIViewController {
     
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var postCounterLbl: UILabel!
+    @IBOutlet weak var reactionsLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,13 +58,29 @@ class UserVC: UIViewController {
             }
         }
         
-    
+
+        
+        
         currentUser_DBRef.child("posts").observeSingleEvent(of: .value) { (snapshot) in
-            if let snapshots = snapshot.children.allObjects as? [DataSnapshot] {
-                self.postCounterLbl.text = String(snapshots.count)
+            if let postsnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                self.postCounterLbl.text = String(postsnapshots.count)
             }
         }
+        
 
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        currentUser_DBRef.child("reactions").observeSingleEvent(of: .value) { (snapshot) in
+            if let reactsnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                self.reactionsLbl.text = String(reactsnapshots.count)
+            }
+            self.reloadInputViews()
+        }
+        
     }
     
    private func setupNavigationBarItems() {

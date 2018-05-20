@@ -18,7 +18,8 @@ class Post {
     private var _username: String?
     private var _postKey: String!
     private var _sectionNumber: Int?
-    private var _location: String?
+    private var _location_city: String?
+    private var _location_country: String?
     private var _lat: Double!
     private var _long: Double!
     private var _timestamp: String!
@@ -56,8 +57,12 @@ class Post {
         return _postKey
     }
     
-    var location: String? {
-        return _location
+    var location_city: String? {
+        return _location_city
+    }
+    
+    var location_country: String? {
+        return _location_country
     }
     
     var lat: Double! {
@@ -74,14 +79,15 @@ class Post {
     
     
     
-    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location: String!, timestamp: String!, lat: Double!, long: Double!, likes: Int!) {
+    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location_city: String!, location_country: String!, timestamp: String!, lat: Double!, long: Double!, likes: Int!) {
         self._postStory = postStory
         self._hashtag = hashtag
         self._imageUrl = imageUrl
         self._username = username
         self._sectionNumber = sectionNumber
         self._coordinatesGps = coordinatesGps
-        self._location = location
+        self._location_city = location_city
+        self._location_country = location_country
         self._lat = lat
         self._long = long
         self._timestamp = timestamp
@@ -123,8 +129,12 @@ class Post {
             self._long = long
         }
         
-        if let location = dictionary["location"] as? String {
-            self._location = location
+        if let location_city = dictionary["location_city"] as? String {
+            self._location_city = location_city
+        }
+        
+        if let location_country = dictionary["location_country"] as? String {
+            self._location_country = location_country
         }
         
         if let timestamp = dictionary["timestamp"] as? String {

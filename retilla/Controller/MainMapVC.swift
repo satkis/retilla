@@ -187,7 +187,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     //                        timeStamp: pinDetails.timestamp
                     //                    )
                     
-                    let aaaa = Annotations(coordinate: pinCoordinate, reactions: pinDetails.likes, imageUrl: pinDetails.imageUrl, postStory: pinDetails.postStory, hashtag: pinDetails.hashtag, sectionNumber: pinDetails.sectionNumber, location: pinDetails.location, timeStamp: pinDetails.timestamp)
+                    let aaaa = Annotations(coordinate: pinCoordinate, reactions: pinDetails.likes, imageUrl: pinDetails.imageUrl, postStory: pinDetails.postStory, hashtag: pinDetails.hashtag, sectionNumber: pinDetails.sectionNumber, location: pinDetails.location_city, timeStamp: pinDetails.timestamp)
                     print("aaaa::: \(aaaa)")
                     //                    self.titleeee = annotationnnnn.hashtag
                     // print("self.Titleeee::: \(String(describing: self.titleeee))")

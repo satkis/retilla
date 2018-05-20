@@ -18,45 +18,69 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     var user: User!
     var lat: CLLocationDegrees = 0.0
     var long: CLLocationDegrees = 0.0
+    var effect: UIVisualEffect!
     
+    @IBOutlet weak var blurrView: UIVisualEffectView!
     @IBOutlet weak var map: MKMapView!
     //let regionRadius: CLLocationDistance = 1000
     
     @IBOutlet weak var postStoryLbl: UILabel!
     @IBOutlet weak var hashtagLbl: UILabel!
-    @IBOutlet weak var coordinatesLbl: UILabel!
-    @IBOutlet weak var imageUrlLbl: UILabel!
+
+
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var sectionNumberLbl: UILabel!
+   
+    @IBOutlet weak var cityLbl: UILabel!
+    @IBOutlet weak var countryLbl: UILabel!
     
     @IBOutlet weak var postTimestampLbl: UILabel!
     
    
     @IBOutlet weak var imageLbl: UIImageView!
     
-    @IBOutlet weak var latitudee: UILabel!
-    
-    
-    @IBOutlet weak var longitudee: UILabel!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
+        
+        effect = blurrView.effect
+        blurrView.effect = nil
         
         self.navigationController?.isNavigationBarHidden = false
         
         self.title = "some"
         
-
+        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animate)))
+        view.addSubview(imageLbl)
         
 
+//        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateOut)))
+
+        
+        if post.location_city != nil {
+            cityLbl.text = post.location_city
+        } else {
+            cityLbl.text = "City unidentified"
+        }
+        
+        if post.location_country != nil {
+            countryLbl.text = post.location_country
+        } else {
+            countryLbl.text = "City unidentified"
+        }
         
         if post.postStory != nil {
             postStoryLbl.text = post.postStory
         } else {
             postStoryLbl.text = "NO story found"
+        }
+        
+        if post.sectionNumber != nil {
+            sectionNumberLbl.text = "\(post.sectionNumber!)"
+        } else {
+            sectionNumberLbl.text = "n/a"
         }
   
         if post.hashtag != nil {
@@ -65,19 +89,8 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
             hashtagLbl.text = "NO hashtag found"
         }
         
-        if post.coordinatesGps != nil {
-            coordinatesLbl.text = post.coordinatesGps
-        } else {
-            coordinatesLbl.text = "n/a coordinates"
-        }
-        
-        if post.imageUrl != nil {
-            imageUrlLbl.text = post.imageUrl
-        } else {
-            imageUrlLbl.text = "n/a URL"
-        }
-        
-        self.likesLbl.text = "\(post.likes)"
+
+        self.likesLbl.text = "\(post.likes!)"
         
 //        if let likes = post.likes, post.likes != nil {
 //            likesLbl.text = String(likes)
@@ -92,7 +105,8 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         }
         
         if post.timestamp != nil {
-            postTimestampLbl.text = "\(post.timestamp!.prefix(6))"
+            postTimestampLbl.text = "\(post.timestamp)"
+//             postTimestampLbl.text = "\(post.timestamp!.prefix(6))"
         } else {
             postTimestampLbl.text = "n/a time"
         }
@@ -106,18 +120,6 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
             
         }
 
-        if post.lat != nil {
-            latitudee.text = "\(post.lat!)"
-        } else {
-            latitudee.text = "n/a lat"
-        }
-        
-        if post.long != nil {
-           longitudee.text = "\(post.long!)"
-        } else {
-            longitudee.text = "n/a long"
-        }
-        
         annotation.coordinate = CLLocationCoordinate2D(latitude: post.lat, longitude: post.long)
         self.map.addAnnotation(annotation)
         let center = CLLocationCoordinate2D(latitude: post.lat, longitude: post.long)
@@ -141,6 +143,43 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
 //        annotation.coordinate = CLLocationCoordinate2D(latitude: Double("\(String(describing: latt))")!, longitude: Double("\(String(describing: long))")!)
 //
     }
+    
+    @objc func animate() {
+        
+        self.imageLbl.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        self.imageLbl.alpha = 0
+        
+        UIView.animate(withDuration: 0.3) { () -> Void in
+            self.imageLbl.frame = CGRect(x: (self.view.frame.width / 2) - 120, y: (self.view.frame.height / 2) - 150, width: 240, height: 300)
+            self.blurrView.effect = self.effect
+            self.imageLbl.alpha = 1
+            self.imageLbl.transform = CGAffineTransform.identity
+            self.imageLbl.layer.cornerRadius = 5
+            
+            
+        }
+    }
+    
+//    @objc func animateOut() {
+//
+//        if let startingFrame = imageLbl.superview?.convert(imageLbl.frame, to: nil) {
+//            UIView.animate(withDuration: 0.75, animations: { () -> Void in
+//                self.imageLbl.frame = startingFrame
+//            }, completion: { (didComplete) -> Void in
+//                self.imageLbl.removeFromSuperview()
+//                self.blurrView.effect = nil
+//            }
+//        )}
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.imageLbl.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+//            self.imageLbl.alpha = 0
+//
+//            self.blurrView.effect = nil
+//        }) { (success: Bool) in
+//            self.imageLbl.removeFromSuperview()
+//        }
+//    }
+
 
     @IBAction func backBtnTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)

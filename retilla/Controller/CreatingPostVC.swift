@@ -22,7 +22,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var posts = [Post]()
     var newPostKey = DataService.instance.URL_POSTS.childByAutoId().key
     var selectedSection: Int! = nil
-    var postLocation: String! = "no city"
+    var postLocation_city: String! = "no city"
+    var postLocation_country: String! = "no country"
     var postCoordinates: String!
     var lat: String!
     var long: String!
@@ -42,7 +43,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var imageSelectorImage: UIImageView!
     
-    @IBOutlet weak var locationLbl: UILabel!
+    @IBOutlet weak var locationLbl_city: UILabel!
+    
+    @IBOutlet weak var locationLbl_country: UILabel!
     
     
     override func viewDidLoad() {
@@ -109,7 +112,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
-    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!, username: String!) {
+    func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation_city: String!, postLocation_country: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!, username: String!) {
         
        let postTimestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
      
@@ -128,7 +131,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             "hashtag": hashtagField?.text as Any,
             "likes": 0,
             "section": selectedSection as Int,
-            "location": locationLbl.text as Any,
+            "location_city": locationLbl_city.text as Any,
+            "location_country": locationLbl_country.text as Any,
             "coordinates": String(describing: (lat!) as Any)+","+String(describing: (long!) as Any),
             "timestamp": postTimestamp as Any,
             "latitude": lat as Any,
@@ -176,21 +180,19 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             print(loc)
             let lat = loc.coordinate.latitude
             let long = loc.coordinate.longitude
-           
             
             print("latitudeeeeeeeee: \(lat)", "longitudeeeeeeeeee: \(long)")
             
             CLGeocoder().reverseGeocodeLocation(loc, completionHandler: { (placemark, error) in
                 if error == nil {
+                    
                     if let place = placemark?[0] {
                         if let locality = place.locality {
-                            self.locationLbl.text = locality
+                            self.locationLbl_city.text = locality
+                            self.locationLbl_country.text = place.country
                         } else {
-                            if let country = place.country {
-                                self.locationLbl.text = country
-                            } else {
-                                self.locationLbl.text = "n/a"
-                            }
+                            self.locationLbl_city.text = "n/a"
+                            self.locationLbl_country.text = "n/aa"
                         }
                     }
                 } else {
@@ -199,6 +201,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             })
         }
     }
+    
+ 
+    
     
 //    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
 //        if let loc = userLocation.location {
@@ -297,13 +302,13 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
                     print("imageDowloadURL:: \(self.imageDowloadURL)")
-                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation: self.postLocation, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
+                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation_city: self.postLocation_city, postLocation_country: self.postLocation_country, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
                     
                     self.dismiss(animated: true, completion: nil)
                 })
             } else {
                 print("image not selected but SHARE tapped")
-                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
+                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation_city: "WRONG", postLocation_country: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
                 print("saved to Firebase nil image")
                 dismiss(animated: true, completion: nil)
             }

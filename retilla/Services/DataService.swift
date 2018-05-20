@@ -20,6 +20,7 @@ class DataService {
     private var _REF_BASE = URL_GENERAL
     private var _REF_POSTS = URL_GENERAL.child("posts")
     private var _REF_USERS = URL_GENERAL.child("users")
+    private var _REF_FEEDBACK = URL_GENERAL.child("feedback")
     
     
     
@@ -34,6 +35,10 @@ class DataService {
     
     var URL_USERS: DatabaseReference! {
         return _REF_USERS
+    }
+    
+    var URL_FEEDBACK: DatabaseReference! {
+        return _REF_FEEDBACK
     }
     
     var URL_USER_CURRENT: DatabaseReference! {

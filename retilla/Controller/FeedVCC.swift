@@ -10,7 +10,7 @@ import Firebase
 
 class FeedVCC: UITableViewController {
     
-    let categories = ["0", "1", "2", "3"]
+    let categories = ["Reuse", "Recycle", "Reduce", "Pollution"]
     var posts = [Post]()
     static var imageCache = NSCache<AnyObject, AnyObject>()
     var post: Post!
@@ -18,7 +18,8 @@ class FeedVCC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         // NEED TO FIX: when halfway slide back Back button(navigation) dissapears
-        self.navigationController?.isNavigationBarHidden = true
+        //self.navigationController?.isNavigationBarHidden = false
+        
     }
     
     override func viewDidLoad() {
@@ -29,9 +30,15 @@ class FeedVCC: UITableViewController {
         tableView.delegate = self
         
         self.navigationController?.isNavigationBarHidden = false
-        self.title = "home"
+        //self.title = "home"
         
         
+        let userIcon = UIImageView(image: #imageLiteral(resourceName: "userIcon"))
+        userIcon.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        userIcon.contentMode = .scaleAspectFit
+        navigationItem.titleView = userIcon
+        
+        self.navigationController?.hidesBarsOnSwipe = true
         
         // posts.removeAll()
         //even this is in viewdidload, below will be called only when data changes
@@ -54,6 +61,7 @@ class FeedVCC: UITableViewController {
                         print("SECTIONN: \(String(describing: section))")
                         
                         self.posts.insert(post, at: 0)
+
                         
                     }
                 }
@@ -64,7 +72,7 @@ class FeedVCC: UITableViewController {
         print("ViewDidLoad Ended")
     }
     
-    
+ 
 
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -160,7 +168,25 @@ return posts.count
         let post = posts[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell
+//        let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell1", for: indexPath) as? PostCell
+//        let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell2", for: indexPath) as? PostCell
+//        let cell3 = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell3", for: indexPath) as? PostCell
         
+        cell?.contentView.layer.cornerRadius = 15.0
+        //cell?.contentView.layer.borderWidth = 5.0
+        cell?.contentView.layer.borderColor = UIColor.clear.cgColor
+        cell?.contentView.layer.masksToBounds = true
+       // cell?.clipsToBounds = true
+        cell?.contentView.clipsToBounds = true
+        //cell?.backgroundView?.clipsToBounds = true
+        
+        cell?.layer.shadowColor = UIColor.lightGray.cgColor
+        cell?.layer.shadowOffset = CGSize(width: 135.0, height: 207.0)
+        cell?.layer.shadowRadius = 8.0
+        cell?.layer.shadowOpacity = 1.0
+        cell?.layer.masksToBounds = true
+        
+        //cell?.layer.shadowPath = UIBezierPath(roundedRect: (cell?.bounds)!, cornerRadius: (cell?.contentView.layer.cornerRadius)!).cgPath
         
         var image: UIImage?
         
@@ -170,26 +196,45 @@ return posts.count
         image = FeedVCC.imageCache.object(forKey: url as AnyObject) as? UIImage
         }
         cell?.configureCell(post: post, image: image)
-//
+
 //        if collectionView.tag == 0 && post.sectionNumber == 0 {
 //            return cell!
 //        } else {
 //            if collectionView.tag == 1 && post.sectionNumber == 1 {
-//                return cell!
+//                return cell2!
 //            } else {
 //                if collectionView.tag == 2 && post.sectionNumber == 2 {
-//                    return cell!
+//                    return cell3!
 //                } else {
 //                    if collectionView.tag == 3 && post.sectionNumber == 3 {
-//                        return cell!
+//                        return cell4!
 //                    }
 //                }
 //            }
 //        }
         
         return cell!
-        
-        }
+    }
+//        if collectionView.tag == 0 && post.sectionNumber == 0 {
+//            return cell!
+//        } else if collectionView.tag == 1 && post.sectionNumber == 1 {
+//            return cell1!
+//        } else if collectionView.tag == 2 && post.sectionNumber == 2 {
+//            return cell2!
+//        } else {
+//            return cell3!
+//        }
+
+//        if collectionView.tag == 0 && post.sectionNumber == 0 {
+//            return cell!
+//        } else if collectionView.tag == 1 && post.sectionNumber == 1 {
+//            return cell1!
+//        } else {
+//            return cell2!
+//        }
+//
+//
+//        }
     
     
         
