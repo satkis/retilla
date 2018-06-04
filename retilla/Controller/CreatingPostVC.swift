@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import CoreLocation
 
-class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
+class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate {
 
     var currentUser: DatabaseReference!
     var user: User!
@@ -29,7 +29,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var long: String!
     var postTimestamp: String! = "mmmm"
     var username: String! = "usrnm na"
-    
+    var placeholderLabel: UILabel!
 
     
     let locationManager = CLLocationManager()
@@ -39,17 +39,31 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var hashtagField: UITextField?
     
-    @IBOutlet weak var descriptionField: UITextField?
-    
     @IBOutlet weak var imageSelectorImage: UIImageView!
     
-    @IBOutlet weak var locationLbl_city: UILabel!
+    @IBOutlet var storyTextVIew: UITextView!
     
-    @IBOutlet weak var locationLbl_country: UILabel!
+    
+    //@IBOutlet weak var locationLbl_city: UILabel!
+    
+    //@IBOutlet weak var locationLbl_country: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        storyTextVIew.delegate = self
+        placeholderLabel = UILabel()
+        placeholderLabel.text = "A story about this photo"
+        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (storyTextVIew.font?.pointSize)!)
+        placeholderLabel.sizeToFit()
+        storyTextVIew.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: (storyTextVIew.font?.pointSize)! / 2)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.isHidden = !storyTextVIew.text.isEmpty
+    
+    
+
         print("viewDidLoad of CreatingPostVC")
         locationManager.delegate = self
         locationAuthStatus()
@@ -96,6 +110,10 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        }
 //    }
 
+func textViewDidChange(_ textView: UITextView) {
+    placeholderLabel.isHidden = !textView.text.isEmpty
+}
+
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
@@ -127,12 +145,17 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
        // print("ree:: \(ree)")
         let post: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
-            "description": descriptionField?.text as Any,
+            //"description": descriptionField?.text as Any,
+            "description": storyTextVIew?.text as Any,
             "hashtag": hashtagField?.text as Any,
             "likes": 0,
             "section": selectedSection as Int,
-            "location_city": locationLbl_city.text as Any,
-            "location_country": locationLbl_country.text as Any,
+            
+            "location_city": postLocation_city as Any,
+            "location_country": postLocation_country as Any,
+            
+//            "location_city": locationLbl_city.text as Any,
+//            "location_country": locationLbl_country.text as Any,
             "coordinates": String(describing: (lat!) as Any)+","+String(describing: (long!) as Any),
             "timestamp": postTimestamp as Any,
             "latitude": lat as Any,
@@ -158,7 +181,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         firebasePostToUser.setValue(true)
         
         hashtagField?.text = ""
-        descriptionField?.text = ""
+        //descriptionField?.text = ""
+        storyTextVIew.text = ""
         imageSelectorImage.image = UIImage(named: "camera-icon-hi")
         imageSelected = false
         
@@ -188,11 +212,15 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
                     
                     if let place = placemark?[0] {
                         if let locality = place.locality {
-                            self.locationLbl_city.text = locality
-                            self.locationLbl_country.text = place.country
+                            self.postLocation_city = locality
+                            self.postLocation_country = place.country
+//                            self.locationLbl_city.text = locality
+//                            self.locationLbl_country.text = place.country
                         } else {
-                            self.locationLbl_city.text = "n/a"
-                            self.locationLbl_country.text = "n/aa"
+                            self.postLocation_city = "n/a"
+                            self.postLocation_country = "n/a"
+//                            self.locationLbl_city.text = "n/a"
+//                            self.locationLbl_country.text = "n/aa"
                         }
                     }
                 } else {

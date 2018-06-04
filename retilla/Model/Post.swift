@@ -148,6 +148,7 @@ class Post {
         self._postRef = DataService.instance.URL_POSTS.child(self._postKey)
     }
     
+    
     func adjustReactions(addReaction: Bool) {
         if addReaction {
             _likes = _likes + 1

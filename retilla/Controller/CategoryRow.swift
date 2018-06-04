@@ -9,9 +9,9 @@ import UIKit
 import Firebase
 
 class CategoryRow: UITableViewCell {
-
+    
     @IBOutlet weak var collectionViewww: UICollectionView!
-
+    
     func setCollectionViewDataSourceDelegate<D: UICollectionViewDataSource & UICollectionViewDelegate>(_ dataSourceDelegate: D, forRow row: Int) {
         print("setCollectionViewDataSourceDelegate")
         collectionViewww.delegate = dataSourceDelegate
@@ -22,13 +22,12 @@ class CategoryRow: UITableViewCell {
     
     override func draw(_ rect: CGRect) {
     }
-
-
     
     
     
-
     
-
+    
+    
+    
+    
 }
-

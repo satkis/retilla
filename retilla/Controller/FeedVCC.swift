@@ -1,17 +1,10 @@
-//
-//  FeedVCC.swift
-//  retilla
-//
-//  Created by satkis on 1/27/18.
-//  Copyright © 2018 satkis. All rights reserved.
-//
 import UIKit
 import Firebase
 
 class FeedVCC: UITableViewController {
     
-    let categories = ["Reuse", "Recycle", "Reduce", "Pollution"]
-    var posts = [Post]()
+    let categories = ["REUSE", "RECYCLE", "REDUCE", "POLLUTION"]
+    var posts = [[Post]]()
     static var imageCache = NSCache<AnyObject, AnyObject>()
     var post: Post!
     
@@ -44,7 +37,13 @@ class FeedVCC: UITableViewController {
         //even this is in viewdidload, below will be called only when data changes
         DataService.instance.URL_POSTS.observe(.value) { (snapshot) in
             print(snapshot.value as Any)
-            self.posts = []
+            //self.posts = []
+            //self.posts.removeAll()
+            self.posts.append([])
+            self.posts.append([])
+            self.posts.append([])
+            self.posts.append([])
+            
             
             //this gives us data individual (every post separate array/dict?)
             //snapshot is like "posts" or "users" in Firebase, and snap is "likes", "hashtag" etc
@@ -60,8 +59,8 @@ class FeedVCC: UITableViewController {
                         let section = post.sectionNumber?.hashValue
                         print("SECTIONN: \(String(describing: section))")
                         
-                        self.posts.insert(post, at: 0)
-
+                        //self.posts.insert(post, at: 0)
+                        self.posts[section!].insert(post, at: 0)
                         
                     }
                 }
@@ -72,8 +71,8 @@ class FeedVCC: UITableViewController {
         print("ViewDidLoad Ended")
     }
     
- 
-
+    
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // guard posts.count != 0 else { return 1 }
@@ -82,11 +81,37 @@ class FeedVCC: UITableViewController {
         //        return 1
     }
     
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return categories.count
+    //    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    //        return categories.count
+    //    }
+    
+    
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let label: UILabel = UILabel()
+//
+//        label.backgroundColor = #colorLiteral(red: 0.8862745098, green: 0.8862745098, blue: 0.8862745098, alpha: 1)
+//        return label
 //    }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
+        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
+            tableView.bounds.size.width, height: tableView.bounds.size.height))
+        headerLabel.font = UIFont(name: "Helvetica Neue", size: 20)
+        
+        headerLabel.textColor = #colorLiteral(red: 0.5589903236, green: 0.5589903236, blue: 0.5589903236, alpha: 1)
+        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
+        headerLabel.sizeToFit()
+        headerView.addSubview(headerLabel)
+       
+        
+        return headerView
+    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         return categories[section]
     }
     
@@ -139,7 +164,7 @@ extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
         //        let post = posts[collectionView.tag][indexPath.item]
         debugPrint("collectionView.tag", collectionView.tag)
         debugPrint("indexPath.item", indexPath.item)
-        let post = posts[indexPath.row]
+        let post = posts[collectionView.tag][indexPath.row]
         self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: post)
     }
     
@@ -149,125 +174,102 @@ extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
         //var postt: Post!
         
         print("collectionView.taggg:::: \(collectionView.tag)")
-//        if collectionView.tag == 0 && postt.sectionNumber == 0 {
-//            return posts.count
-//        } else if collectionView.tag == 1 && postt.sectionNumber == 1 {
-//            return posts.count
-//        } else if collectionView.tag == 2 && postt.sectionNumber == 2 {
-//            return posts.count
-//        } else if collectionView.tag == 3 && postt.sectionNumber == 3 {
-//            return posts.count
-//        }
+        //        if collectionView.tag == 0 && postt.sectionNumber == 0 {
+        //            return posts.count
+        //        } else if collectionView.tag == 1 && postt.sectionNumber == 1 {
+        //            return posts.count
+        //        } else if collectionView.tag == 2 && postt.sectionNumber == 2 {
+        //            return posts.count
+        //        } else if collectionView.tag == 3 && postt.sectionNumber == 3 {
+        //            return posts.count
+        //        }
         
-return posts.count
+        //return posts.count
         
+        if posts.count > 0 {
+            return posts[collectionView.tag].count
+        } else {
+            return 0
+        }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let post = posts[indexPath.row]
+        let post = posts[collectionView.tag][indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell
-//        let cell1 = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell1", for: indexPath) as? PostCell
-//        let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell2", for: indexPath) as? PostCell
-//        let cell3 = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell3", for: indexPath) as? PostCell
-        
-        cell?.contentView.layer.cornerRadius = 15.0
-        //cell?.contentView.layer.borderWidth = 5.0
-        cell?.contentView.layer.borderColor = UIColor.clear.cgColor
-        cell?.contentView.layer.masksToBounds = true
-       // cell?.clipsToBounds = true
+
+        cell?.contentView.layer.cornerRadius = 8.0
         cell?.contentView.clipsToBounds = true
-        //cell?.backgroundView?.clipsToBounds = true
-        
-        cell?.layer.shadowColor = UIColor.lightGray.cgColor
-        cell?.layer.shadowOffset = CGSize(width: 135.0, height: 207.0)
-        cell?.layer.shadowRadius = 8.0
-        cell?.layer.shadowOpacity = 1.0
-        cell?.layer.masksToBounds = true
-        
-        //cell?.layer.shadowPath = UIBezierPath(roundedRect: (cell?.bounds)!, cornerRadius: (cell?.contentView.layer.cornerRadius)!).cgPath
-        
+        cell?.layer.shadowOpacity = 0.5
+        //cell?.layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
+        cell?.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
+        cell?.layer.shadowRadius = 5.0
+
         var image: UIImage?
         
         image = nil
-       
+        
         if let url = post.imageUrl {
-        image = FeedVCC.imageCache.object(forKey: url as AnyObject) as? UIImage
+            image = FeedVCC.imageCache.object(forKey: url as AnyObject) as? UIImage
         }
         cell?.configureCell(post: post, image: image)
 
-//        if collectionView.tag == 0 && post.sectionNumber == 0 {
-//            return cell!
-//        } else {
-//            if collectionView.tag == 1 && post.sectionNumber == 1 {
-//                return cell2!
-//            } else {
-//                if collectionView.tag == 2 && post.sectionNumber == 2 {
-//                    return cell3!
-//                } else {
-//                    if collectionView.tag == 3 && post.sectionNumber == 3 {
-//                        return cell4!
-//                    }
-//                }
-//            }
-//        }
         
         return cell!
     }
-//        if collectionView.tag == 0 && post.sectionNumber == 0 {
-//            return cell!
-//        } else if collectionView.tag == 1 && post.sectionNumber == 1 {
-//            return cell1!
-//        } else if collectionView.tag == 2 && post.sectionNumber == 2 {
-//            return cell2!
-//        } else {
-//            return cell3!
-//        }
-
-//        if collectionView.tag == 0 && post.sectionNumber == 0 {
-//            return cell!
-//        } else if collectionView.tag == 1 && post.sectionNumber == 1 {
-//            return cell1!
-//        } else {
-//            return cell2!
-//        }
-//
-//
-//        }
+    //        if collectionView.tag == 0 && post.sectionNumber == 0 {
+    //            return cell!
+    //        } else if collectionView.tag == 1 && post.sectionNumber == 1 {
+    //            return cell1!
+    //        } else if collectionView.tag == 2 && post.sectionNumber == 2 {
+    //            return cell2!
+    //        } else {
+    //            return cell3!
+    //        }
+    //        if collectionView.tag == 0 && post.sectionNumber == 0 {
+    //            return cell!
+    //        } else if collectionView.tag == 1 && post.sectionNumber == 1 {
+    //            return cell1!
+    //        } else {
+    //            return cell2!
+    //        }
+    //
+    //
+    //        }
     
     
-        
-        
-        
-        
-//        print("collectionView cellForROwAt indexPath")
-//        //let post = posts[collectionView.tag] //[indexPath.item]
-//
-//        let post = posts[indexPath.row]
-//
-//        print("post.sectionNumber::: \(String(describing: post.sectionNumber))")
-//        print("collectionView.tag \(collectionView.tag)")
-//        print("indexPath.row:::: \(indexPath.row)")
-//
-//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
-//            //cell.request?.cancel()
-//            var image: UIImage?
-//
-//
-//            if let url = post.imageUrl {
-//                //set image in cache as image(if it exists). if not, then image will be downloaded
-//                image = FeedVCC.imageCache.object(forKey: url as AnyObject) as? UIImage
-//            }
-//            //cell.configureCell(post: posts[collectionView.tag][indexPath.row], image: image)
-//            cell.configureCell(post: post, image: image)
-//
-//            return cell
-//        } else {
-//            return UICollectionViewCell()
-//        }
-//
-//    }
+    
+    
+    
+    
+    //        print("collectionView cellForROwAt indexPath")
+    //        //let post = posts[collectionView.tag] //[indexPath.item]
+    //
+    //        let post = posts[indexPath.row]
+    //
+    //        print("post.sectionNumber::: \(String(describing: post.sectionNumber))")
+    //        print("collectionView.tag \(collectionView.tag)")
+    //        print("indexPath.row:::: \(indexPath.row)")
+    //
+    //        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
+    //            //cell.request?.cancel()
+    //            var image: UIImage?
+    //
+    //
+    //            if let url = post.imageUrl {
+    //                //set image in cache as image(if it exists). if not, then image will be downloaded
+    //                image = FeedVCC.imageCache.object(forKey: url as AnyObject) as? UIImage
+    //            }
+    //            //cell.configureCell(post: posts[collectionView.tag][indexPath.row], image: image)
+    //            cell.configureCell(post: post, image: image)
+    //
+    //            return cell
+    //        } else {
+    //            return UICollectionViewCell()
+    //        }
+    //
+    //    }
     
     
     
@@ -278,5 +280,3 @@ return posts.count
     
     
 }
-
-

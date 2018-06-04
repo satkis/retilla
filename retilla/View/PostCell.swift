@@ -31,18 +31,27 @@ class PostCell: UICollectionViewCell {
     
     @IBOutlet weak var readStoryLbl: UILabel!
     
-    @IBOutlet weak var reactionCountLbl: UILabel!
+    //@IBOutlet weak var reactionCountLbl: UILabel!
     
-    @IBOutlet weak var reactionImg: UIImageView!
+    //@IBOutlet weak var reactionImg: UIImageView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         //need to call this with code. from Storyboard these won't work because this is collection view. also because this is reusable cell
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.reactionTapped(_:)))
-        tap.numberOfTapsRequired = 1
-        reactionImg.addGestureRecognizer(tap)
-        reactionImg.isUserInteractionEnabled = true
+       
+        
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(self.reactionTapped(_:)))
+//        tap.numberOfTapsRequired = 1
+//        reactionImg.addGestureRecognizer(tap)
+//        reactionImg.isUserInteractionEnabled = true
+
+//        //testing different liking 0603
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.onDoubleTap(_:)))
+//        gesture.numberOfTapsRequired = 2
+//        contentView.addGestureRecognizer(gesture)
+//        reactionImg.isUserInteractionEnabled = true
+//        reactionImg.isHidden = true
     }
     
     
@@ -53,7 +62,7 @@ class PostCell: UICollectionViewCell {
         reactionRef = DataService.instance.URL_USER_CURRENT.child("reactions").child(post.postKey)
         
         print("printtt: \(reactionRef)")
-        self.reactionCountLbl.text = "\(post.likes!)"
+        //self.reactionCountLbl.text = "\(post.likes!)"
         
         if let location = post.location_country, post.location_country != "" {
             self.locationLbl.text = location
@@ -161,38 +170,66 @@ class PostCell: UICollectionViewCell {
         
         
         //observe single event - it checks only ONCE in Firebase if theres any reactions/likes by user.
-        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
-            
-            //in Firebase if there's no data, then it's NSNULL. 'nil' won't work
-            if let doesNotExist = snapshot.value as? NSNull {
-                //this means user hasn't liked this specific post
-                self.reactionImg.image = UIImage(named: "heartEmpty")
-                
-            } else {
-                self.reactionImg.image = UIImage(named: "heartFull")
-            }
-        })
+//        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
+//
+//            //in Firebase if there's no data, then it's NSNULL. 'nil' won't work
+//            if let doesNotExist = snapshot.value as? NSNull {
+//                //this means user hasn't liked this specific post
+//                self.reactionImg.image = UIImage(named: "heartEmpty")
+//
+//            } else {
+//                //self.reactionImg.image = UIImage(named: "heartFull")
+//                self.reactionImg.isHidden = true
+//            }
+//        })
     }
     
     
-    @objc func reactionTapped(_ sender: UITapGestureRecognizer) {
-        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
-            //in Firebase if there's no data, then it's NSNULL. nil won't work
-            if let doesNotExist = snapshot.value as? NSNull {
-                //this means user hasn't liked this specific post
-                self.reactionImg.image = UIImage(named: "heartFull")
-                self.post.adjustReactions(addReaction: true)
-                self.reactionRef.setValue(true)
-            } else {
-                self.reactionImg.image = UIImage(named: "heartEmpty")
-                self.post.adjustReactions(addReaction: false)
-                self.reactionRef.removeValue()
-            }
-        })
-    }
+//    @objc func reactionTapped(_ sender: UITapGestureRecognizer) {
+//        reactionRef.observeSingleEvent(of: .value, with: { snapshot in
+//            //in Firebase if there's no data, then it's NSNULL. nil won't work
+//            if let doesNotExist = snapshot.value as? NSNull {
+//                //this means user hasn't liked this specific post
+//                self.reactionImg.isHidden = true
+//                self.reactionImg.alpha = 1.0
+//
+//                //self.reactionImg.image = UIImage(named: "heartFull")
+//                self.post.adjustReactions(addReaction: true)
+//                self.reactionRef.setValue(true)
+//            } else {
+//
+//                UIView.animate(withDuration: 1.0, delay: 1.0, animations: {
+//                    self.reactionImg?.alpha = 0
+//
+//                }, completion: {
+//                    (value:Bool) in
+//                    self.reactionImg.isHidden = true
+//                })
+//
+//                //self.reactionImg.image = UIImage(named: "heartEmpty")
+//                //self.post.adjustReactions(addReaction: false)
+//                //self.reactionRef.removeValue()
+//            }
+//        })
+//    }
+    
+//    @objc func onDoubleTap(_ sender:AnyObject) {
+//        reactionImg.isHidden = false
+//        reactionImg.alpha = 1.0
+//        UIView.animate(withDuration: 1.0, delay: 1.0, animations: {
+//            self.reactionImg?.alpha = 0
+//
+//        }, completion: {
+//            (value:Bool) in
+//            self.reactionImg.isHidden = true
+//            self.post.adjustReactions(addReaction: true)
+//            self.reactionRef.setValue(true)
+//        })
+//    }
     
     
 }
+
 
 
 extension Date {
