@@ -1,9 +1,18 @@
 import UIKit
 import Firebase
 
+struct headerStruct {
+    var image: UIImage!
+    var name: String!
+}
+
+var heightOfHeader : CGFloat = 44
+
 class FeedVCC: UITableViewController {
     
-    let categories = ["REUSE", "RECYCLE", "REDUCE", "POLLUTION"]
+//    let categories = ["REUSE", "RECYCLE", "REDUCE", "POLLUTION"]
+    var categories = [headerStruct]()
+    
     var posts = [[Post]]()
     static var imageCache = NSCache<AnyObject, AnyObject>()
     var post: Post!
@@ -22,8 +31,15 @@ class FeedVCC: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        categories = [headerStruct.init(image: #imageLiteral(resourceName: "circle0"), name: "REUSE"),
+                      headerStruct.init(image: #imageLiteral(resourceName: "circle1"), name: "RECYCLE"),
+                      headerStruct.init(image: #imageLiteral(resourceName: "circle2"), name: "REDUCE"),
+                      headerStruct.init(image: #imageLiteral(resourceName: "circle3"), name: "POLLUTION")]
+        
         self.navigationController?.isNavigationBarHidden = false
         //self.title = "home"
+        
+        
         
         
         let userIcon = UIImageView(image: #imageLiteral(resourceName: "userIcon"))
@@ -93,37 +109,55 @@ class FeedVCC: UITableViewController {
 //        return label
 //    }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        
-        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width:
-            tableView.bounds.size.width, height: tableView.bounds.size.height))
-        headerLabel.font = UIFont(name: "Helvetica Neue", size: 20)
-        
-        headerLabel.textColor = #colorLiteral(red: 0.5589903236, green: 0.5589903236, blue: 0.5589903236, alpha: 1)
-        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
-        headerLabel.sizeToFit()
-        headerView.addSubview(headerLabel)
-       
-        
-        return headerView
-    }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return categories[section]
-    }
+    
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+//
+//        let headerLabel = UILabel(frame: CGRect(x: 30, y: 5, width:
+//            tableView.bounds.size.width, height: tableView.bounds.size.height))
+//        headerLabel.font = UIFont(name: "Helvetica Neue", size: 21)
+//
+//        headerLabel.textColor = #colorLiteral(red: 0.5589903236, green: 0.5589903236, blue: 0.5589903236, alpha: 1)
+//        headerLabel.text = self.tableView(self.tableView, titleForHeaderInSection: section)
+//        headerLabel.sizeToFit()
+//        headerView.addSubview(headerLabel)
+//
+//
+//        return headerView
+//    }
+    
+
+
+    
+    
+    
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        
+//        return categories[section]
+//    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return heightOfHeader
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as! HeaderView
+        
+        headerView.headerImageView.image = categories[section].image
+        headerView.headerLabel.text = categories[section].name
+        
+        return headerView
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let categoryRoww = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CategoryRow
-        
-        
         
         print("cellForRowAt indexPath")
         return categoryRoww
@@ -208,10 +242,14 @@ extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
 
         var image: UIImage?
         
-        image = nil
-        
+        //image = nil
+       
+//        cell?.postImg.image = UIImage(named: post.imageUrl)
         if let url = post.imageUrl {
             image = FeedVCC.imageCache.object(forKey: url as AnyObject) as? UIImage
+           
+//            cell?.postImg = UIImage(named: post.imageUrl![indexPath.row])
+            
         }
         cell?.configureCell(post: post, image: image)
 

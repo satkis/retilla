@@ -7,7 +7,9 @@
 //
 
 import UIKit
+
 import Alamofire
+import AlamofireImage
 import Firebase
 
 class PostCell: UICollectionViewCell {
@@ -15,6 +17,7 @@ class PostCell: UICollectionViewCell {
     var post: Post!
     var request: Request?
     var reactionRef: DatabaseReference!
+    var imageUrlString: String?
     
     
     
@@ -53,6 +56,18 @@ class PostCell: UICollectionViewCell {
 //        reactionImg.isUserInteractionEnabled = true
 //        reactionImg.isHidden = true
     }
+    
+//    override func prepareForReuse() {
+//        print("prepareforreuse")
+//        super.prepareForReuse()
+//        postImg.af_cancelImageRequest()
+//
+////        postImg.layer.removeAllAnimations()
+//
+//
+//        postImg.image = nil
+//
+//    }
     
     
     func configureCell(post: Post, image: UIImage?) {
@@ -146,17 +161,32 @@ class PostCell: UICollectionViewCell {
         }
         
         
+        
+//        if let imageFromCache = FeedVCC.imageCache.object(forKey: self.post.imageUrl as AnyObject) as? UIImage {
+//            self.postImg.image = imageFromCache
+//            return
+//        }
+        
         if post.imageUrl != "" {
+            imageUrlString = post.imageUrl
+            self.postImg.image = nil
+          
             //if image is not nil, it means it's cached image which is passed. otherwise Alamofire request is needed to download img
             if image != nil {
                 self.postImg.image = image
-            } else {
                 
+            } else {
+               
                 request = Alamofire.request(post.imageUrl!, method: .get).validate(contentType: ["image/*"]).responseData(completionHandler: { (response) in
                     
                     if let data = response.result.value {
+                        
                         let image = UIImage(data: data)!
-                        self.postImg.image = image
+                        
+                        if self.imageUrlString == post.imageUrl {
+                            self.postImg.image = image
+                        }
+                    
                         //add to cache if image was downloaded
                         FeedVCC.imageCache.setObject(image, forKey: self.post.imageUrl as AnyObject)
                     } else {

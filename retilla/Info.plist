@@ -60,10 +60,16 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location needed to show posted items on map</string>
+	<string>Location is needed to show posted items on map</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location needed to show posted items on map</string>
+	<string>Location is needed to show posted items on map</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Location needed to show posted items on map</string>
+	<string>Location is needed to show posted items on map</string>
+	<key></key>
+	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to access your camera for you to take a post photo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to access your photos for you to select a post photo</string>
 </dict>
 </plist>

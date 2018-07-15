@@ -10,23 +10,32 @@ import UIKit
 import MapKit
 import CoreLocation
 import Firebase
-import GeoFire
+
 
 class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var map: MKMapView!
-    @IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pullUpView: UIView!
     
-    @IBOutlet weak var reactionLbl: UILabel!
+    //@IBOutlet weak var reactionLbl: UILabel!
     //@IBOutlet weak var imageUrlLbl: UILabel!
     @IBOutlet weak var hashtagLbl: UILabel!
     @IBOutlet weak var sectionNrLbl: UILabel!
     @IBOutlet weak var locationLbl: UILabel!
+    @IBOutlet weak var countryLbl: UILabel!
     @IBOutlet weak var timeStampLbl: UILabel!
-    @IBOutlet weak var postStoryLbl: UILabel!
-    //@IBOutlet weak var imgLbl: UIImageView!
-    @IBOutlet weak var postStoryTest: UITextView!
+//    @IBOutlet weak var postStoryLbl: UILabel!
+    @IBOutlet weak var imgLbl: UIImageView!
+    @IBOutlet weak var postStoryLbl: UITextView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    
+    
+    @IBOutlet weak var slideUpMenu: UIView!
+    @IBOutlet weak var darkFillView: UIViewX!
+    @IBOutlet weak var menuPopUpBttn: UIButton!
+    
     
     
     
@@ -40,7 +49,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 //
 
     
-    var geoFire: GeoFire!
+    //var geoFire: GeoFire!
     //var geoFireRef: DatabaseReference! - same like 'URL_GENERAL'
     
     var annot: Annotations?
@@ -62,7 +71,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     //    var hashh: String?
     
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 10000
+    let regionRadius: CLLocationDistance = 9500
     
     //these will need to be downloaded from Firebase and here should be coordinates
     //    let addresses = [
@@ -76,15 +85,33 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         super.viewDidLoad()
         map.delegate = self
         //self.view.addSubview(DetailPinView)
-        
+        imgLbl.layer.cornerRadius = 8.0
     
         locationAuthStatus()
+        activityIndicator.isHidden = true
+        imgLbl.isHidden = true
         
-        geoFire = GeoFire(firebaseRef: URL_GENERAL)
+        
+        let minImg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
+        minImg.direction = .down
+        let minImgg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
+        minImgg.direction = .up
+        let minImggg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
+        minImggg.direction = .left
+        let minImgggg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
+        minImgggg.direction = .right
+        view.addGestureRecognizer(minImg)
+        view.addGestureRecognizer(minImgg)
+        view.addGestureRecognizer(minImggg)
+        view.addGestureRecognizer(minImgggg)
+        
+
+       // imgLbl.center = CGPoint(x: -100, y: 522)
+        //geoFire = GeoFire(firebaseRef: URL_GENERAL)
         
         // reactionLbl.text = annotationnnnn?.hashtag
         // print("reactionLBL.text in viewdidLoad: \(reactionLbl.text)")
-        
+  
 
     }
     
@@ -97,7 +124,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         fetchCoordinates()
         
         self.map.addAnnotations(annotationn as! [MKAnnotation])
-        
+
     }
     
     
@@ -105,7 +132,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     func locationAuthStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            map.showsUserLocation = true
+            map.showsUserLocation = false
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
@@ -170,7 +197,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     // var hashtag = dict["hashtag"] as? String
                     print("snap in MainMapVC:::: \(snap)")
                     let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
-                    let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08))
+                    let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
                     
                     self.map.setRegion(region, animated: true)
                     
@@ -205,6 +232,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     }
     
     
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             //nill to not make user location as a pin
@@ -217,8 +245,9 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     view = dequeuedView
                 } else {
                     view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-                    view.canShowCallout = true
-                    view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
+                  
+                    view.canShowCallout = false
+                    //view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
                     
                 }
                 return view
@@ -226,6 +255,8 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             return nil
         }
     }
+    
+  
     
     //    func updatePulledUpView() {
     //        let labelll = view.annotation
@@ -262,10 +293,11 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     //    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
     //        print("call out accessory Control Tapped::: \(annotationn)")
     //    }
-    
+
     
     func addSwipe() {
         let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
+       
         swipe.direction = .down
         pullUpView.addGestureRecognizer(swipe)
         //        let tap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
@@ -274,24 +306,31 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     }
     
     func animateViewUp() {
-        pullUpViewHeightConstraint.constant = 150
+//        pullUpViewHeightConstraint.constant = 150
+
         UIView.animate(withDuration: 0.3) {
             self.view.setNeedsLayout()
             self.view.layoutIfNeeded()
-            
         }
+//
+//        UIImageView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 30, animations: ({
+//            self.imgLbl.center = CGPoint(x: 16, y: 522)
+//        }), completion: nil)
     }
     
     
     
     @objc func animateViewDown() {
-        pullUpViewHeightConstraint.constant = 0
+//        pullUpViewHeightConstraint.constant = 0
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
+            self.imgLbl.isHidden = true
+            
+            
         }
+        
     }
     
-
     
    func addSwipeUp() {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(animateViewUpUpUp))
@@ -300,17 +339,12 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         pullUpView.addGestureRecognizer(swipeUp)
     }
 
-//    func animateViewUpUp() {
-//        pullUpViewHeightConstraint.constant = 200
-//        UIView.animate(withDuration: 0.2) {
-//            self.view.setNeedsLayout()
-//            self.view.layoutIfNeeded()
-//        }
-//    }
+
     
+ 
     @objc func animateViewUpUpUp() {
         
-        pullUpViewHeightConstraint.constant = 250
+//        pullUpViewHeightConstraint.constant = 250
     }
     
     
@@ -323,12 +357,13 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         
         
         if let tappedPin = view.annotation as? Annotations {
-            if let reactions = tappedPin.reactions {
-                reactionLbl?.text = "\(reactions)"
-            } else {
-                reactionLbl?.text = "no reactions"
-            }
-            
+
+//            if let reactions = tappedPin.reactions {
+//                reactionLbl?.text = "\(reactions)"
+//            } else {
+//                reactionLbl?.text = "no reactions"
+//            }
+//            
 //            if let imageUrl = tappedPin.imageUrl {
 //                imageUrlLbl.text = imageUrl
 //            } else {
@@ -360,9 +395,9 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             }
             
             if let story = tappedPin.postStory {
-                postStoryTest.text = story
+                postStoryLbl.text = story
             } else {
-                postStoryTest.text = "no story"
+                postStoryLbl.text = "no story"
             }
             
             
@@ -375,11 +410,28 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             
             
             
-//            if let url = tappedPin.imageUrl {
-//                let url = URL(string: url)
+            if let url = tappedPin.imageUrl {
+                
+                DispatchQueue.global().async {
+                    print("loadinggg")
+                    let url = URL(string: url)
+                    let dataa = try? Data(contentsOf: url!)
+                    DispatchQueue.main.async {
+                        self.imgLbl.image = UIImage(data: dataa!)
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                    }
+                }
+                print("loadeddd")
+                self.activityIndicator.isHidden = false
+                self.activityIndicator.startAnimating()
+                self.imgLbl.isHidden = false
+                
+            }
 //                let data = try? Data(contentsOf: url!)
 //
 //                imgLbl.image = UIImage(data: data!)
+       
 //
 //                //                var image: UIImage?
 //                //                print("url::: \(url)")
@@ -433,13 +485,16 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             //        let anno = annotationn[index(ofAccessibilityElement: selectedAnnotaton!)]
             //        print("annnnnnooo::: \(anno)")
             
-            animateViewUp()
             //animateViewUpUp()
             //        updatePulledUpView()
-            addSwipe()
             
-       
+            animateViewUp()
+
+            addSwipe()
+
+
                 addSwipeUp()
+     
 
             //        if case self.selectedAnnotaton = view.annotation as? Annotations {
             //            print("selected annotation coordinate::: \(String(describing: self.selectedAnnotaton))")
@@ -453,16 +508,62 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             //        addSwipe()
         }
         
+//            activityIndicator.isHidden = false
+//            activityIndicator.startAnimating()
+        
+        
+    }
+
+    
+    @objc func animateImgDown() {
+        //self.imageLbl.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
+
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.imgLbl.frame = CGRect(x: 12, y: 100, width: 84, height: 84)
+        }
     }
     
-    @IBAction func centerUserLocation(_ sender: Any) {
+    
+    
+
+    @IBAction func imgTapped(_ sender: UITapGestureRecognizer) {
+
+        
+        self.imgLbl.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+        self.imgLbl.alpha = 0
+        
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.imgLbl.alpha = 1
+            self.imgLbl.frame = CGRect(x: 0, y: 50, width: 375, height: 500)
+            self.imgLbl.contentMode = .scaleAspectFit
+            self.imgLbl.layer.cornerRadius = 8.0
+        }
+        
     }
     
     
+    @IBAction func menuBttnTapped(_ sender: UIButton) {
+       
+        if darkFillView.transform == CGAffineTransform.identity {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.darkFillView.transform = CGAffineTransform(scaleX: 11, y: 11)
+                self.slideUpMenu.transform = CGAffineTransform(translationX: 0, y: -150)
+                self.menuPopUpBttn.transform = CGAffineTransform(rotationAngle: self.radians(degrees: 180))
+            }) { (true) in
+            }
+        } else {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.darkFillView.transform = .identity
+                self.slideUpMenu.transform = .identity
+                self.menuPopUpBttn.transform = .identity
+            }) { (true) in
+            }
+        }
+    }
     
-    
-    
-    
+    func radians(degrees: Double) -> CGFloat {
+        return CGFloat(degrees * .pi / degrees)
+    }
     
     
     

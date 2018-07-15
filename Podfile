@@ -11,16 +11,17 @@ pod ‘Firebase’
 pod ‘Firebase/Core’
 pod ‘Firebase/Auth’
 pod ‘Firebase/Database’
-pod 'Firebase/Storage'
+pod 'Firebase/Storage', '~> 4.0'
 
 pod 'FBSDKCoreKit'
 pod 'FBSDKShareKit'
 pod 'FBSDKLoginKit'
 
-pod 'Alamofire', '~> 4.5'
+pod 'Alamofire', '~> 4.7'
+pod 'AlamofireImage', '~> 3.3'
 
 pod 'SwiftyJSON'
-pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+# pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
 
 
 end

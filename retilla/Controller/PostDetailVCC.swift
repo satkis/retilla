@@ -22,13 +22,16 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var blurrView: UIVisualEffectView!
     @IBOutlet weak var map: MKMapView!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
     //let regionRadius: CLLocationDistance = 1000
     
-    @IBOutlet weak var postStoryLbl: UILabel!
+    //@IBOutlet weak var postStoryLbl: UILabel!
+    
+    @IBOutlet weak var postStoryLbl: UITextView!
     @IBOutlet weak var hashtagLbl: UILabel!
 
 
-    @IBOutlet weak var likesLbl: UILabel!
+    //@IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var sectionNumberLbl: UILabel!
    
@@ -45,18 +48,49 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         map.delegate = self
         
-        effect = blurrView.effect
-        blurrView.effect = nil
+        imageLbl.layer.cornerRadius = 8.0
+        //imageLbl.clipsToBounds = true
+//        imageLbl.contentMode = .scaleAspectFill
+       //imageLbl.layer.shadowColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+        //imageLbl.layer.shadowOpacity = 0.2
+        //effect = visualEffectView.effect
+        visualEffectView.effect = nil
         
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.hidesBarsOnSwipe = false
         
-        self.title = "some"
+        if post.username != nil {
+            self.title = post.username
+        } else {
+            self.title = "user name not found"
+        }
         
-        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animate)))
+//        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animate)))
+//        view.addSubview(imageLbl)
+        
+        let maximizeImg = UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animate))
+//        tap.numberOfTapsRequired = 3
+        view.addGestureRecognizer(maximizeImg)
         view.addSubview(imageLbl)
         
+        
+//        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateViewDown)))
+      let minimizeImg = UISwipeGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateViewDown))
+        minimizeImg.direction = .down
+        let minimizeImgg = UISwipeGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateViewDown))
+        minimizeImgg.direction = .left
+        let minimizeImggg = UISwipeGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateViewDown))
+        minimizeImggg.direction = .right
+        let minimizeImgggg = UISwipeGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateViewDown))
+        minimizeImgggg.direction = .up
+        view.addGestureRecognizer(minimizeImg)
+        view.addGestureRecognizer(minimizeImgg)
+        view.addGestureRecognizer(minimizeImggg)
+        view.addGestureRecognizer(minimizeImgggg)
+    
 
 //        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateOut)))
+//        view.removeFromSuperview()
 
         
         if post.location_city != nil {
@@ -90,7 +124,7 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         }
         
 
-        self.likesLbl.text = "\(post.likes!)"
+        //self.likesLbl.text = "\(post.likes!)"
         
 //        if let likes = post.likes, post.likes != nil {
 //            likesLbl.text = String(likes)
@@ -146,19 +180,51 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     
     @objc func animate() {
         
-        self.imageLbl.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        self.imageLbl.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
         self.imageLbl.alpha = 0
         
-        UIView.animate(withDuration: 0.3) { () -> Void in
-            self.imageLbl.frame = CGRect(x: (self.view.frame.width / 2) - 120, y: (self.view.frame.height / 2) - 150, width: 240, height: 300)
-            self.blurrView.effect = self.effect
+        UIView.animate(withDuration: 0.25) { () -> Void in
+//            let xx = self.view.frame.width
+//            let yy = self.view.frame.height
+            self.visualEffectView.effect = self.effect
             self.imageLbl.alpha = 1
-            self.imageLbl.transform = CGAffineTransform.identity
-            self.imageLbl.layer.cornerRadius = 5
-            
-            
+//            self.imageLbl.transform = CGAffineTransform.identity
+            self.imageLbl.frame = CGRect(x: 0, y: 150, width: 375, height: 500)
+//            self.blurrView.effect = self.effect
+            self.imageLbl.contentMode = .scaleAspectFit
+            //self.imageLbl.backgroundColor = UIColor.black
+            self.imageLbl.layer.cornerRadius = 8.0
+
         }
     }
+//
+//    func addSwipe() {
+//        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
+//
+//        swipe.direction = .down
+//        imageLbl.addGestureRecognizer(swipe)
+//    }
+    
+    @objc func animateViewDown() {
+//self.imageLbl.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            self.imageLbl.frame = CGRect(x: 12, y: 165, width: 77, height: 77)
+        }
+    }
+    
+    
+    
+//    @objc func animateOut() {
+//
+//        UIView.animate(withDuration: 0.25) {
+//            self.imageLbl.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
+//            self.imageLbl.alpha = 0
+//            self.visualEffectView.effect = nil
+//            }
+//                self.imageLbl.removeFromSuperview()
+//        }
+//
+    
     
 //    @objc func animateOut() {
 //

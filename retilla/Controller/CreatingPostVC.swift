@@ -41,8 +41,12 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var imageSelectorImage: UIImageView!
     
+    //@IBOutlet weak var usersCamera: UIImageView!
+    
+    @IBOutlet var userCamera: UIImageView!
     @IBOutlet var storyTextVIew: UITextView!
     
+    @IBOutlet weak var postSegments: UISegmentedControl!
     
     //@IBOutlet weak var locationLbl_city: UILabel!
     
@@ -67,6 +71,7 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("viewDidLoad of CreatingPostVC")
         locationManager.delegate = self
         locationAuthStatus()
+//        handleLocationAuthorizationStatus(status: )
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -120,15 +125,51 @@ func textViewDidChange(_ textView: UITextView) {
             imageSelectorImage.contentMode = .scaleAspectFit
             imageSelectorImage.image = editedImage
             imageSelected = true
-            
-        } else if let pickerImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//
+//        } else if let pickerImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            imageSelectorImage.contentMode = .scaleAspectFit
+//            imageSelectorImage.image = pickerImage
+//
+//            imageSelected = true
+        } else if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            picker.sourceType = .camera
+            let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage
             imageSelectorImage.contentMode = .scaleAspectFit
-            imageSelectorImage.image = pickerImage
+//            userCamera.contentMode = .scaleAspectFit
+            imageSelectorImage.image = pickedImage
+//            userCamera.image = pickedImage
             imageSelected = true
+            
+//        } else if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//            let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+//            userCamera.contentMode = .scaleToFill
+//            userCamera.image = pickedImage
+//            imageSelected = true
         }
+        picker.dismiss(animated: true, completion: nil)
+            
+        
         imagePicker.dismiss(animated: true, completion: nil)
         
     }
+    
+//    @IBAction func openCameraTapped(_ sender: UITapGestureRecognizer) {
+//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.delegate = self
+//            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+//            imagePicker.allowsEditing = false
+    
+//
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            userCamera.contentMode = .scaleToFill
+//            userCamera.image = pickedImage
+//        }
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//
 
     func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation_city: String!, postLocation_country: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!, username: String!) {
         
@@ -200,6 +241,7 @@ func textViewDidChange(_ textView: UITextView) {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         if let loc = locations.first {
             print(loc)
             let lat = loc.coordinate.latitude
@@ -227,6 +269,24 @@ func textViewDidChange(_ textView: UITextView) {
                     debugPrint("location error: \(String(describing: error))")
                 }
             })
+        }
+    }
+    
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        handleLocationAuthorizationStatus(status: status)
+//    }
+    
+    // Respond to the result of the location manager authorization status
+    func handleLocationAuthorizationStatus(status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            locationManager.startUpdatingLocation()
+        case .denied:
+            print("I'm sorry - I can't show location. User has not authorized it")
+        case .restricted:
+            print("Access denied - likely parental controls are restricting use in this app.")
         }
     }
     
@@ -271,14 +331,69 @@ func textViewDidChange(_ textView: UITextView) {
 //        }
 //    }
     
-    
-    
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            userCamera.contentMode = .scaleToFill
+//            userCamera.image = pickedImage
+//        }
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+ 
     
         
     @IBAction func selectImageTapped(_ sender: UITapGestureRecognizer) {
         present(imagePicker, animated: true, completion: nil)
     }
     
+    
+    @IBAction func openCameraTapped(_ sender: UITapGestureRecognizer) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            imagePicker.allowsEditing = true
+            //self.presentedViewController(imagePicker, animated: true, completion: nil)
+            
+//            presentedViewController(imagePicker, animated: true, completion: nil)
+            
+//            present(imagePickerController, animated: true, completion: nil)
+//            imagePicker.cameraCaptureMode = .photo
+//            imagePicker.modalPresentationStyle = .fullScreen
+            //var picker = UIImagePickerController()
+            //imagePicker.allowsEditing = false
+//            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+
+//
+            present(imagePicker, animated: true, completion: nil)
+//        } else {
+//            noCamera()
+//        }
+    }
+    }
+    
+    
+
+    
+    
+//    func noCamera(){
+//        let alertVC = UIAlertController(
+//            title: "No Camera",
+//            message: "Sorry, someting is wrong with camera. Pick a photo from your Library",
+//            preferredStyle: .alert)
+//        let okAction = UIAlertAction(
+//            title: "OK",
+//            style:.default,
+//            handler: nil)
+//        alertVC.addAction(okAction)
+//        present(
+//            alertVC,
+//            animated: true,
+//            completion: nil)
+//    }
+    
+
+
     
     @IBAction func selectedSectionn(_ sender: UISegmentedControl) {
         
@@ -310,7 +425,9 @@ func textViewDidChange(_ textView: UITextView) {
 //    }
     
     @IBAction func sharePost(_ sender: Any) {
-        if let imageIsSelected = imageSelectorImage.image, imageSelected == true && selectedSection != nil {
+        if let _ = imageSelectorImage.image, imageSelected == true  {
+            if selectedSection != nil {
+            
             if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.3) {
                 print("uploadData::: \(uploadData)")
                 let metadata = StorageMetadata()
@@ -321,15 +438,60 @@ func textViewDidChange(_ textView: UITextView) {
                 print("newPostKey::: \(newPostKey)")
                 
                 self.newPostKey = newPostKey
+                let storRef = Storage.storage().reference()
                 let imageStorageRef = Storage.storage().reference().child("images")
                 print("imageStorageRef::: \(imageStorageRef)")
                 let newImageRef = imageStorageRef.child(newPostKey + ".jpeg")
                 print("newImageRef::: \(newImageRef)")
+//                imageStorageRef.downloadURL(completion: { (url, error) in
+//                    if let error = error {
+//                        print("error:p: \(error)")
+//                    } else {
+//                        print("imgg: \(String(describing: url))")
+//                    }
+//                })
+//                newImageRef.putData(uploadData).observe(.success) { snapshot in
+//
+//                    newImageRef.downloadURL(completion: { (url, err) in
+//                        if (error == nil) {
+//                            if let downloadUrl = url {
+//                                let downloadString = downloadUrl.absoluteString
+//                                self.imageDowloadURL = downloadString
+//                                print("urlurl \(self.imageDowloadURL)")
+//                            }
+//                        } else {
+//                            print("errerr\(String(describing: error))")
+//                        }
+//                    })
+//                }
+                //                this one whas the initial:: newImageRef.putData(uploadData, metadata: metadata).observe(.success, handler: { (snapshot) in
+//                newImageRef.putData(uploadData).observe(.success) { snapshot in
+//                let storage = Storage.storage().reference()
+//
+//                newImageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+//
+//                if error == nil {
+//
+//                    Storage.storage().reference().child("images").child(newPostKey+".jpeg").downloadURL(completion: { (urlll, errr) in
+//                        if let error = error {
+//                            print(errr)
+//                        } else {
+//                            print("rerere \(String(describing: urlll))")
+//                        }
+//                    })
+//
+//                    print("errorrMetadata: \(error)")
+//
+//                } else {
+//                    return
+//                    }
                 newImageRef.putData(uploadData, metadata: metadata).observe(.success, handler: { (snapshot) in
                     //save the post caption & download url
                     print("snapshot:: \(snapshot)")
                     self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
                     print("imageDowloadURL:: \(self.imageDowloadURL)")
+                    
+                    
                     self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation_city: self.postLocation_city, postLocation_country: self.postLocation_country, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
                     
                     self.dismiss(animated: true, completion: nil)
@@ -339,13 +501,44 @@ func textViewDidChange(_ textView: UITextView) {
                 postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation_city: "WRONG", postLocation_country: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
                 print("saved to Firebase nil image")
                 dismiss(animated: true, completion: nil)
+                }
+            } else {
+                postSegments.shake()
             }
+        } else {
+            imageSelectorImage.shake()
+            userCamera.shake()
         }
     }
             
 
 
 }
+
+extension UISegmentedControl {
+    func shake(){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 8, y: self.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 8, y: self.center.y))
+        self.layer.add(animation, forKey: "position")
+    }
+}
+
+extension UIImageView {
+    func shake(){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 8, y: self.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 8, y: self.center.y))
+        self.layer.add(animation, forKey: "position")
+    }
+}
+
     
 
 

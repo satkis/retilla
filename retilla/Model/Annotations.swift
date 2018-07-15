@@ -13,7 +13,7 @@ import UIKit
 class Annotations: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var reactions: Int?
-    //var imageUrl: String?
+    var imageUrl: String?
     var postStory: String?
     var hashtag: String?
     var sectionNumber: Int?
@@ -25,7 +25,7 @@ class Annotations: NSObject, MKAnnotation {
     init(coordinate: CLLocationCoordinate2D, reactions: Int?, imageUrl: String?, postStory: String?, hashtag: String?, sectionNumber: Int?, location: String?, timeStamp: String!) {
         self.coordinate = coordinate
         self.reactions = reactions
-        //self.imageUrl = imageUrl
+        self.imageUrl = imageUrl
         self.postStory = postStory
         self.hashtag = hashtag
         self.sectionNumber = sectionNumber
