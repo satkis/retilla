@@ -29,10 +29,14 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var postStoryLbl: UITextView!
     @IBOutlet weak var hashtagLbl: UILabel!
-
+    
+    @IBOutlet weak var imgCategory: UIImageView!
+    
 
     //@IBOutlet weak var likesLbl: UILabel!
-    @IBOutlet weak var usernameLbl: UILabel!
+    
+//    @IBOutlet weak var usernameLbl: UILabel!
+    
     @IBOutlet weak var sectionNumberLbl: UILabel!
    
     @IBOutlet weak var cityLbl: UILabel!
@@ -54,24 +58,25 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
        //imageLbl.layer.shadowColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
         //imageLbl.layer.shadowOpacity = 0.2
         //effect = visualEffectView.effect
-        visualEffectView.effect = nil
         
-        self.navigationController?.isNavigationBarHidden = false
+        
+//        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.hidesBarsOnSwipe = false
+//        self.navigationController.
         
         if post.username != nil {
             self.title = post.username
         } else {
-            self.title = "user name not found"
+            self.title = " "
         }
         
 //        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animate)))
 //        view.addSubview(imageLbl)
         
-        let maximizeImg = UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animate))
-//        tap.numberOfTapsRequired = 3
-        view.addGestureRecognizer(maximizeImg)
-        view.addSubview(imageLbl)
+//        let maximizeImg = UITapGestureRecognizer(target: imageLbl, action: #selector(PostDetailVCC.animate))
+////        tap.numberOfTapsRequired = 3
+//        view.addGestureRecognizer(maximizeImg)
+//        view.addSubview(imageLbl)
         
         
 //        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateViewDown)))
@@ -123,6 +128,34 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
             hashtagLbl.text = "NO hashtag found"
         }
         
+        if let sectionNr = sectionNumberLbl.text {
+            //                let img0 = UIImageView(named: #imageLiteral(resourceName: "circle0"))
+            let img0 = UIImage(named: "circle0")
+            let img1 = UIImage(named: "circle1")
+            let img2 = UIImage(named: "circle2")
+            let img3 = UIImage(named: "circle3")
+            if sectionNr == "\(0)" {
+                sectionNumberLbl.text = "REUSE"
+                imgCategory.image = img0
+                
+            } else if sectionNr == "\(1)" {
+                sectionNumberLbl.text = "RECYCLE"
+                imgCategory.image = img1
+            } else if sectionNr == "\(2)" {
+                sectionNumberLbl.text = "REDUCE"
+                imgCategory.image = img2
+            } else if sectionNr == "\(3)" {
+                sectionNumberLbl.text = "POLLUTION"
+                imgCategory.image = img3
+            } else {
+                sectionNumberLbl.text = "not found"
+                imgCategory.image = img3
+            }
+            
+            
+            
+        }
+        
 
         //self.likesLbl.text = "\(post.likes!)"
         
@@ -132,18 +165,40 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
 //            likesLbl.text = "n/a likes"
 //        }
         
-        if post.username != nil {
-            usernameLbl.text = post.username
+//        if post.username != nil {
+//            usernameLbl.text = post.username
+//        } else {
+//            usernameLbl.text = "n/a username"
+//        }
+ 
+        if let time = post.timestamp {
+            postTimestampLbl.text = time
         } else {
-            usernameLbl.text = "n/a username"
+            postTimestampLbl.text = "time not available"
         }
-        
-        if post.timestamp != nil {
-            postTimestampLbl.text = "\(post.timestamp)"
+//        if post.timestamp != nil {
+//
+//             postTimestampLbl.text = "\(post.timestamp)"
+//            let converted = NSDate(timeIntervalSince1970: post.timestamp / 1000)
+            
+            
+            //ERROR HERE
+//            let converted = Date(timeIntervalSince1970: Int(post.timestamp)! / 1000)
+//            print("converted \(converted)")
+            
+//
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.timeZone = NSTimeZone.local
+//            dateFormatter.dateFormat = "hh:mm a"
+//            let time = dateFormatter.string(from: converted)
+//            print("timee \(time)")
+           
+            
+            
 //             postTimestampLbl.text = "\(post.timestamp!.prefix(6))"
-        } else {
-            postTimestampLbl.text = "n/a time"
-        }
+//        } else {
+//            postTimestampLbl.text = "n/a time"
+//        }
 
         // NEED TO adjust if image fails to download (make default value)
         if post.imageUrl != nil {
@@ -178,25 +233,25 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
 //
     }
     
-    @objc func animate() {
-        
-        self.imageLbl.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
-        self.imageLbl.alpha = 0
-        
-        UIView.animate(withDuration: 0.25) { () -> Void in
-//            let xx = self.view.frame.width
-//            let yy = self.view.frame.height
-            self.visualEffectView.effect = self.effect
-            self.imageLbl.alpha = 1
-//            self.imageLbl.transform = CGAffineTransform.identity
-            self.imageLbl.frame = CGRect(x: 0, y: 150, width: 375, height: 500)
-//            self.blurrView.effect = self.effect
-            self.imageLbl.contentMode = .scaleAspectFit
-            //self.imageLbl.backgroundColor = UIColor.black
-            self.imageLbl.layer.cornerRadius = 8.0
-
-        }
-    }
+//    @objc func animate() {
+//
+//        self.imageLbl.transform = CGAffineTransform.init(scaleX: 1.1, y: 1.1)
+////        self.imageLbl.alpha = 0
+//
+//        UIView.animate(withDuration: 0.25) { () -> Void in
+////            let xx = self.view.frame.width
+////            let yy = self.view.frame.height
+//            self.visualEffectView.effect = self.effect
+//            self.imageLbl.alpha = 1
+////            self.imageLbl.transform = CGAffineTransform.identity
+//            self.imageLbl.frame = CGRect(x: 0, y: 150, width: 375, height: 500)
+////            self.blurrView.effect = self.effect
+//            self.imageLbl.contentMode = .scaleAspectFit
+//            //self.imageLbl.backgroundColor = UIColor.black
+//            self.imageLbl.layer.cornerRadius = 8.0
+//
+//        }
+//    }
 //
 //    func addSwipe() {
 //        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
@@ -208,7 +263,7 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     @objc func animateViewDown() {
 //self.imageLbl.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
         UIView.animate(withDuration: 0.25) { () -> Void in
-            self.imageLbl.frame = CGRect(x: 12, y: 165, width: 77, height: 77)
+            self.imageLbl.frame = CGRect(x: 12, y: 196, width: 77, height: 77)
         }
     }
     
@@ -251,6 +306,23 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    @IBAction func imgTapped(_ sender: UITapGestureRecognizer) {
+        
+        //     self.slideUpMenu.clipsToBounds = false
+        //        self.imgLbl.superview?.bringSubview(toFront: imgLbl)
+        //        self.imgLbl.layer.masksToBounds = false
+        //        self.imgLbl.transform = CGAffineTransform.init(scaleX: 0.7, y: 0.7)
+        //self.imgLbl.alpha = 0
+        
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            //            self.imgLbl.alpha = 1
+            self.imageLbl.frame = CGRect(x: 0, y: 150, width: 375, height: 450)
+            self.imageLbl.contentMode = .scaleAspectFit
+            //            self.imgLbl.layer.cornerRadius = 8.0
+        }
+        
+    }
     
 }
 

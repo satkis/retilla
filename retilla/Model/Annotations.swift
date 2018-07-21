@@ -18,11 +18,13 @@ class Annotations: NSObject, MKAnnotation {
     var hashtag: String?
     var sectionNumber: Int?
     var location: String?
+    var countryLocation: String?
     var timeStamp: String!
+    var userName: String!
     
     
     
-    init(coordinate: CLLocationCoordinate2D, reactions: Int?, imageUrl: String?, postStory: String?, hashtag: String?, sectionNumber: Int?, location: String?, timeStamp: String!) {
+    init(coordinate: CLLocationCoordinate2D, reactions: Int?, imageUrl: String?, postStory: String?, hashtag: String?, sectionNumber: Int?, location: String?, countryLocation: String?, timeStamp: String!, userName: String?) {
         self.coordinate = coordinate
         self.reactions = reactions
         self.imageUrl = imageUrl
@@ -30,7 +32,9 @@ class Annotations: NSObject, MKAnnotation {
         self.hashtag = hashtag
         self.sectionNumber = sectionNumber
         self.location = location
+        self.countryLocation = countryLocation
         self.timeStamp = timeStamp
+        self.userName = userName
         
         super.init()
     }

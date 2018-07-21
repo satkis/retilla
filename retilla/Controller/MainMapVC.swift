@@ -22,13 +22,15 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     //@IBOutlet weak var imageUrlLbl: UILabel!
     @IBOutlet weak var hashtagLbl: UILabel!
     @IBOutlet weak var sectionNrLbl: UILabel!
-    @IBOutlet weak var locationLbl: UILabel!
+    @IBOutlet weak var sectionImg: UIImageView!
+    @IBOutlet weak var cityLbl: UILabel!
     @IBOutlet weak var countryLbl: UILabel!
     @IBOutlet weak var timeStampLbl: UILabel!
 //    @IBOutlet weak var postStoryLbl: UILabel!
     @IBOutlet weak var imgLbl: UIImageView!
     @IBOutlet weak var postStoryLbl: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var categoryLbl: UILabel!
     
     
     
@@ -53,7 +55,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     //var geoFireRef: DatabaseReference! - same like 'URL_GENERAL'
     
     var annot: Annotations?
-    
+
     var annotationn = [Post]()
     // var pinDetails: Post?
     var ref: DatabaseReference!
@@ -85,13 +87,20 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         super.viewDidLoad()
         map.delegate = self
         //self.view.addSubview(DetailPinView)
-        imgLbl.layer.cornerRadius = 8.0
-    
         locationAuthStatus()
+        hashtagLbl.isHidden = true
+        sectionNrLbl.isHidden = true
+        sectionImg.isHidden = true
+        cityLbl.isHidden = true
+        countryLbl.isHidden = true
+        timeStampLbl.isHidden = true
+        postStoryLbl.isHidden = true
         activityIndicator.isHidden = true
         imgLbl.isHidden = true
+        categoryLbl.isHidden = true
+        //imgVisibility()
         
-        
+
         let minImg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
         minImg.direction = .down
         let minImgg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
@@ -214,7 +223,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     //                        timeStamp: pinDetails.timestamp
                     //                    )
                     
-                    let aaaa = Annotations(coordinate: pinCoordinate, reactions: pinDetails.likes, imageUrl: pinDetails.imageUrl, postStory: pinDetails.postStory, hashtag: pinDetails.hashtag, sectionNumber: pinDetails.sectionNumber, location: pinDetails.location_city, timeStamp: pinDetails.timestamp)
+                    let aaaa = Annotations(coordinate: pinCoordinate, reactions: pinDetails.likes, imageUrl: pinDetails.imageUrl, postStory: pinDetails.postStory, hashtag: pinDetails.hashtag, sectionNumber: pinDetails.sectionNumber, location: pinDetails.location_city, countryLocation: pinDetails.location_country, timeStamp: pinDetails.timestamp, userName: pinDetails.username)
                     print("aaaa::: \(aaaa)")
                     //                    self.titleeee = annotationnnnn.hashtag
                     // print("self.Titleeee::: \(String(describing: self.titleeee))")
@@ -295,57 +304,57 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     //    }
 
     
-    func addSwipe() {
-        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
-       
-        swipe.direction = .down
-        pullUpView.addGestureRecognizer(swipe)
-        //        let tap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
-        //        swipe.direction = .down
-        //        view.addGestureRecognizer(tap)
-    }
-    
-    func animateViewUp() {
-//        pullUpViewHeightConstraint.constant = 150
-
-        UIView.animate(withDuration: 0.3) {
-            self.view.setNeedsLayout()
-            self.view.layoutIfNeeded()
-        }
+//    func addSwipe() {
+//        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(animateViewDown))
 //
-//        UIImageView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 30, animations: ({
-//            self.imgLbl.center = CGPoint(x: 16, y: 522)
-//        }), completion: nil)
-    }
+//        swipe.direction = .down
+//        pullUpView.addGestureRecognizer(swipe)
+//        //        let tap = UITapGestureRecognizer(target: self, action: #selector(animateViewDown))
+//        //        swipe.direction = .down
+//        //        view.addGestureRecognizer(tap)
+//    }
+    
+//    func animateViewUp() {
+////        pullUpViewHeightConstraint.constant = 150
+//
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.setNeedsLayout()
+//            self.view.layoutIfNeeded()
+//        }
+////
+////        UIImageView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 30, animations: ({
+////            self.imgLbl.center = CGPoint(x: 16, y: 522)
+////        }), completion: nil)
+//    }
     
     
     
-    @objc func animateViewDown() {
-//        pullUpViewHeightConstraint.constant = 0
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-            self.imgLbl.isHidden = true
-            
-            
-        }
-        
-    }
+//    @objc func animateViewDown() {
+////        pullUpViewHeightConstraint.constant = 0
+//        UIView.animate(withDuration: 0.3) {
+//            self.view.layoutIfNeeded()
+//            self.imgLbl.isHidden = true
+//
+//
+//        }
+//
+//    }
     
     
-   func addSwipeUp() {
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(animateViewUpUpUp))
-        swipeUp.direction = .up
-    
-        pullUpView.addGestureRecognizer(swipeUp)
-    }
+//   func addSwipeUp() {
+//        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(animateViewUpUpUp))
+//        swipeUp.direction = .up
+//
+//        pullUpView.addGestureRecognizer(swipeUp)
+//    }
 
 
     
  
-    @objc func animateViewUpUpUp() {
-        
-//        pullUpViewHeightConstraint.constant = 250
-    }
+//    @objc func animateViewUpUpUp() {
+//
+////        pullUpViewHeightConstraint.constant = 250
+//    }
     
     
     
@@ -354,10 +363,16 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
+
         
+       // menuBttnTapped(MKAnnotationView.self)
+        //menuBttnTapped(mapView)
+//          self.slideUpMenu.transform = CGAffineTransform(translationX: 0, y: -235)
         
         if let tappedPin = view.annotation as? Annotations {
-
+//            menuBttnTapped(tappedPin)
+            
+//            self.imgLbl.layer.cornerRadius = 8.0
 //            if let reactions = tappedPin.reactions {
 //                reactionLbl?.text = "\(reactions)"
 //            } else {
@@ -370,22 +385,64 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 //                imageUrlLbl.text = "no url"
 //            }
             
+            if let userNamee = tappedPin.userName {
+                self.navigationItem.title = userNamee
+            } else {
+                self.navigationItem.title = " "
+            }
+            
             if let hashtag = tappedPin.hashtag {
                 hashtagLbl?.text = hashtag
             } else {
                 hashtagLbl?.text = "no hashtag"
             }
             
+//            if let sectionNr = tappedPin.sectionNumber {
+//                sectionNrLbl.text = "\(sectionNr)"
+//            } else {
+//                sectionNrLbl.text = "no sectionNr"
+//            }
+            
             if let sectionNr = tappedPin.sectionNumber {
-                sectionNrLbl.text = "\(sectionNr)"
-            } else {
-                sectionNrLbl.text = "no sectionNr"
+//                let img0 = UIImageView(named: #imageLiteral(resourceName: "circle0"))
+                let img0 = UIImage(named: "circle0")
+                let img1 = UIImage(named: "circle1")
+                let img2 = UIImage(named: "circle2")
+                let img3 = UIImage(named: "circle3")
+                if sectionNr == 0 {
+                    sectionNrLbl.text = "REUSE"
+                    sectionImg.image = img0
+                    
+                } else if sectionNr == 1 {
+                    sectionNrLbl.text = "RECYCLE"
+                    sectionImg.image = img1
+                } else if sectionNr == 2 {
+                    sectionNrLbl.text = "REDUCE"
+                    sectionImg.image = img2
+                } else if sectionNr == 3 {
+                    sectionNrLbl.text = "POLLUTION"
+                    sectionImg.image = img3
+                } else {
+                    sectionNrLbl.text = "not found"
+                    sectionImg.image = img3
+                }
+                
+                
+                
             }
             
+            
+            
             if let location = tappedPin.location {
-                locationLbl?.text = location
+                cityLbl?.text = location
             } else {
-                locationLbl?.text = "no location"
+                cityLbl?.text = "no location"
+            }
+            
+            if let countryLocation = tappedPin.countryLocation {
+                countryLbl?.text = countryLocation
+            } else {
+                countryLbl?.text = "no country"
             }
             
             if let time = tappedPin.timeStamp {
@@ -396,20 +453,14 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             
             if let story = tappedPin.postStory {
                 postStoryLbl.text = story
+                print("poststorr:: \(postStoryLbl.text)")
             } else {
                 postStoryLbl.text = "no story"
             }
             
-            
-            
             //             NEED TO adjust if image fails to download (make default value)
             //NEED TO cache img. Plus, NEED TO make new .swift file for UIView and place all view details there
-            
-            
-            
-            
-            
-            
+           
             if let url = tappedPin.imageUrl {
                 
                 DispatchQueue.global().async {
@@ -425,7 +476,8 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                 print("loadeddd")
                 self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
-                self.imgLbl.isHidden = false
+                //self.imgLbl.isHidden = true
+                //self.imgLbl.layer.cornerRadius = 8.0
                 
             }
 //                let data = try? Data(contentsOf: url!)
@@ -460,12 +512,6 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 //            }
             
             
-            
-            
-            
-            
-            
-            
             //        if let detailAnnotView = Bundle.main.loadNibNamed("DetailAnnotationView", owner: self, options: nil)?.first as? DetailAnnotationView {
             //            let pinToZoon = view.annotation?.title
             //            detailAnnotView.xibLabel.text = pinToZoon!
@@ -488,12 +534,12 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             //animateViewUpUp()
             //        updatePulledUpView()
             
-            animateViewUp()
+//            animateViewUp()
 
-            addSwipe()
+//            addSwipe()
 
 
-                addSwipeUp()
+//                addSwipeUp()
      
 
             //        if case self.selectedAnnotaton = view.annotation as? Annotations {
@@ -506,6 +552,9 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
             
             //        animateViewUp()
             //        addSwipe()
+        } else {
+            imgLbl.isHidden = true
+            activityIndicator.isHidden = false
         }
         
 //            activityIndicator.isHidden = false
@@ -519,43 +568,93 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         //self.imageLbl.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
 
         UIView.animate(withDuration: 0.25) { () -> Void in
-            self.imgLbl.frame = CGRect(x: 12, y: 100, width: 84, height: 84)
+            self.imgLbl.frame = CGRect(x: 20, y: 368, width: 70, height: 70)
+//            self.imgLbl.layer.cornerRadius = 8.0
+//            self.imgLbl.transform = .identity
+//            self.activityIndicator.transform = .identity
         }
     }
-    
-    
+
     
 
     @IBAction func imgTapped(_ sender: UITapGestureRecognizer) {
 
-        
-        self.imgLbl.transform = CGAffineTransform.init(scaleX: 1, y: 1)
-        self.imgLbl.alpha = 0
+//     self.slideUpMenu.clipsToBounds = false
+//        self.imgLbl.superview?.bringSubview(toFront: imgLbl)
+//        self.imgLbl.layer.masksToBounds = false
+//        self.imgLbl.transform = CGAffineTransform.init(scaleX: 0.7, y: 0.7)
+        //self.imgLbl.alpha = 0
         
         UIView.animate(withDuration: 0.25) { () -> Void in
-            self.imgLbl.alpha = 1
-            self.imgLbl.frame = CGRect(x: 0, y: 50, width: 375, height: 500)
+//            self.imgLbl.alpha = 1
+            let xx = self.view.frame.width / 2 - 290/2
+            let yy = self.view.frame.height / 2 - 300
+            self.imgLbl.center = self.view.center
+            self.imgLbl.frame = CGRect(x: xx, y: yy, width: 290, height: 350)
             self.imgLbl.contentMode = .scaleAspectFit
-            self.imgLbl.layer.cornerRadius = 8.0
+//            self.imgLbl.layer.cornerRadius = 8.0
         }
         
     }
+
+//    func imgVisibility() {
+//        if self.slideUpMenu.transform == CGAffineTransform(translationX: 0, y: -235) {
+//            self.imgLbl.isHidden = false
+//        } else {
+//            self.imgLbl.isHidden = true
+//        }
+//    }
+//
     
-    
-    @IBAction func menuBttnTapped(_ sender: UIButton) {
-       
+    @IBAction func menuBttnTapped(_ sender: Any) {
+       // if self.annot?.sectionNumber != nil {
+        
         if darkFillView.transform == CGAffineTransform.identity {
+            
+            hashtagLbl.isHidden = false
+            sectionNrLbl.isHidden = false
+            sectionImg.isHidden = false
+            cityLbl.isHidden = false
+            countryLbl.isHidden = false
+            timeStampLbl.isHidden = false
+            postStoryLbl.isHidden = false
+            activityIndicator.isHidden = false
+            imgLbl.isHidden = false
+            categoryLbl.isHidden = false
+
             UIView.animate(withDuration: 0.5, animations: {
-                self.darkFillView.transform = CGAffineTransform(scaleX: 11, y: 11)
-                self.slideUpMenu.transform = CGAffineTransform(translationX: 0, y: -150)
+                self.darkFillView.transform = CGAffineTransform(scaleX: 20, y: 20)
+//                self.darkFillView.clipsToBounds = true
+                self.slideUpMenu.clipsToBounds = true
+                self.slideUpMenu.transform = CGAffineTransform(translationX: 0, y: -235)
+                self.imgLbl.transform = CGAffineTransform(translationX: 120, y: 0)
+                self.activityIndicator.transform = CGAffineTransform(translationX: 120, y: 0)
                 self.menuPopUpBttn.transform = CGAffineTransform(rotationAngle: self.radians(degrees: 180))
             }) { (true) in
             }
         } else {
+//            hashtagLbl.isHidden = true
+            sectionNrLbl.isHidden = true
+            sectionImg.isHidden = true
+//            cityLbl.isHidden = true
+//            countryLbl.isHidden = true
+            timeStampLbl.isHidden = true
+//            postStoryLbl.isHidden = true
+//            activityIndicator.isHidden = true
+//            imgLbl.isHidden = true
+            categoryLbl.isHidden = true
+            
             UIView.animate(withDuration: 0.5, animations: {
                 self.darkFillView.transform = .identity
                 self.slideUpMenu.transform = .identity
                 self.menuPopUpBttn.transform = .identity
+//                self.imgLbl.transform = CGAffineTransform(translationX: -120, y: 0)
+//                self.activityIndicator.transform = CGAffineTransform(translationX: -120, y: 0)
+//                self.imgAway()
+                self.activityIndicator.transform = .identity
+                self.imgLbl.transform = .identity
+                //self.imgLbl.isHidden = true
+                //self.activityIndicator.isHidden = false
             }) { (true) in
             }
         }

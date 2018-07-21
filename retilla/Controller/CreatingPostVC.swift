@@ -37,6 +37,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     private var image: UIImage!
     
+    
+    @IBOutlet weak var chooseLbl: UILabel!
+    @IBOutlet weak var explanationLbl: UIStackView!
     @IBOutlet weak var hashtagField: UITextField?
     
     @IBOutlet weak var imageSelectorImage: UIImageView!
@@ -55,6 +58,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        chooseLbl.alpha = 0
+        explanationLbl.alpha = 0
         
         storyTextVIew.delegate = self
         placeholderLabel = UILabel()
@@ -174,6 +180,8 @@ func textViewDidChange(_ textView: UITextView) {
     func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation_city: String!, postLocation_country: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!, username: String!) {
         
        let postTimestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
+        
+        //let rr = ServerValue.timestamp()
      
         let lat = locationManager.location?.coordinate.latitude
         let long = locationManager.location?.coordinate.longitude
@@ -288,6 +296,10 @@ func textViewDidChange(_ textView: UITextView) {
         case .restricted:
             print("Access denied - likely parental controls are restricting use in this app.")
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
  
@@ -510,7 +522,25 @@ func textViewDidChange(_ textView: UITextView) {
             userCamera.shake()
         }
     }
+    
+    
+    @IBAction func explanationTapped(_ sender: Any) {
+        
+        if self.chooseLbl.alpha == CGFloat(0) {
             
+            UIView.animate(withDuration: 0.3) {
+                self.chooseLbl.alpha = 1
+                self.explanationLbl.alpha = 1
+            }
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.chooseLbl.alpha = 0
+                self.explanationLbl.alpha = 0
+            }
+        }
+    }
+    
+    
 
 
 }
