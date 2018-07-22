@@ -646,6 +646,51 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zeJ-dM-hQD">
+                                <rect key="frame" x="0.0" y="223" width="375" height="506"/>
+                                <color key="backgroundColor" red="0.79363751589999998" green="0.95806699819999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cwf-MQ-5xv">
+                                    <size key="itemSize" width="112" height="112"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="postCellinUserVC" id="a9g-4p-cwM" customClass="PostCellInUserVC" customModule="retilla" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="112" height="112"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="112" height="112"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beach" translatesAutoresizingMaskIntoConstraints="NO" id="FUe-1H-ra4">
+                                                    <rect key="frame" x="0.0" y="0.0" width="112" height="112"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle0" translatesAutoresizingMaskIntoConstraints="NO" id="04Y-zh-tn9">
+                                                    <rect key="frame" x="3" y="84" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="Ef7-Vd-UEO"/>
+                                                        <constraint firstAttribute="width" constant="25" id="utG-AZ-o4t"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="FUe-1H-ra4" firstAttribute="leading" secondItem="a9g-4p-cwM" secondAttribute="leading" id="BjG-oS-Idw"/>
+                                            <constraint firstAttribute="bottom" secondItem="04Y-zh-tn9" secondAttribute="bottom" constant="3" id="Hrk-h7-rbm"/>
+                                            <constraint firstItem="04Y-zh-tn9" firstAttribute="leading" secondItem="a9g-4p-cwM" secondAttribute="leading" constant="3" id="NxV-li-Iec"/>
+                                            <constraint firstAttribute="bottom" secondItem="FUe-1H-ra4" secondAttribute="bottom" id="fGX-ea-scd"/>
+                                            <constraint firstAttribute="trailing" secondItem="FUe-1H-ra4" secondAttribute="trailing" id="fva-FV-mQf"/>
+                                            <constraint firstItem="FUe-1H-ra4" firstAttribute="top" secondItem="a9g-4p-cwM" secondAttribute="top" id="win-vh-ZFs"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="postImg" destination="FUe-1H-ra4" id="5K3-z1-pag"/>
+                                            <outlet property="sectionImg" destination="04Y-zh-tn9" id="8v0-gD-nG4"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -653,9 +698,13 @@
                             <constraint firstItem="gnB-Id-keX" firstAttribute="leading" secondItem="7Pz-X3-Pas" secondAttribute="leading" constant="25" id="7pg-yd-Qb6"/>
                             <constraint firstItem="gnB-Id-keX" firstAttribute="top" secondItem="7Pz-X3-Pas" secondAttribute="top" constant="10" id="DOX-Ip-hSs"/>
                             <constraint firstItem="AG5-sU-dTU" firstAttribute="leading" secondItem="7Pz-X3-Pas" secondAttribute="leading" constant="25" id="GM7-4g-whs"/>
+                            <constraint firstItem="zeJ-dM-hQD" firstAttribute="leading" secondItem="7Pz-X3-Pas" secondAttribute="leading" id="IeK-K1-1rg"/>
                             <constraint firstItem="FWK-XF-FWS" firstAttribute="top" secondItem="ANm-gO-sSe" secondAttribute="top" id="O6i-l8-kED"/>
+                            <constraint firstItem="zeJ-dM-hQD" firstAttribute="top" secondItem="AG5-sU-dTU" secondAttribute="bottom" constant="40" id="QY9-Eo-R0G"/>
                             <constraint firstItem="ANm-gO-sSe" firstAttribute="leading" secondItem="gnB-Id-keX" secondAttribute="trailing" constant="80" id="RPD-qU-eqb"/>
                             <constraint firstItem="ANm-gO-sSe" firstAttribute="top" secondItem="7Pz-X3-Pas" secondAttribute="top" constant="19" id="Vyg-1X-Ree"/>
+                            <constraint firstItem="zeJ-dM-hQD" firstAttribute="trailing" secondItem="7Pz-X3-Pas" secondAttribute="trailing" id="cwP-YS-wtZ"/>
+                            <constraint firstItem="7Pz-X3-Pas" firstAttribute="bottom" secondItem="zeJ-dM-hQD" secondAttribute="bottom" id="gbA-Vj-x5a"/>
                             <constraint firstItem="AG5-sU-dTU" firstAttribute="top" secondItem="gnB-Id-keX" secondAttribute="bottom" constant="5" id="rjc-jK-Ed7"/>
                             <constraint firstItem="7Pz-X3-Pas" firstAttribute="trailing" secondItem="FWK-XF-FWS" secondAttribute="trailing" constant="48" id="tYw-qe-Fb9"/>
                         </constraints>
@@ -663,6 +712,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="SpJ-Ql-uQo"/>
                     <connections>
+                        <outlet property="collection" destination="zeJ-dM-hQD" id="VaW-Nb-zqG"/>
                         <outlet property="postCounterLbl" destination="lUH-0c-UL5" id="Qs4-m8-TfO"/>
                         <outlet property="reactionsLbl" destination="JYg-fC-B01" id="qBb-VZ-ilb"/>
                         <outlet property="userNameLbl" destination="AG5-sU-dTU" id="9ae-uI-2jf"/>
@@ -671,7 +721,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vcs-rc-UWJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1863.2" y="1481.1094452773614"/>
+            <point key="canvasLocation" x="1863.2" y="1480.7881773399015"/>
         </scene>
         <!--SettingsVC-->
         <scene sceneID="UVK-lD-T5I">
@@ -1470,7 +1520,9 @@
     </scenes>
     <resources>
         <image name="Unknown" width="190" height="266"/>
+        <image name="beach" width="802" height="451"/>
         <image name="camera" width="50" height="50"/>
+        <image name="circle0" width="32" height="32"/>
         <image name="gallery" width="50" height="50"/>
         <image name="heart" width="2400" height="2186"/>
         <image name="userIcon" width="128" height="128"/>

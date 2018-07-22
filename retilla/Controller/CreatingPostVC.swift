@@ -212,6 +212,11 @@ func textViewDidChange(_ textView: UITextView) {
             "username": username as Any
             ]
         
+        let userPost: Dictionary<String, Any> = [
+            "imageUrl": imageDowloadURL!,
+            "section": selectedSection as Int
+            ]
+        
         
 //        if descriptionField?.text != "" {
 //           post ["description"] = descriptionField
@@ -227,7 +232,7 @@ func textViewDidChange(_ textView: UITextView) {
         print("post:: \(post)")
         
         let firebasePostToUser = DataService.instance.URL_USER_CURRENT.child("posts").child(newPostKey)
-        firebasePostToUser.setValue(true)
+        firebasePostToUser.setValue(userPost)
         
         hashtagField?.text = ""
         //descriptionField?.text = ""

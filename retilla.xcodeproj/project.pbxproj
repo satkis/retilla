@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		384E3630A61D15FC054DFDC5 /* Pods_retilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */; };
+		FF3F411B2104F8B400B134DC /* postInUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F411A2104F8B400B134DC /* postInUserVC.swift */; };
+		FF3F411E2104FFB100B134DC /* PostCellInUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */; };
+		FF3F411F2104FFB100B134DC /* PostCellInUserVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */; };
 		FF40ECC020C5F10000B07CA6 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF40ECBF20C5F10000B07CA6 /* SegmentedControl.swift */; };
 		FF421D472017E4B00023D9BF /* CategoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF421D462017E4B00023D9BF /* CategoryRow.swift */; };
 		FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D1D201672E70016F853 /* AppDelegate.swift */; };
@@ -48,6 +51,9 @@
 		E822D97274E1776C756927A9 /* Pods-retilla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.release.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.release.xcconfig"; sourceTree = "<group>"; };
 		EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_retilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.debug.xcconfig"; sourceTree = "<group>"; };
+		FF3F411A2104F8B400B134DC /* postInUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postInUserVC.swift; sourceTree = "<group>"; };
+		FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellInUserVC.swift; sourceTree = "<group>"; };
+		FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellInUserVC.xib; sourceTree = "<group>"; };
 		FF40ECBF20C5F10000B07CA6 /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		FF421D462017E4B00023D9BF /* CategoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRow.swift; sourceTree = "<group>"; };
 		FF7D5D1A201672E70016F853 /* retilla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = retilla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +181,8 @@
 				FF919B12201AAE7200270B65 /* PostCell.swift */,
 				FF40ECBF20C5F10000B07CA6 /* SegmentedControl.swift */,
 				FF9AAE0620E1829000E1FF93 /* ImageView.swift */,
+				FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */,
+				FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +193,7 @@
 				FF919B10201A70EE00270B65 /* Post.swift */,
 				FFE4048B2031803E00B70B12 /* Annotations.swift */,
 				FFAFEAB52097C36F001C7C1B /* User.swift */,
+				FF3F411A2104F8B400B134DC /* postInUserVC.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -292,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF3F411F2104FFB100B134DC /* PostCellInUserVC.xib in Resources */,
 				FF7D5D28201672E70016F853 /* LaunchScreen.storyboard in Resources */,
 				FF9AAE0420E1691B00E1FF93 /* HeaderView.xib in Resources */,
 				FF7D5D302016868B0016F853 /* GoogleService-Info.plist in Resources */,
@@ -367,6 +377,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFF5857D20FB577300CA3995 /* UIViewControllerX.swift in Sources */,
+				FF3F411E2104FFB100B134DC /* PostCellInUserVC.swift in Sources */,
 				FF919B13201AAE7200270B65 /* PostCell.swift in Sources */,
 				FF9AAE0720E1829000E1FF93 /* ImageView.swift in Sources */,
 				FF9AAE0320E1691B00E1FF93 /* HeaderView.swift in Sources */,
@@ -382,6 +393,7 @@
 				FFF5857B20FB577300CA3995 /* UIButtonX.swift in Sources */,
 				FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */,
 				FFAFEAB62097C36F001C7C1B /* User.swift in Sources */,
+				FF3F411B2104F8B400B134DC /* postInUserVC.swift in Sources */,
 				FF85071220276B81003CB080 /* PostDetailVCC.swift in Sources */,
 				FFF5857A20FB577300CA3995 /* UIVisualEffectViewX.swift in Sources */,
 				FFF5857F20FB577300CA3995 /* UISliderX.swift in Sources */,

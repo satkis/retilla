@@ -9,20 +9,28 @@
 import UIKit
 import Firebase
 
-class UserVC: UIViewController {
+class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var currentUser_DBRef: DatabaseReference!
-    var post: Post!
+//    var imageCachee = NSCache<AnyObject, AnyObject>()
+    var postInUserVCC: postInUserVC!
+    
+    var postsInUserVC = [postInUserVC]()
+    
     var user: User!
+    var imgUrl: String!
     
     var emaii: String!
     
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var postCounterLbl: UILabel!
     @IBOutlet weak var reactionsLbl: UILabel!
+    @IBOutlet weak var collection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collection.delegate = self
+        collection.dataSource = self
  
         setupNavigationBarItems()
         
@@ -45,27 +53,55 @@ class UserVC: UIViewController {
             let firstName = snap?["first_name"] as? String
             //let lastName = snap?["last_name"] as? String
 //            let fullName = snap?["name"] as? String
-
-            if firstName != nil {
-                self.userNameLbl.text = firstName
-            } else if firstName == nil || email != "" {
-                self.userNameLbl.text = email
-            } else if email == "" {
-                //FIX cut name up till @
+            
+            if user.first_name != nil {
+                self.userNameLbl.text  = user.first_name
+            } else if user.email.contains("@") {
+                let emailCutOff = user.email.components(separatedBy: "@").first
+                self.userNameLbl.text = emailCutOff
+            } else if user.email.contains("Anonymous") {
                 self.userNameLbl.text = "Anonymous"
             } else {
-                self.userNameLbl.text = "User name not found"
+                self.userNameLbl.text = "no user ID"
             }
+            
+            
+            
         }
-        
-
-        
-        
+ 
         currentUser_DBRef.child("posts").observeSingleEvent(of: .value) { (snapshot) in
             if let postsnapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 self.postCounterLbl.text = String(postsnapshots.count)
             }
         }
+        
+        
+        
+        
+        currentUser_DBRef.child("posts").observe(.value) { (snapshottt) in
+            
+            print("snapshottt: \(snapshottt.value)")
+            
+            self.postsInUserVC = []
+            
+            if let snapshots = snapshottt.children.allObjects as? [DataSnapshot] {
+                for snapp in snapshots {
+                    print("snaPP: \(snapp)")
+                    if let postDictt = snapp.value as? Dictionary<String, AnyObject> {
+                        let key = snapp.key
+                        print("keY: \(key)")
+                        let postt = postInUserVC(postKey: key, dictionary: postDictt)
+                        
+                        self.postsInUserVC.append(postt)
+                    }
+                }
+            }
+            
+            self.collection.reloadData()
+        }
+        
+        
+        
         
 
 
@@ -80,6 +116,34 @@ class UserVC: UIViewController {
             }
             self.reloadInputViews()
         }
+        
+//        currentUser_DBRef.child("posts").observeSingleEvent(of: .value) { (snapshott) in
+//            if snapshott.exists() {
+//                for childd in snapshott.children {
+//                    let snapp = childd as! DataSnapshot
+////                    let dict = snapp.value as! [String: Any]
+////                    let dict = Dictionary<String, AnyObject>
+//
+//                    let dictt: Dictionary<String, Any> = [
+//                        "urlToImg": self.imgUrl]
+////                    let urlToImg = dict["urlToImg"] as! String
+//                    //self.image
+//
+//                    print("snappy: \(snapp)")
+//                    print("dictty: \(dictt)")
+////                    print("urlToImgg: \(urlToImg)")
+//
+//                    if let postDictt =
+//
+//                }
+//
+//            }
+//        }
+        
+        
+
+        
+        
         
     }
     
@@ -116,6 +180,47 @@ class UserVC: UIViewController {
 //    }
     
 
+
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let postt = postsInUserVC[indexPath.item]
+        print("posTT: \(String(describing: postt.imageUrl))")
+        
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCellinUserVC", for: indexPath) as? PostCellInUserVC {
+            cell.request?.cancel()
+
+            var image: UIImage?
+            
+            if let urll = postt.imageUrl {
+                image = FeedVCC.imageCache.object(forKey: urll as AnyObject) as? UIImage
+            }
+            
+            
+            cell.configCell(post: postt, image: image)
+            
+            return cell
+            
+        } else {
+            return PostCellInUserVC()
+        }
+        
+        }
+ 
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return postsInUserVC.count
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+  
     
     
 }

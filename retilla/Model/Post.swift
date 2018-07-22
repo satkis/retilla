@@ -113,6 +113,7 @@ class Post {
         if let hashtag = dictionary["hashtag"] as? String {
             self._hashtag = hashtag
         }
+        
         if let sectionNumber = dictionary["section"] as? Int {
             self._sectionNumber = sectionNumber
         }

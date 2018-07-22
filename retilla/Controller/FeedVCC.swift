@@ -231,14 +231,16 @@ extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let post = posts[collectionView.tag][indexPath.row]
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath) as? PostCell {
 
-        cell?.contentView.layer.cornerRadius = 8.0
-        cell?.contentView.clipsToBounds = true
-        cell?.layer.shadowOpacity = 0.5
+        cell.request?.cancel()
+            
+        cell.contentView.layer.cornerRadius = 8.0
+        cell.contentView.clipsToBounds = true
+        cell.layer.shadowOpacity = 0.5
         //cell?.layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
-        cell?.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
-        cell?.layer.shadowRadius = 5.0
+        cell.layer.shadowOffset = CGSize(width: 3.0, height: 2.0)
+        cell.layer.shadowRadius = 5.0
 
         var image: UIImage?
         
@@ -251,10 +253,13 @@ extension FeedVCC: UICollectionViewDelegate, UICollectionViewDataSource {
 //            cell?.postImg = UIImage(named: post.imageUrl![indexPath.row])
             
         }
-        cell?.configureCell(post: post, image: image)
+        cell.configureCell(post: post, image: image)
 
         
-        return cell!
+        return cell
+        } else {
+            return PostCell()
+        }
     }
     //        if collectionView.tag == 0 && post.sectionNumber == 0 {
     //            return cell!
