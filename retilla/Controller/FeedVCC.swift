@@ -19,8 +19,9 @@ class FeedVCC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        // NEED TO FIX: when halfway slide back Back button(navigation) dissapears
-        //self.navigationController?.isNavigationBarHidden = false
+         self.navigationController?.isNavigationBarHidden = false
+        
+//        headerView.headerLabel.text
         
     }
     
@@ -36,7 +37,7 @@ class FeedVCC: UITableViewController {
                       headerStruct.init(image: #imageLiteral(resourceName: "circle2"), name: "REDUCE"),
                       headerStruct.init(image: #imageLiteral(resourceName: "circle3"), name: "POLLUTION")]
         
-        self.navigationController?.isNavigationBarHidden = false
+       
         //self.title = "home"
         
         
@@ -76,6 +77,7 @@ class FeedVCC: UITableViewController {
                         print("SECTIONN: \(String(describing: section))")
                         
                         //self.posts.insert(post, at: 0)
+
                         self.posts[section!].insert(post, at: 0)
                         
                     }
@@ -85,7 +87,7 @@ class FeedVCC: UITableViewController {
             self.tableView.reloadData()
         }
         print("ViewDidLoad Ended")
-    }
+    }
     
     
     

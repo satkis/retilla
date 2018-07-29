@@ -16,18 +16,23 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     
     var dict: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-
+        activityIndicator.isHidden = true
+     
     }
+
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        //viewDidAppear doesnt require user to login again if he did that once
+        activityIndicator.isHidden = true
+//        viewDidAppear doesnt require user to login again if he did that once
         if UserDefaults.standard.value(forKey: KEY_UID) != nil {
             self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
@@ -37,19 +42,31 @@ class ViewController: UIViewController {
     
 
     
-    @IBAction func fbLoginPressed(_ sender: Any) {
+    @IBAction func facebookLoginTppd(_ sender: UITapGestureRecognizer) {
         let facebookLogin =  FBSDKLoginManager()
         facebookLogin.logIn(withReadPermissions: ["public_profile", "email"], from: self) { (result, error) in
             if error != nil {
                 print("FB LOGIN FAILED::: \(String(describing: error))")
+
+            } else if (result?.isCancelled)! {
+                print("cancel:::")
+                return
             } else {
-                let accessToken = FBSDKAccessToken.current().tokenString
+
+              
+                self.activityIndicator.isHidden = false
+                
+                    let accessToken = FBSDKAccessToken.current().tokenString
                 print("SUCCESSFULLY LOGGED IN TO FB::: \(String(describing: accessToken))")
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken!)
+                
                 Auth.auth().signIn(with: credential) { (authData, error) in
                     if error != nil {
                         print("FIREBASE LOGIN FAILED::: \(String(describing: error))")
                     } else {
+                        
+                        
+                        
                         print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
                         
                         // adding a reference to our firebase database
@@ -62,12 +79,12 @@ class ViewController: UIViewController {
                         
                         let graphPath = "me"
                         
-                        let parameters = ["fields": "name, first_name, last_name, timezone, picture, email"]
+                        let parameters = ["fields": "name, first_name, last_name, picture, email"]
                         
                         let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
                         
                         graphRequest?.start(completionHandler: { (connection, result, error) in
-                            
+                           // let fbloginresult : FBSDKLoginManagerLoginResult = result! as! FBSDKLoginManagerLoginResult
                             if let error = error {
                                 print(error.localizedDescription)
                             } else {
@@ -77,13 +94,13 @@ class ViewController: UIViewController {
                                 let userName : NSString? = data["name"]! as? NSString
                                 let firstName : NSString? = data["first_name"]! as? NSString
                                 let lastName : NSString? = data["last_name"]! as? NSString
-                                let timeZone : NSInteger? = data["timezone"]! as? NSInteger
+                                //let timeZone : NSInteger? = data["timezone"]! as? NSInteger
                                 //url extract doenst work
                                 let profileImgUrl : NSString? = data["picture"]! as? NSString
                                 let email : NSString? = data["email"]! as? NSString
                                 
-                                let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "timezone": timeZone as Any, "picture": profileImgUrl as Any, "email": email as Any]
-                               
+                                let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "picture": profileImgUrl as Any, "email": email as Any]
+                                
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
                                 
                                 DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
@@ -95,17 +112,18 @@ class ViewController: UIViewController {
                                         return
                                     }
                                     print("Save the user successfully into Firebase database")
-                                self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-                                
-                            })
+                                    
+                                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+                                    
+                                })
                             }
                         })
                     }
                 }
             }
         }
+        self.activityIndicator.isHidden = true
     }
-    
     
     @IBAction func emailLoginPressed(_ sender: Any) {
         if let email = emailTxt.text, email != "", let pwd = passwordTxt.text, pwd != "" {
@@ -139,6 +157,11 @@ class ViewController: UIViewController {
                                 self.showErrorAlert(title: "smth wrong with acct creation", msg: "try later or continue  Anonymously")
                             }  else {
 //                                UserDefaults.standard.set(result[KEY_UID], forKey: KEY_UID)
+                                //https://medium.com/@paul.allies/ios-swift4-login-logout-branching-4cdbc1f51e2c
+                                UserDefaults.standard.set(true, forKey: "status")
+                                Switcher.updateRootVC()
+                                
+                                
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
                         
 //                                let data:[String:AnyObject] = result as! [String : AnyObject]

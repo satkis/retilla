@@ -15,10 +15,22 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     let annotation = MKPointAnnotation()
     
     var post: Post!
+    var postInUserVCC: postInUserVC!
     var user: User!
     var lat: CLLocationDegrees = 0.0
     var long: CLLocationDegrees = 0.0
     var effect: UIVisualEffect!
+    
+    var userName: String?
+    var postStoryy: String?
+    var hashtagg: String?
+    var sectionNumberr: Int?
+    var cityy: String?
+    var countryy: String?
+    var postTimeStampp: Double?
+    var imagee: String?
+    var latt: Double?
+    var longg: Double?
     
     @IBOutlet weak var blurrView: UIVisualEffectView!
     @IBOutlet weak var map: MKMapView!
@@ -28,6 +40,8 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     //@IBOutlet weak var postStoryLbl: UILabel!
     
     @IBOutlet weak var postStoryLbl: UITextView!
+    
+    
     @IBOutlet weak var hashtagLbl: UILabel!
     
     @IBOutlet weak var imgCategory: UIImageView!
@@ -53,6 +67,7 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         map.delegate = self
         
         imageLbl.layer.cornerRadius = 8.0
+        print("POSTDETAILVCC countryy:::", countryy)
         //imageLbl.clipsToBounds = true
 //        imageLbl.contentMode = .scaleAspectFill
        //imageLbl.layer.shadowColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
@@ -63,11 +78,23 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
 //        self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.hidesBarsOnSwipe = false
 //        self.navigationController.
+
         
-        if post.username != nil {
-            self.title = post.username
+//        if self.trtrtr != nil {
+//            print("POSTDETAILVCC self.trtrtr:::", self.trtrtr)
+//
+//            self.title = self.trtrtr
+//        } else {
+//            self.title = post.usernames
+//        }
+        
+        if let userNm = self.userName {
+            self.title = userNm
+            print("userNm", userNm)
+        } else if let userNmm = post.username {
+            self.title = userNmm
         } else {
-            self.title = " "
+            self.title = "noo"
         }
         
 //        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animate)))
@@ -97,37 +124,68 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
 //        imageLbl.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailVCC.animateOut)))
 //        view.removeFromSuperview()
 
+//        if let locCity = postInUserVCC.sectionNo {
+//            cityLbl.text = "\(locCity)"
+//            print("locCity:::", locCity)
+//        } else if let locCit = post.location_city {
+//            cityLbl.text = "\(locCit)"
+//        } else {
+//            cityLbl.text = "no valuee::"
+//        }
         
-        if post.location_city != nil {
-            cityLbl.text = post.location_city
+        
+//        if let userNm = self.userName {
+//            self.title = userNm
+//            print("userNm", userNm)
+//        } else if let userNmm = post.username {
+//            self.title = userNmm
+//        } else {
+//            self.title = "noo"
+//        }
+        
+        if let cityFromUserVC = self.cityy {
+            cityLbl.text = cityFromUserVC
+        } else if let cityFromFeedVC = post.location_city {
+            cityLbl.text = cityFromFeedVC
         } else {
-            cityLbl.text = "City unidentified"
+            cityLbl.text = "n/a"
         }
         
-        if post.location_country != nil {
-            countryLbl.text = post.location_country
+        if let countryFromUserVC = self.countryy {
+            countryLbl.text = countryFromUserVC
+        } else if let countryFromFeedVC = post.location_country {
+            countryLbl.text = countryFromFeedVC
         } else {
-            countryLbl.text = "City unidentified"
+            countryLbl.text = "n/a"
+        }
+
+        
+        if let storyFromUserVC = self.postStoryy {
+            postStoryLbl.text = storyFromUserVC
+        } else if let storyFromFeedVC = post.postStory {
+            postStoryLbl.text = storyFromFeedVC
+        } else {
+            postStoryLbl.text = "No story"
         }
         
-        if post.postStory != nil {
-            postStoryLbl.text = post.postStory
-        } else {
-            postStoryLbl.text = "NO story found"
-        }
         
-        if post.sectionNumber != nil {
-            sectionNumberLbl.text = "\(post.sectionNumber!)"
+        if let sectionNRFromUserVC = self.sectionNumberr {
+            sectionNumberLbl.text = "\(sectionNRFromUserVC)"
+        } else if let sectionNRFromFeedVC = post.sectionNumber {
+            sectionNumberLbl.text = "\(sectionNRFromFeedVC)"
         } else {
             sectionNumberLbl.text = "n/a"
         }
-  
-        if post.hashtag != nil {
-            hashtagLbl.text = post.hashtag
+
+        
+        if let hashtagFromUserVC = self.hashtagg {
+            hashtagLbl.text = hashtagFromUserVC
+        } else if let hashtagFromFeedFC = post.hashtag {
+            hashtagLbl.text = hashtagFromFeedFC
         } else {
             hashtagLbl.text = "NO hashtag found"
         }
-        
+
         if let sectionNr = sectionNumberLbl.text {
             //                let img0 = UIImageView(named: #imageLiteral(resourceName: "circle0"))
             let img0 = UIImage(named: "circle0")
@@ -171,11 +229,37 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
 //            usernameLbl.text = "n/a username"
 //        }
  
-        if let time = post.timestamp {
-            postTimestampLbl.text = time
+        
+        
+        
+        
+        if self.postTimeStampp != nil {
+            let time = self.postTimeStampp
+            let x = time! / 1000
+            let datee = Date(timeIntervalSince1970: x)
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .short
+            
+            let finalTimeFormat = formatter.string(from: datee as Date)
+            print("finalTimefromUserVC::", finalTimeFormat)
+            postTimestampLbl.text = finalTimeFormat
+        } else if post.timestamp != nil {
+            let timee = post.timestamp
+            let x = timee! / 1000
+            let datee = Date(timeIntervalSince1970: x)
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .short
+            
+            let finalTimeFormat = formatter.string(from: datee as Date)
+            print("finalTimeFromFeedVC::", finalTimeFormat)
+            
+            postTimestampLbl.text = finalTimeFormat
         } else {
-            postTimestampLbl.text = "time not available"
+            postTimestampLbl.text = "post time n/a"
         }
+
 //        if post.timestamp != nil {
 //
 //             postTimestampLbl.text = "\(post.timestamp)"
@@ -201,20 +285,31 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
 //        }
 
         // NEED TO adjust if image fails to download (make default value)
-        if post.imageUrl != nil {
-        let cacheImage = FeedVCC.imageCache.object(forKey: post.imageUrl as AnyObject) as? UIImage
-        imageLbl.image = cacheImage
+        
+        if let imgFromUserVC = self.imagee {
+            let cacheImage = FeedVCC.imageCache.object(forKey: imgFromUserVC as AnyObject) as? UIImage
+            imageLbl.image = cacheImage
+        } else if let imgFromFeedVC = post.imageUrl {
+            let cacheImg = FeedVCC.imageCache.object(forKey: imgFromFeedVC as AnyObject) as? UIImage
+            imageLbl.image = cacheImg
         } else {
-           return
-            
+            return
         }
 
+        
+        if let latLongFromUserVC = self.latt {
+            annotation.coordinate = CLLocationCoordinate2D(latitude: self.latt!, longitude: self.longg!)
+            self.map.addAnnotation(annotation)
+            let center = CLLocationCoordinate2D(latitude: self.latt!, longitude: self.longg!)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5))
+            self.map.setRegion(region, animated: true)
+        } else {
         annotation.coordinate = CLLocationCoordinate2D(latitude: post.lat, longitude: post.long)
         self.map.addAnnotation(annotation)
         let center = CLLocationCoordinate2D(latitude: post.lat, longitude: post.long)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 5))
         self.map.setRegion(region, animated: true)
-
+        }
         //let coor = post.coordinatesGps
        // let latt = coor?.prefix(16)
         //let indexx = coor?.index(of: ",")

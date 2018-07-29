@@ -22,7 +22,7 @@ class Post {
     private var _location_country: String?
     private var _lat: Double!
     private var _long: Double!
-    private var _timestamp: String!
+    private var _timestamp: Double!
     private var _postRef: DatabaseReference!
     
     var postStory: String? {
@@ -73,13 +73,13 @@ class Post {
         return _long
     }
     
-    var timestamp: String! {
+    var timestamp: Double! {
         return _timestamp
     }
     
     
     
-    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location_city: String!, location_country: String!, timestamp: String!, lat: Double!, long: Double!, likes: Int!) {
+    init(postStory: String?, hashtag: String?, imageUrl: String?, username: String?, postCoordinates: String!, location_city: String!, location_country: String!, timestamp: Double!, lat: Double!, long: Double!, likes: Int!) {
         self._postStory = postStory
         self._hashtag = hashtag
         self._imageUrl = imageUrl
@@ -138,7 +138,7 @@ class Post {
             self._location_country = location_country
         }
         
-        if let timestamp = dictionary["timestamp"] as? String {
+        if let timestamp = dictionary["timestamp"] as? Double {
             self._timestamp = timestamp
         }
         

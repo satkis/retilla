@@ -16,6 +16,17 @@ class PostCellInUserVC: UICollectionViewCell {
     var imageUrl: String?
     var request: Request?
     
+    
+    var userName: String?
+    var postStoryy: String?
+    var hashtagg: String?
+    var sectionNumberr: Int?
+    var cityy: String?
+    var countryy: String?
+    var postTimeStampp: Double?
+    var imagee: String?
+    
+    
 
     @IBOutlet weak var postImg: UIImageView!
     @IBOutlet weak var sectionImg: UIImageView!
@@ -91,6 +102,12 @@ class PostCellInUserVC: UICollectionViewCell {
             }
         }
         
+        
+        if let usernammm = postInUserVC.username {
+            self.userName = usernammm
+        } else {
+            self.userName = "noo userr"
+        }
         
         
         

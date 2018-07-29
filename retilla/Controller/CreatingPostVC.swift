@@ -179,7 +179,8 @@ func textViewDidChange(_ textView: UITextView) {
 
     func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation_city: String!, postLocation_country: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!, username: String!) {
         
-       let postTimestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
+//       let postTimestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
+        let postTimestamp = [".sv": "timestamp"]
         
         //let rr = ServerValue.timestamp()
      
@@ -214,7 +215,15 @@ func textViewDidChange(_ textView: UITextView) {
         
         let userPost: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
-            "section": selectedSection as Int
+            "section": selectedSection as Int,
+            "description": storyTextVIew?.text as Any,
+            "hashtag": hashtagField?.text as Any,
+            "location_city": postLocation_city as Any,
+            "location_country": postLocation_country as Any,
+            "timestamp": postTimestamp as Any,
+            "latitude": lat as Any,
+            "longitude": long as Any,
+            "username": username as Any
             ]
         
         
@@ -517,7 +526,8 @@ func textViewDidChange(_ textView: UITextView) {
                 print("image not selected but SHARE tapped")
                 postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation_city: "WRONG", postLocation_country: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
                 print("saved to Firebase nil image")
-                dismiss(animated: true, completion: nil)
+                performSegue(withIdentifier: "createdPost", sender: nil)
+//                dismiss(animated: true, completion: nil)
                 }
             } else {
                 postSegments.shake()

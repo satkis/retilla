@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		384E3630A61D15FC054DFDC5 /* Pods_retilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */; };
+		FF0EF193210B83E2006FD5E3 /* UpdateRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0EF192210B83E2006FD5E3 /* UpdateRootVC.swift */; };
 		FF3F411B2104F8B400B134DC /* postInUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F411A2104F8B400B134DC /* postInUserVC.swift */; };
 		FF3F411E2104FFB100B134DC /* PostCellInUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */; };
 		FF3F411F2104FFB100B134DC /* PostCellInUserVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */; };
@@ -51,6 +52,7 @@
 		E822D97274E1776C756927A9 /* Pods-retilla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.release.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.release.xcconfig"; sourceTree = "<group>"; };
 		EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_retilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.debug.xcconfig"; sourceTree = "<group>"; };
+		FF0EF192210B83E2006FD5E3 /* UpdateRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRootVC.swift; sourceTree = "<group>"; };
 		FF3F411A2104F8B400B134DC /* postInUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postInUserVC.swift; sourceTree = "<group>"; };
 		FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellInUserVC.swift; sourceTree = "<group>"; };
 		FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellInUserVC.xib; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				FFAFEAB32097B6B0001C7C1B /* UserVC.swift */,
 				FFA47F4E20A79259005F0AF3 /* SettingsVC.swift */,
 				FF8E68882098C1510058867A /* ResetPasswordVC.swift */,
+				FF0EF192210B83E2006FD5E3 /* UpdateRootVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -180,7 +183,6 @@
 			children = (
 				FF919B12201AAE7200270B65 /* PostCell.swift */,
 				FF40ECBF20C5F10000B07CA6 /* SegmentedControl.swift */,
-				FF9AAE0620E1829000E1FF93 /* ImageView.swift */,
 				FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */,
 				FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */,
 			);
@@ -217,6 +219,7 @@
 		FF9AAE0520E16D9800E1FF93 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				FF9AAE0620E1829000E1FF93 /* ImageView.swift */,
 				FF9AAE0120E1691B00E1FF93 /* HeaderView.swift */,
 				FF9AAE0220E1691B00E1FF93 /* HeaderView.xib */,
 			);
@@ -389,6 +392,7 @@
 				FF7D5D1E201672E70016F853 /* AppDelegate.swift in Sources */,
 				FFF5857820FB577300CA3995 /* UIViewXRadialGradient.swift in Sources */,
 				FFA47F4F20A79259005F0AF3 /* SettingsVC.swift in Sources */,
+				FF0EF193210B83E2006FD5E3 /* UpdateRootVC.swift in Sources */,
 				FFF5857620FB577300CA3995 /* UITextFieldX.swift in Sources */,
 				FFF5857B20FB577300CA3995 /* UIButtonX.swift in Sources */,
 				FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */,

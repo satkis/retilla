@@ -70,6 +70,19 @@ class PostCell: UICollectionViewCell {
 //    }
     
     
+//    func convertTimestamp(timee: Double) -> String {
+//        let timee = post.timestamp
+//        let x = timee! / 1000
+//        let datee = NSDate(timeIntervalSince1970: x)
+//        let formatter = DateFormatter()
+//        formatter.dateStyle = .long
+//        formatter.timeStyle = .medium
+//
+//        return formatter.string(from: datee as Date)
+//    }
+    
+    
+    
     func configureCell(post: Post, image: UIImage?) {
         //this function happens when cell is configured. liked/disliked / adjusted, whatever
         self.post = post
@@ -111,57 +124,69 @@ class PostCell: UICollectionViewCell {
     
 
         
-        if let postTime = post.timestamp, postTime != "" {
+        if let postTime = post.timestamp {
             
-            let fff = postTime.hashValue
-            let kk = post.timestamp as NSString
-            let tt = kk.doubleValue
-            let converted = Date(timeIntervalSince1970: TimeInterval(fff / 1000))
-            let conv = NSDate()
-            let dateFormatter = DateFormatter()
-            dateFormatter.timeZone = NSTimeZone.local
-            dateFormatter.dateFormat = "yyyy-mm-dd hh:mm:ss"
-            let timee = dateFormatter.string(from: converted)
-            
-            let sss: Double = (postTime as NSString).doubleValue
-             print("ss \(sss)")
-            
-            print("kk \(kk)")
-            print("tt \(tt)")
-            print("fff \(fff)")
-            print("converted \(converted)")
-            print("dateFormatter \(dateFormatter)")
-            print("timee \(timee)")
-            
-            
-//            let eee = fff.doubleValue
-            let ww  = postTime.description
-            
-            
-//            print("eee \(eee)")
-            print("ww \(ww)")
-          
-            
-            let now = Date()
-            print("dateee \(now)")
-            
-            //print("fff \(fff)")
-            let tii = Double(post.timestamp)
-            print("tii \(tii)")
-            print("post.timestamp \(post.timestamp)")
+//            let fff = postTime.hashValue
+//            let kk = post.timestamp as NSString
+//            let tt = kk.doubleValue
+//            let converted = Date(timeIntervalSince1970: TimeInterval(fff / 1000))
+//            let conv = NSDate()
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.timeZone = NSTimeZone.local
+//            dateFormatter.dateFormat = "yyyy-mm-dd hh:mm:ss"
+//            let timee = dateFormatter.string(from: converted)
+//
+//            let sss: Double = (postTime as NSString).doubleValue
+//             print("ss \(sss)")
+//
+//            print("kk \(kk)")
+//            print("tt \(tt)")
+//            print("fff \(fff)")
+//            print("converted \(converted)")
+//            print("dateFormatter \(dateFormatter)")
+//            print("timee \(timee)")
+//
+//
+////            let eee = fff.doubleValue
+//            let ww  = postTime.description
+//
+//
+////            print("eee \(eee)")
+//            print("ww \(ww)")
+//
+//
+//            let now = Date()
+//            print("dateee \(now)")
+//
+//            //print("fff \(fff)")
+//            let tii = Double(post.timestamp)
+//            print("tii \(tii)")
+//            print("post.timestamp \(post.timestamp)")
 //            let pastDate = Date(timeIntervalSinceNow: tt!)
 //self.postDateLbl.text = pastDate.timeAgoDisplay()
             
             //let dateee = postTime.Substring(post.timestamp.prefix(6))
             // self.postDateLbl.text = "\(postTime.index(postTime.startIndex, offsetBy: 6))"
-    self.postDateLbl.text = "\(postTime.prefix(6))"
+
+            
+            let timee = post.timestamp
+            let x = timee! / 1000
+            let datee = NSDate(timeIntervalSince1970: x)
+//            let formatter = DateFormatter()
+//            formatter.dateStyle = .short
+//            formatter.timeStyle = .short
+            
+//            let finalTime = formatter.string(from: datee as Date)
+//            print("finalTime::", finalTime)
+            print("finalTimeee::", datee.timeAgoDisplay())
+//            return formatter.string(from: datee as Date)
+            self.postDateLbl.text = datee.timeAgoDisplay()
+            
+//    self.postDateLbl.text = "\(postTime.prefix(6))"
             //self.postDateLbl.text = postTime.
         } else {
-            self.postDateLbl.text = "n/a"
+            self.postDateLbl.text = "time n/a"
         }
-        
-        
-        
 //        if let imageFromCache = FeedVCC.imageCache.object(forKey: self.post.imageUrl as AnyObject) as? UIImage {
 //            self.postImg.image = imageFromCache
 //            return
@@ -262,9 +287,10 @@ class PostCell: UICollectionViewCell {
 
 
 
-extension Date {
+extension NSDate {
     func timeAgoDisplay() -> String {
-        let secondsAgo = Int(Date().timeIntervalSince(self))
+        let secondsAgo = Int(Date().timeIntervalSince(self as Date))
+        let minutes2 = 120
         let minute = 60
         let hour = 60 * minute
         let day = 24 * hour
@@ -272,18 +298,18 @@ extension Date {
         let month = 4 * week
         let year = 12 * month
         
-        if secondsAgo < minute {
+        if secondsAgo < minutes2 {
             return "Just now"
         } else if secondsAgo < hour {
-            return "\(secondsAgo / minute)mins ago"
+            return "\(secondsAgo / minute) mins ago"
         } else if secondsAgo < day {
-            return "\(secondsAgo / hour)h ago"
+            return "\(secondsAgo / hour) h ago"
         } else if secondsAgo < week {
-            return "\(secondsAgo / day)d ago"
+            return "\(secondsAgo / day) d ago"
         } else if secondsAgo < month {
-            return "\(secondsAgo / week)w ago"
+            return "\(secondsAgo / week) w ago"
         } else if secondsAgo < year {
-            return "\(secondsAgo / month)m ago"
+            return "\(secondsAgo / month) m ago"
         }
         
         return "\(secondsAgo / year)y ago"

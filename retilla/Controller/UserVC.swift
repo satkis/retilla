@@ -12,6 +12,7 @@ import Firebase
 class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var currentUser_DBRef: DatabaseReference!
+    //var posts = [[Post]]()
 //    var imageCachee = NSCache<AnyObject, AnyObject>()
     var postInUserVCC: postInUserVC!
     
@@ -21,16 +22,28 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     var imgUrl: String!
     
     var emaii: String!
+    var selectedRow = 0
+
     
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var postCounterLbl: UILabel!
-    @IBOutlet weak var reactionsLbl: UILabel!
+    //@IBOutlet weak var reactionsLbl: UILabel!
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var reuseLbl: UILabel!
+    @IBOutlet weak var recycleLbl: UILabel!
+    @IBOutlet weak var reduceLbl: UILabel!
+    @IBOutlet weak var pollutionLbl: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collection.delegate = self
         collection.dataSource = self
+        
+        let width = (view.frame.size.width - 6) / 3
+        let layout = collection.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.itemSize = CGSize(width: width, height: width)
  
         setupNavigationBarItems()
         
@@ -75,6 +88,36 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             }
         }
         
+        currentUser_DBRef.child("posts").queryOrdered(byChild: "section").queryEqual(toValue: 0).observeSingleEvent(of: .value) { (snapyy) in
+            if let category0 = snapyy.children.allObjects as? [DataSnapshot] {
+                print("category0 \(category0.count)")
+                self.reuseLbl.text = String(category0.count)
+            }
+        }
+        
+        currentUser_DBRef.child("posts").queryOrdered(byChild: "section").queryEqual(toValue: 1).observeSingleEvent(of: .value) { (snapyy) in
+            if let category1 = snapyy.children.allObjects as? [DataSnapshot] {
+                print("category1 \(category1.count)")
+                self.recycleLbl.text = String(category1.count)
+            }
+        }
+        
+        currentUser_DBRef.child("posts").queryOrdered(byChild: "section").queryEqual(toValue: 2).observeSingleEvent(of: .value) { (snapyy) in
+            if let category2 = snapyy.children.allObjects as? [DataSnapshot] {
+                print("category2 \(category2.count)")
+                self.reduceLbl.text = String(category2.count)
+            }
+        }
+        
+        currentUser_DBRef.child("posts").queryOrdered(byChild: "section").queryEqual(toValue: 3).observeSingleEvent(of: .value) { (snapyy) in
+            if let category3 = snapyy.children.allObjects as? [DataSnapshot] {
+                print("category3 \(category3.count)")
+                self.pollutionLbl.text = String(category3.count)
+            }
+        }
+        
+
+        
         
         
         
@@ -92,7 +135,8 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                         print("keY: \(key)")
                         let postt = postInUserVC(postKey: key, dictionary: postDictt)
                         
-                        self.postsInUserVC.append(postt)
+//                        self.postsInUserVC.append(postt)
+                        self.postsInUserVC.insert(postt, at: 0)
                     }
                 }
             }
@@ -110,12 +154,12 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        currentUser_DBRef.child("reactions").observeSingleEvent(of: .value) { (snapshot) in
-            if let reactsnapshots = snapshot.children.allObjects as? [DataSnapshot] {
-                self.reactionsLbl.text = String(reactsnapshots.count)
-            }
-            self.reloadInputViews()
-        }
+//        currentUser_DBRef.child("reactions").observeSingleEvent(of: .value) { (snapshot) in
+//            if let reactsnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+//                self.reactionsLbl.text = String(reactsnapshots.count)
+//            }
+//            self.reloadInputViews()
+//        }
         
 //        currentUser_DBRef.child("posts").observeSingleEvent(of: .value) { (snapshott) in
 //            if snapshott.exists() {
@@ -187,9 +231,13 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         let postt = postsInUserVC[indexPath.item]
         print("posTT: \(String(describing: postt.imageUrl))")
         
+        
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCellinUserVC", for: indexPath) as? PostCellInUserVC {
             cell.request?.cancel()
-
+            
+            cell.layer.cornerRadius = 3
+            cell.layer.masksToBounds = true
+            
             var image: UIImage?
             
             if let urll = postt.imageUrl {
@@ -209,8 +257,40 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
  
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedRow = indexPath.item
+        debugPrint("collectionView.tag_USERVC", collectionView.tag)
+        debugPrint("indexPath.item_USERVC", indexPath.item)
+        let post = postsInUserVC[indexPath.item]
+        print("selectedPostusername_USERVC::", post.imageUrl)
         
+        
+        
+//        let postt = postsInUserVC[indexPath.item]
+//        print("posTT: \(String(describing: postt.imageUrl))")
+        
+        
+        self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: post)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == SEGUE_POSTDETAILVC) {
+            let postDetailVC = segue.destination as! PostDetailVCC
+            postDetailVC.userName = postsInUserVC[selectedRow].username
+            postDetailVC.cityy = postsInUserVC[selectedRow].location_city
+            postDetailVC.countryy = postsInUserVC[selectedRow].location_country
+            postDetailVC.postStoryy = postsInUserVC[selectedRow].postStory
+            postDetailVC.sectionNumberr = postsInUserVC[selectedRow].sectionNo
+            postDetailVC.hashtagg = postsInUserVC[selectedRow].hashtag
+            postDetailVC.postTimeStampp = postsInUserVC[selectedRow].timestamp
+            postDetailVC.imagee = postsInUserVC[selectedRow].imageUrl
+            
+            postDetailVC.latt = postsInUserVC[selectedRow].lat
+            postDetailVC.longg = postsInUserVC[selectedRow].long
+            
+            
+        }
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return postsInUserVC.count

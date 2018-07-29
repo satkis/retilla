@@ -31,8 +31,8 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     @IBOutlet weak var postStoryLbl: UITextView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var categoryLbl: UILabel!
-    
-    
+    @IBOutlet weak var totalPosts: UILabel!
+    @IBOutlet weak var totalPostsText: UILabel!
     
     @IBOutlet weak var slideUpMenu: UIView!
     @IBOutlet weak var darkFillView: UIViewX!
@@ -133,10 +133,36 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         fetchCoordinates()
         
         self.map.addAnnotations(annotationn as! [MKAnnotation])
-
+        activityIndicator.isHidden = true
+        self.totalPosts.alpha = 0
+        self.totalPostsText.alpha = 0
+        
+        showTotalPosts()
+        
+        ref = DataService.instance.URL_POSTS
+        
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            if let totalPosts = snapshot.children.allObjects as? [DataSnapshot] {
+                print("totalPosts:::", totalPosts.count)
+                self.totalPosts.text = String(totalPosts.count)
+            }
+        }
     }
     
-    
+    func showTotalPosts() {
+        if self.totalPosts.alpha == CGFloat(0) {
+            
+            UIView.animate(withDuration: 3) {
+                self.totalPosts.alpha = 1
+                self.totalPostsText.alpha = 1
+            }
+        } else {
+            UIView.animate(withDuration: 3) {
+                self.totalPosts.alpha = 0
+                self.totalPostsText.alpha = 0
+            }
+        }
+    }
     
     
     func locationAuthStatus() {
@@ -196,9 +222,10 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                     
                     let key = postSnap.key
                     let pinDetails = Post(postKey: key, dictionary: dict)
+//                    let pinDetailsTimestamp = String(pinDetails.timestamp)
                     
                     //                    var titlee = dict["location"] as! String
-                    //                    var timestamp = dict["timestamp"] as! String
+//                                        var timestampp = dict["timestamp"] as! String
                     //                    var reactions = dict["reactions"] as? String
                     //                    var location = dict["location"] as! String
                     //                    var imageUrl = dict["imageUrl"] as! String
@@ -357,7 +384,29 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 //    }
     
     
-    
+    func menuSlider() {
+        hashtagLbl.isHidden = false
+        sectionNrLbl.isHidden = false
+        sectionImg.isHidden = false
+        cityLbl.isHidden = false
+        countryLbl.isHidden = false
+        timeStampLbl.isHidden = false
+        postStoryLbl.isHidden = false
+        //            activityIndicator.isHidden = false
+        imgLbl.isHidden = false
+        categoryLbl.isHidden = false
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.darkFillView.transform = CGAffineTransform(scaleX: 20, y: 20)
+            //                self.darkFillView.clipsToBounds = true
+            self.slideUpMenu.clipsToBounds = true
+            self.slideUpMenu.transform = CGAffineTransform(translationX: 0, y: -235)
+            self.imgLbl.transform = CGAffineTransform(translationX: 120, y: 0)
+            self.activityIndicator.transform = CGAffineTransform(translationX: 120, y: 0)
+            self.menuPopUpBttn.transform = CGAffineTransform(rotationAngle: self.radians(degrees: 180))
+        }) { (true) in
+        }
+    }
     
     
     
@@ -370,8 +419,11 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
 //          self.slideUpMenu.transform = CGAffineTransform(translationX: 0, y: -235)
         
         if let tappedPin = view.annotation as? Annotations {
-//            menuBttnTapped(tappedPin)
             
+            menuSlider()
+            
+//            menuBttnTapped(tappedPin)
+
 //            self.imgLbl.layer.cornerRadius = 8.0
 //            if let reactions = tappedPin.reactions {
 //                reactionLbl?.text = "\(reactions)"
@@ -445,9 +497,19 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
                 countryLbl?.text = "no country"
             }
             
-            if let time = tappedPin.timeStamp {
-                timeStampLbl.text = time
-            } else {
+            if (tappedPin.timeStamp) != nil {
+                let timee = tappedPin.timeStamp
+                let x = timee! / 1000
+                let datee = Date(timeIntervalSince1970: x)
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .short
+                
+                let finalTimeFormat = formatter.string(from: datee as Date)
+                print("finalTime::", finalTimeFormat)
+                timeStampLbl.text = finalTimeFormat
+                
+                } else {
                 timeStampLbl.text = "no post time"
             }
             
@@ -611,27 +673,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         
         if darkFillView.transform == CGAffineTransform.identity {
             
-            hashtagLbl.isHidden = false
-            sectionNrLbl.isHidden = false
-            sectionImg.isHidden = false
-            cityLbl.isHidden = false
-            countryLbl.isHidden = false
-            timeStampLbl.isHidden = false
-            postStoryLbl.isHidden = false
-            activityIndicator.isHidden = false
-            imgLbl.isHidden = false
-            categoryLbl.isHidden = false
-
-            UIView.animate(withDuration: 0.5, animations: {
-                self.darkFillView.transform = CGAffineTransform(scaleX: 20, y: 20)
-//                self.darkFillView.clipsToBounds = true
-                self.slideUpMenu.clipsToBounds = true
-                self.slideUpMenu.transform = CGAffineTransform(translationX: 0, y: -235)
-                self.imgLbl.transform = CGAffineTransform(translationX: 120, y: 0)
-                self.activityIndicator.transform = CGAffineTransform(translationX: 120, y: 0)
-                self.menuPopUpBttn.transform = CGAffineTransform(rotationAngle: self.radians(degrees: 180))
-            }) { (true) in
-            }
+            menuSlider()
         } else {
 //            hashtagLbl.isHidden = true
             sectionNrLbl.isHidden = true
