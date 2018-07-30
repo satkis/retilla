@@ -54,9 +54,10 @@ class DataService {
     
     func createFirebaseUser(uid: String, user: Dictionary<String, AnyObject>) {
         URL_USERS.child(uid).setValue(user)
-        
-        
+
     }
+    
+
     
 }
 

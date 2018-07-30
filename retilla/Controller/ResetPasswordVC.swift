@@ -35,6 +35,10 @@ class ResetPasswordVC: UIViewController {
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     
     func animateIn() {
         UIView.animate(withDuration: 0.4) {
@@ -45,27 +49,49 @@ class ResetPasswordVC: UIViewController {
     }
     
     func resetPassword(email: String) {
-        if let email = emailField.text, email != "" || email.contains("@") || email.contains(".") {
+        if let email = emailField.text, email != "", email.contains("@"), email.contains(".") {
   
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error == nil {
                 print("pasword was reset successfully")
+                //self.closeBttn(AnyObject.self)
+                self.emailField.text = ""
+                self.showErrorAlert(title: "Successful reset!", msg: "Check your email \(email)")
+//                 dismiss(animated: true, completion: nil)
+                
             } else {
-                self.mainVC.showErrorAlert(title: "something went wrong", msg: "check your email or smth")
+                self.showErrorAlert(title: "This email doesn't exist", msg: "Login as a new user with email or Facebook")
             }
-            }
+            } 
+        } else {
+            self.showErrorAlert(title: "invalid email format", msg: "")
         }
-    }
-    
-    
-    @IBAction func closePopUP(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func resterPwdPressed(_ sender: Any) {
         resetPassword(email: emailField.text!)
+        
+    }
+
+
+    
+    @IBAction func closeBttn(_ sender: Any) {
+                    dismiss(animated: true, completion: nil)
     }
     
+    
+    @IBAction func closeResetWindow(_ sender: UITapGestureRecognizer) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+
+    
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
 
 
 }

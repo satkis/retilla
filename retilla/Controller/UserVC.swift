@@ -12,6 +12,7 @@ import Firebase
 class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var currentUser_DBRef: DatabaseReference!
+    
     //var posts = [[Post]]()
 //    var imageCachee = NSCache<AnyObject, AnyObject>()
     var postInUserVCC: postInUserVC!
@@ -121,6 +122,18 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
         
         
+
+        
+        
+        
+        
+
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         currentUser_DBRef.child("posts").observe(.value) { (snapshottt) in
             
             print("snapshottt: \(snapshottt.value)")
@@ -135,7 +148,7 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                         print("keY: \(key)")
                         let postt = postInUserVC(postKey: key, dictionary: postDictt)
                         
-//                        self.postsInUserVC.append(postt)
+                        //                        self.postsInUserVC.append(postt)
                         self.postsInUserVC.insert(postt, at: 0)
                     }
                 }
@@ -144,15 +157,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             self.collection.reloadData()
         }
         
-        
-        
-        
-
-
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
         
 //        currentUser_DBRef.child("reactions").observeSingleEvent(of: .value) { (snapshot) in
 //            if let reactsnapshots = snapshot.children.allObjects as? [DataSnapshot] {

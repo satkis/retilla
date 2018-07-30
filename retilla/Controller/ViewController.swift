@@ -20,11 +20,13 @@ class ViewController: UIViewController {
     
     
     var dict: NSDictionary!
+    var currentUser_DBRef: DatabaseReference!
+    var currentUser = UserDefaults.standard.value(forKey: KEY_UID)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        activityIndicator.isHidden = true
+//        activityIndicator.isHidden = true
      
     }
 
@@ -33,6 +35,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(true)
         activityIndicator.isHidden = true
 //        viewDidAppear doesnt require user to login again if he did that once
+        
         if UserDefaults.standard.value(forKey: KEY_UID) != nil {
             self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
@@ -59,6 +62,8 @@ class ViewController: UIViewController {
                     let accessToken = FBSDKAccessToken.current().tokenString
                 print("SUCCESSFULLY LOGGED IN TO FB::: \(String(describing: accessToken))")
                 let credential = FacebookAuthProvider.credential(withAccessToken: accessToken!)
+                
+               // Auth.auth().signIn(withCustomToken: <#T##String#>, completion: <#T##AuthResultCallback?##AuthResultCallback?##(User?, Error?) -> Void#>)
                 
                 Auth.auth().signIn(with: credential) { (authData, error) in
                     if error != nil {
@@ -126,26 +131,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func emailLoginPressed(_ sender: Any) {
+        
         if let email = emailTxt.text, email != "", let pwd = passwordTxt.text, pwd != "" {
-//            Auth.auth().signIn(withEmail: email, password: pwd, completion: { authData, error in
-//                if error != nil {
-//                    print("errooor::: \(error)")
-//                    if let error = AuthErrorCode(rawValue: STATUS_ACCOUNT_NONEXIST) {
-//                        Auth.auth().createUser(withEmail: email, password: pwd, completion: { (result, err) in
-//                            if error != nil {
-//                            }
-//                        })
-//                    } else {
-//                        showErrorAlert(title: "kitokia error", msg: "neaisku kas negerai")
-//                    }
-//                } else {
-//                    //login if user already exists
-//                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-//                }
-//                )
-//            }
-//        }
-//    }
+
             Auth.auth().signIn(withEmail: self.emailTxt.text!, password: self.passwordTxt.text!, completion: { (authData, error) in
                 
                 if error != nil {
@@ -155,21 +143,15 @@ class ViewController: UIViewController {
                         Auth.auth().createUser(withEmail: self.emailTxt.text!, password: self.passwordTxt.text!, completion: { (result, error) in
                             if error != nil {
                                 self.showErrorAlert(title: "smth wrong with acct creation", msg: "try later or continue  Anonymously")
-                            }  else {
-//                                UserDefaults.standard.set(result[KEY_UID], forKey: KEY_UID)
+                            } else {
                                 //https://medium.com/@paul.allies/ios-swift4-login-logout-branching-4cdbc1f51e2c
-                                UserDefaults.standard.set(true, forKey: "status")
-                                Switcher.updateRootVC()
-                                
-                                
+                                // Switcher.updateRootVC()
+
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                        
-//                                let data:[String:AnyObject] = result as! [String : AnyObject]
-//                                let userName : NSString? = data["email"]! as? NSString
-                                let user = ["email": self.emailTxt.text]
                                 
+                                let user = ["email": self.emailTxt.text]
                                 DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
-                                print("USER LOGGED IN WITH ID::: \(String(describing: Auth.auth().currentUser?.uid))")
+                                print("USER SIGNED UP WITH ID::: \(String(describing: Auth.auth().currentUser?.uid))")
                                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                             }
                         }
@@ -178,6 +160,9 @@ class ViewController: UIViewController {
                     }
                 } else {
                     //login if user already exists
+                    Auth.auth().signIn(withEmail: self.emailTxt.text!, password: self.passwordTxt.text!, completion: nil)
+                    UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+                    self.currentUser = UserDefaults.standard.value(forKey: KEY_UID)
                     self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                 }
             }

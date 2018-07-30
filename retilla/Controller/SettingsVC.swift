@@ -9,9 +9,10 @@
 import UIKit
 import Firebase
 
+
 class SettingsVC: UIViewController {
 
-    var currentUser: DatabaseReference!
+    var currentUser = UserDefaults.standard.value(forKey: KEY_UID)
     var user: User!
     var feedbackFieldTxt: String! = "no no no"
     var userContactFieldTxt: String! = "no contact"
@@ -203,22 +204,45 @@ class SettingsVC: UIViewController {
     }
 
     
-
-    @IBAction func logOutPressed(_ sender: Any) {
     
-//        UserDefaults.standard.set(false, forKey: "status")
-//        Switcher.updateRootVC()
-        
-        
-        do {
-            try Auth.auth().signOut()
-performSegue(withIdentifier: "logoutSegue", sender: self)
+    @IBAction func logOutPressed(_ sender: Any) {
 
-        } catch let err {
-            print("FAILED to logout:::", err)
-        }
+       //https://www.youtube.com/watch?v=lvz0cPkIxzM partly used logic from this link
         
-}
+        UserDefaults.standard.removeObject(forKey: KEY_UID)
+        try! Auth.auth().signOut()
+        
+        let initialVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = initialVC
+        
+//        if UserDefaults.standard.value(forKey: "appFirstTImeOpened") == nil {
+//            UserDefaults.standard.setValue(true, forKey: "appFirstTImeOpened")
+//
+//            do {
+//                try Auth.auth().signOut()
+//            } catch {
+//
+//            }
+//
+//        }
+//        performSegue(withIdentifier: SEGUE_LOGOUT_TAPPED, sender: nil)
+        
+//        try! Auth.auth().signOut()
+//        UserDefaults.standard.removeObject(forKey: KEY_UID)
+//
+//        currentUser = nil
+//        //UserDefaults.standard.synchronize()
+//        performSegue(withIdentifier: SEGUE_LOGOUT_TAPPED, sender: nil)
+        
+        //print("USERID_SETTINGSVC", DataService.instance.URL_USER_CURRENT.key)
+        print("USERID_SETTINGSVCC", currentUser as Any)
+        //        UserDefaults.standard.set(false, forKey: "status")
+        //        Switcher.updateRootVC()
+        
+        
+        
+    }
     
 }
 

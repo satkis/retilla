@@ -21,6 +21,8 @@ class FeedVCC: UITableViewController {
         super.viewWillAppear(true)
          self.navigationController?.isNavigationBarHidden = false
         
+        
+        
 //        headerView.headerLabel.text
         
     }
@@ -37,7 +39,7 @@ class FeedVCC: UITableViewController {
                       headerStruct.init(image: #imageLiteral(resourceName: "circle2"), name: "REDUCE"),
                       headerStruct.init(image: #imageLiteral(resourceName: "circle3"), name: "POLLUTION")]
         
-       
+        print("USERID_FEEDVC::", UserDefaults.standard.value(forKey: KEY_UID))
         //self.title = "home"
         
         

@@ -521,13 +521,44 @@ func textViewDidChange(_ textView: UITextView) {
                     self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation_city: self.postLocation_city, postLocation_country: self.postLocation_country, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
                     
                     self.dismiss(animated: true, completion: nil)
+                    self.performSegue(withIdentifier: "createdPost", sender: nil)
+                    
+//                    let FeedVC: FeedVCC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
+//                    let nvc: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "barController") as! UITabBarController
+//
+//                    nvc.viewControllers = [FeedVC]
+                    
+//                    let navigationController = UINavigationController(rootViewController: FeedVC)
+//                    self.window??.rootViewController = navigationController
+//                   UIApplication.shared.keyWindow?.rootViewController = nvc
+                    
+                    
+//                    let appDelegate = UIApplication.shared.delegate
+//                    let FeedVC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
+//                    let nav = UINavigationController(rootViewController: FeedVC)
+//
+//                    appDelegate?.window??.rootViewController = nav
+                    
+//
+//                    let rootVC: FeedVCC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
+//                    let nvc: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "barController") as! UITabBarController
+//
+//                    nvc.viewControllers = [rootVC]
+//                    UIApplication.shared.keyWindow?.rootViewController = nvc
+                    
+//                    let mainStoryBoard = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
+//                    let viewController = self.mainStoryBoard.instantiateViewController(withIdentifier: "barController") as! UITabBarController
+//                    UIApplication.shared.keyWindow?.rootViewController = viewController
+                 
                 })
             } else {
                 print("image not selected but SHARE tapped")
                 postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation_city: "WRONG", postLocation_country: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
                 print("saved to Firebase nil image")
                 performSegue(withIdentifier: "createdPost", sender: nil)
-//                dismiss(animated: true, completion: nil)
+                
+
+                
                 }
             } else {
                 postSegments.shake()
