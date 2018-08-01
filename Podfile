@@ -13,9 +13,12 @@ pod ‘Firebase/Auth’
 pod ‘Firebase/Database’
 pod 'Firebase/Storage', '~> 4.0'
 
-pod 'FBSDKCoreKit'
-pod 'FBSDKShareKit'
-pod 'FBSDKLoginKit'
+# pod 'FBSDKCoreKit'
+# pod 'FBSDKShareKit'
+# pod 'FBSDKLoginKit'
+
+pod 'FacebookCore'
+pod 'FacebookLogin'
 
 pod 'Alamofire', '~> 4.7'
 pod 'AlamofireImage', '~> 3.3'

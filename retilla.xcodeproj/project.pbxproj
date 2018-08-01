@@ -34,6 +34,8 @@
 		FFA47F4F20A79259005F0AF3 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA47F4E20A79259005F0AF3 /* SettingsVC.swift */; };
 		FFAFEAB42097B6B1001C7C1B /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFEAB32097B6B0001C7C1B /* UserVC.swift */; };
 		FFAFEAB62097C36F001C7C1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFEAB52097C36F001C7C1B /* User.swift */; };
+		FFC2789521125F5900B52E26 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC2789421125F5900B52E26 /* AnnotationView.swift */; };
+		FFC278972112610300B52E26 /* ClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC278962112610300B52E26 /* ClusterView.swift */; };
 		FFE4048A203174D900B70B12 /* MainMapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE40489203174D900B70B12 /* MainMapVC.swift */; };
 		FFE4048C2031803E00B70B12 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE4048B2031803E00B70B12 /* Annotations.swift */; };
 		FFF5857620FB577300CA3995 /* UITextFieldX.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF5856C20FB576700CA3995 /* UITextFieldX.swift */; };
@@ -80,6 +82,8 @@
 		FFA47F4E20A79259005F0AF3 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		FFAFEAB32097B6B0001C7C1B /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		FFAFEAB52097C36F001C7C1B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FFC2789421125F5900B52E26 /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		FFC278962112610300B52E26 /* ClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterView.swift; sourceTree = "<group>"; };
 		FFE40489203174D900B70B12 /* MainMapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapVC.swift; sourceTree = "<group>"; };
 		FFE4048B2031803E00B70B12 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
 		FFF5856C20FB576700CA3995 /* UITextFieldX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldX.swift; sourceTree = "<group>"; };
@@ -185,6 +189,8 @@
 				FF40ECBF20C5F10000B07CA6 /* SegmentedControl.swift */,
 				FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */,
 				FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */,
+				FFC2789421125F5900B52E26 /* AnnotationView.swift */,
+				FFC278962112610300B52E26 /* ClusterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -328,7 +334,8 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -342,7 +349,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -395,6 +403,8 @@
 				FF0EF193210B83E2006FD5E3 /* UpdateRootVC.swift in Sources */,
 				FFF5857620FB577300CA3995 /* UITextFieldX.swift in Sources */,
 				FFF5857B20FB577300CA3995 /* UIButtonX.swift in Sources */,
+				FFC2789521125F5900B52E26 /* AnnotationView.swift in Sources */,
+				FFC278972112610300B52E26 /* ClusterView.swift in Sources */,
 				FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */,
 				FFAFEAB62097C36F001C7C1B /* User.swift in Sources */,
 				FF3F411B2104F8B400B134DC /* postInUserVC.swift in Sources */,

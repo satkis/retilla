@@ -43,7 +43,22 @@ class Annotations: NSObject, MKAnnotation {
         return "dummy subtitle"
     }
     var title: String? {
-        return "dummy title"
+        return ""
     }
+    
+//    var markerTintColorr: UIColor  {
+//        switch sectionNumber {
+//        case 0:
+//            return .green
+//        case 1:
+//            return .blue
+//        case 2:
+//            return .orange
+//        case 3:
+//            return .red
+//        default:
+//            return .black
+//        }
+//    }
     
 }

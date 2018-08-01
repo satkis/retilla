@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import FBSDKLoginKit
+import FacebookLogin
+import FacebookCore
 import Firebase
 
 
@@ -22,6 +23,7 @@ class ViewController: UIViewController {
     var dict: NSDictionary!
     var currentUser_DBRef: DatabaseReference!
     var currentUser = UserDefaults.standard.value(forKey: KEY_UID)
+    var fbAccessToken = AccessToken.self
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,94 +43,143 @@ class ViewController: UIViewController {
         }
     }
     
-    
+
     
 
     
     @IBAction func facebookLoginTppd(_ sender: UITapGestureRecognizer) {
-        let facebookLogin =  FBSDKLoginManager()
-        facebookLogin.logIn(withReadPermissions: ["public_profile", "email"], from: self) { (result, error) in
-            if error != nil {
-                print("FB LOGIN FAILED::: \(String(describing: error))")
-
-            } else if (result?.isCancelled)! {
-                print("cancel:::")
-                return
-            } else {
-
-              
-                self.activityIndicator.isHidden = false
-                
-                    let accessToken = FBSDKAccessToken.current().tokenString
-                print("SUCCESSFULLY LOGGED IN TO FB::: \(String(describing: accessToken))")
-                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken!)
-                
-               // Auth.auth().signIn(withCustomToken: <#T##String#>, completion: <#T##AuthResultCallback?##AuthResultCallback?##(User?, Error?) -> Void#>)
-                
-                Auth.auth().signIn(with: credential) { (authData, error) in
-                    if error != nil {
-                        print("FIREBASE LOGIN FAILED::: \(String(describing: error))")
+       
+        let fbLoginMnrg = LoginManager()
+        fbLoginMnrg.logIn(readPermissions: [.publicProfile, .email], viewController: self) { (result) in
+            switch result {
+            case .cancelled:
+                print("user fb login cancelled:::")
+            case .failed(_):
+                print("user fb login failed:::")
+            case .success(let grantedPermissions, let declinedPermissions, let token):
+                print("gantedPermissions:::", grantedPermissions)
+                print("declinedPermissions:::", declinedPermissions)
+                self.fbAccessToken = AccessToken.self
+                //https://firebase.google.com/docs/auth/ios/account-linking
+                let credential = FacebookAuthProvider.credential(withAccessToken: token.authenticationToken)
+                Auth.auth().signIn(with: credential, completion: { (user, error) in
+                    if let error = error {
+                        print("error it is:::", error)
+                        return
                     } else {
-                        
-                        
-                        
-                        print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
-                        
-                        // adding a reference to our firebase database
-                        let ref = Database.database().reference(fromURL: "https://retilla-220b1.firebaseio.com/")
-                        // guard for user id
-                        guard let uid = authData?.uid else {
-                            return }
-                        // create a child reference - uid will let us wrap each users data in a unique user id for later reference
-                        let usersReference = ref.child("users").child(uid)
-                        
-                        let graphPath = "me"
-                        
-                        let parameters = ["fields": "name, first_name, last_name, picture, email"]
-                        
-                        let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
-                        
-                        graphRequest?.start(completionHandler: { (connection, result, error) in
-                           // let fbloginresult : FBSDKLoginManagerLoginResult = result! as! FBSDKLoginManagerLoginResult
-                            if let error = error {
-                                print(error.localizedDescription)
-                            } else {
-                                print(result)
-                                let data:[String:AnyObject] = result as! [String : AnyObject]
-                                
-                                let userName : NSString? = data["name"]! as? NSString
-                                let firstName : NSString? = data["first_name"]! as? NSString
-                                let lastName : NSString? = data["last_name"]! as? NSString
-                                //let timeZone : NSInteger? = data["timezone"]! as? NSInteger
-                                //url extract doenst work
-                                let profileImgUrl : NSString? = data["picture"]! as? NSString
-                                let email : NSString? = data["email"]! as? NSString
-                                
-                                let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "picture": profileImgUrl as Any, "email": email as Any]
-                                
-                                UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                                
-                                DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
-                                print("USER IDDD UID::: \(String(describing: authData?.uid)))")
-                                
-                                usersReference.updateChildValues(user, withCompletionBlock: { (err, ref) in
-                                    if err != nil {
-                                        print(err!)
-                                        return
-                                    }
-                                    print("Save the user successfully into Firebase database")
-                                    
-                                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-                                    
-                                })
-                            }
-                        })
+                        self.currentUser = Auth.auth().currentUser
+                        UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+                        self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+                        print("logged in okk:::")
                     }
-                }
+                })
             }
         }
-        self.activityIndicator.isHidden = true
+
     }
+
+                
+                
+                
+                
+                
+                
+                        
+                        
+                        
+                        
+    
+    
+//    @IBAction func facebookLoginTppd(_ sender: UITapGestureRecognizer) {
+//        let facebookLogin =  FBSDKLoginManager()
+//        facebookLogin.logIn(withReadPermissions: ["public_profile", "email"], from: self) { (result, error) in
+//            if error != nil {
+//                print("FB LOGIN FAILED::: \(String(describing: error))")
+//
+//            } else if (result?.isCancelled)! {
+//                print("cancel:::")
+//                return
+//            } else {
+//
+//                self.activityIndicator.isHidden = false
+//
+//                let accessToken = FBSDKAccessToken.current().tokenString
+//                print("SUCCESSFULLY LOGGED IN TO FB::: \(String(describing: accessToken))")
+//                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken!)
+//
+//                Auth.auth().signIn(with: credential) { (authData, error) in
+//                    if error != nil {
+//                        print("FIREBASE LOGIN FAILED::: \(error?.localizedDescription as Any)")
+//                        print("error accountExistsWithDifferentCredential:::", AuthErrorCode.accountExistsWithDifferentCredential)
+//                    } else {
+//                        print("error error error :::", error?.localizedDescription as Any)
+//
+//
+//                                                print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
+//
+//                                                // adding a reference to our firebase database
+//                                                let ref = Database.database().reference(fromURL: "https://retilla-220b1.firebaseio.com/")
+//                                                // guard for user id
+//                                                guard let uid = authData?.uid else { return }
+//
+//                                                // create a child reference - uid will let us wrap each users data in a unique user id for later reference
+//                                                let usersReference = ref.child("users").child(uid)
+//
+//                                                let graphPath = "me"
+//
+//                                                let parameters = ["fields": "name, first_name, last_name, picture, email"]
+//
+//                                                let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
+//
+//                                                graphRequest?.start(completionHandler: { (connection, result, error) in
+//                                                   // let fbloginresult : FBSDKLoginManagerLoginResult = result! as! FBSDKLoginManagerLoginResult
+//                                                    if let error = error {
+//                                                        print("error FB LOGINN::", error.localizedDescription)
+//                                                    } else {
+//                                                        print("result FB login", result)
+//                                                        let data:[String:AnyObject] = result as! [String : AnyObject]
+//
+//                                                        let userName : NSString? = data["name"]! as? NSString
+//                                                        let firstName : NSString? = data["first_name"]! as? NSString
+//                                                        let lastName : NSString? = data["last_name"]! as? NSString
+//                                                        //let timeZone : NSInteger? = data["timezone"]! as? NSInteger
+//                                                        //url extract doenst work
+//                                                        let profileImgUrl : NSString? = data["picture"]! as? NSString
+//                                                        let email : NSString? = data["email"]! as? NSString
+//
+//                                                        let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "picture": profileImgUrl as Any, "email": email as Any]
+//                                                        Auth.auth().signIn(with: credential, completion: nil)
+//                                                        UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+//
+//                                                        DataService.instance.createFirebaseUser(uid: (authData?.uid)!, user: user as Dictionary<String, AnyObject>)
+//                                                        print("USER IDDD UID::: \(String(describing: authData?.uid)))")
+//
+//                                                        usersReference.updateChildValues(user, withCompletionBlock: { (err, ref) in
+//                                                            if err != nil {
+//                                                                print(err!)
+//                                                                return
+//                                                            }
+//                                                            print("Save the user successfully into Firebase database")
+//
+//                                                            self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+//
+//                                                        })
+//                                                    }
+//                                                })
+//                    }
+//                }
+//            }
+//        }
+//        self.activityIndicator.isHidden = true
+//    }
+
+    
+    
+    
+    
+    
+    
+    
     
     @IBAction func emailLoginPressed(_ sender: Any) {
         

@@ -56,6 +56,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     var annot: Annotations?
 
+
     var annotationn = [Post]()
     // var pinDetails: Post?
     var ref: DatabaseReference!
@@ -113,7 +114,6 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         view.addGestureRecognizer(minImgg)
         view.addGestureRecognizer(minImggg)
         view.addGestureRecognizer(minImgggg)
-        
 
        // imgLbl.center = CGPoint(x: -100, y: 522)
         //geoFire = GeoFire(firebaseRef: URL_GENERAL)
@@ -131,7 +131,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         fetchCoordinates()
-        
+        registerAnnotationViewClasses()
         self.map.addAnnotations(annotationn as! [MKAnnotation])
         activityIndicator.isHidden = true
         self.totalPosts.alpha = 0
@@ -267,30 +267,101 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         }
     }
     
-    
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
-            //nill to not make user location as a pin
-            return nil
-        } else {
-            if let annotation = annotation as? Annotations {
-                var view: MKPinAnnotationView
-                if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView {
-                    dequeuedView.annotation = annotation
-                    view = dequeuedView
-                } else {
-                    view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-                  
-                    view.canShowCallout = false
-                    //view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
-                    
-                }
-                return view
-            }
-            return nil
-        }
+    func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+        print(memberAnnotations)
+        return MKClusterAnnotation(memberAnnotations: memberAnnotations)
     }
+//
+//    func mapView(_ mapView: MKMapView, clusterAnnotationForMemberAnnotations memberAnnotations: [MKAnnotation]) -> MKClusterAnnotation {
+//        let test = MKClusterAnnotation(memberAnnotations: memberAnnotations)
+//        test.title = "Emojis"
+//        test.subtitle = nil
+//        return test
+//    }
+//
+    
+
+
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        if annotation is MKUserLocation {
+//            return nil
+//        } else {
+//            if let annotation = annotation as? Annotations {
+//                var view: MKPinAnnotationView
+//                let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView
+//                dequeuedView?.annotation = annotation
+//
+//                if annotation.sectionNumber == 0 {
+//
+////                    dequeuedView?.annotation = annotation
+//                    view = dequeuedView!
+//                    view.canShowCallout = false
+//                    view.pinTintColor = .blue
+//                } else if annotation.sectionNumber == 1 {
+////                    let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView
+////                    dequeuedView?.annotation = annotation
+//                    view = dequeuedView!
+//                    view.canShowCallout = false
+//                    view.pinTintColor = .blue
+//                } else if annotation.sectionNumber == 2{
+////                    let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView
+////                    dequeuedView?.annotation = annotation
+//                    view = dequeuedView!
+//                    view.canShowCallout = false
+//                    view.pinTintColor = .red
+////                } else if annotation.sectionNumber == 3, annotation != nil {
+//////                    let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView
+//////                    dequeuedView?.annotation = annotation
+////                    view = dequeuedView!
+////                    view.canShowCallout = false
+////                    view.pinTintColor = .yellow
+//                }
+//                    return dequeuedView
+//
+//            }
+//            return nil
+//        }
+//    }
+
+    
+    
+    func registerAnnotationViewClasses() {
+        map.register(AnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        map.register(ClusterView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
+    }
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        if annotation is MKUserLocation {
+//            //nill to not make user location as a pin
+//            return nil
+//        } else {
+//            if let annotation = annotation as? Annotations {
+//                var view: MKPinAnnotationView
+//                if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKPinAnnotationView {
+//                    dequeuedView.annotation = annotation
+//                    view = dequeuedView
+//                    view.canShowCallout = false
+//                    view.clusteringIdentifier = "identifier"
+//
+////                    view.pinTintColor = annotation.markerTintColorr
+//
+//                } else {
+//                    view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+//
+//                    view.canShowCallout = false
+//                    view.clusteringIdentifier = "identifier"
+//
+////                    view.pinTintColor = annotation.markerTintColorr
+//
+//                    //view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure) as UIView
+//
+//                }
+//                return view
+//            }
+//            return nil
+//        }
+//    }
     
   
     
