@@ -18,6 +18,7 @@ class CategoryRow: UITableViewCell {
         collectionViewww.dataSource = dataSourceDelegate
         collectionViewww.tag = row
         collectionViewww.reloadData()
+        collectionViewww.topAnchor.constraint(equalTo: collectionViewww.safeAreaLayoutGuide.topAnchor)
     }
     
     override func draw(_ rect: CGRect) {

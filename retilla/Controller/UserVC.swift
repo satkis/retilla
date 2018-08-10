@@ -203,13 +203,19 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         userIcon.contentMode = .scaleAspectFit
         navigationItem.titleView = userIcon
     
-    let settingsButton = UIButton(type: .infoLight)
-    settingsButton.setImage(#imageLiteral(resourceName: "settingsIcon").withRenderingMode(.alwaysOriginal), for: .normal)
-    settingsButton.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
-    settingsButton.contentMode = .scaleToFill
-    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingsButton)
-    settingsButton.addTarget(self, action: #selector(settingsClicked(_ :)), for: .touchUpInside)
-    self.view.addSubview(settingsButton)
+//    let settingsButton = UIButton(type: .infoLight)
+//    settingsButton.setImage(#imageLiteral(resourceName: "settingsIcon").withRenderingMode(.automatic), for: .normal)
+    let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(settingsClicked(_:)))
+//    let settingBttn = UIBarButtonItem(image: #imageLiteral(resourceName: "settingsIcon"), style: .plain, target: self, action: #selector(settingsClicked(_:)))
+//    let settingBttns = UIBarButtonItem(image: #imageLiteral(resourceName: "settingsIcon"), style: .plain, target: self, action: #selector(settingsClicked(_:)))
+//    let sett = UIBarButtonItem(barButtonSystemItem: #imageLiteral(resourceName: "settingsIcon"), target: self, action: #selector(settingsClicked(_:)))
+    let rr = UIBarButtonItem(image: #imageLiteral(resourceName: "settingsIcon"), style: .done, target: self, action: #selector(settingsClicked(_:)))
+    //settingsButton.contentMode = .scaleAspectFit
+    navigationItem.rightBarButtonItem = rr
+    
+      //  settingsButton.frame = CGRect(x: 150, y: 0, width: 10, height: 10)
+//    settingsButton.addTarget(self, action: #selector(settingsClicked(_ :)), for: .touchUpInside)
+//    self.view.addSubview(settingsButton)
     }
     
     @objc func settingsClicked(_ : UIButton) {

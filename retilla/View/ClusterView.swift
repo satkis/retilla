@@ -27,19 +27,33 @@ class ClusterView: MKAnnotationView {
             if let cluster = newValue as? MKClusterAnnotation {
                 let renderer = UIGraphicsImageRenderer(size: CGSize(width: 40, height: 40))
                 let count = cluster.memberAnnotations.count
-                let uniCount = cluster.memberAnnotations.filter { (member) -> Bool in
+                
+                let reuse = cluster.memberAnnotations.filter { (member) -> Bool in
                     return (member as! Annotations).sectionNumber == 0
-                }.count
+                    }.count
+                
+//                let recycle = cluster.memberAnnotations.filter { (member) -> Bool in
+//                    return (member as! Annotations).sectionNumber == 1
+//                    }.count
+//
+//                let reduce = cluster.memberAnnotations.filter { (member) -> Bool in
+//                    return (member as! Annotations).sectionNumber == 2
+//                    }.count
+//
+//                let pollution = cluster.memberAnnotations.filter { (member) -> Bool in
+//                    return (member as! Annotations).sectionNumber == 3
+//                    }.count
                 
                 image = renderer.image { _ in
                     //fill full circle with REDUCE[0] color
-                    UIColor.init(cgColor: #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)).setFill()
+                    UIColor.init(cgColor: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)).setFill()
                     UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 40, height: 40)).fill()
                     
                     //fill pie with RECYCLE[1] color
-                    UIColor.init(cgColor: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)).setFill()
+  //                  UIColor.init(cgColor: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)).setFill()
                     let piePath = UIBezierPath()
-                    piePath.addArc(withCenter: CGPoint(x: 20, y: 20), radius: 20, startAngle: 0, endAngle: (CGFloat.pi * 2.0 * CGFloat(uniCount)) / CGFloat(count), clockwise: true)
+                    piePath.addArc(withCenter: CGPoint(x: 20, y: 20), radius: 20, startAngle: 0, endAngle: CGFloat.pi * CGFloat(reuse) / CGFloat(count), clockwise: true)
+
                     piePath.addLine(to: CGPoint(x: 20, y: 20))
                     piePath.close()
                     piePath.fill()
@@ -50,20 +64,63 @@ class ClusterView: MKAnnotationView {
                     
                     // finally draw count text vertically and horizontally centered
                     let attributes = [NSAttributedStringKey.foregroundColor: UIColor.black, NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 20)]
-                    let text = "\(count)"
+                    let text = "\(count)" as NSString
                     let size = text.size(withAttributes: attributes)
                     let rect = CGRect(x: 20 - size.width / 2, y: 20 - size.height / 2, width: size.width, height: size.height)
-//                    text.draw(in: rect, withAttibutes: attributes)
-
+                    
+                    text.draw(in: rect, withAttributes: attributes)
                     
                     
                     
                     
                     
-
+                    
                 }
             }
         }
     }
     
 }
+
+
+
+
+
+extension CGFloat {
+    func radians() -> CGFloat {
+        let b = CGFloat(Double.pi) * (self/180)
+        return b
+    }
+}
+
+extension UIBezierPath {
+    convenience init(circleSegmentCenter center:CGPoint, radius:CGFloat, startAngle:CGFloat, endAngle:CGFloat)
+    {
+        self.init()
+        self.move(to: CGPoint(x: center.x, y: center.y))
+        self.addArc(withCenter: center, radius:radius, startAngle:startAngle.radians(), endAngle: endAngle.radians(), clockwise:true)
+        self.close()
+    }
+}
+
+
+
+//func pieChart(pieces:[(UIBezierPath, UIColor)]) -> UIView {
+//    var layers = [CAShapeLayer]()
+//    for p in pieces {
+//        let layer = CAShapeLayer()
+//        layer.path = p.0.cgPath
+//        layer.fillColor = p.1.cgColor
+//        layer.strokeColor = UIColor.white.cgColor
+//        layers.append(layer)
+//    }
+////    let view = UIView(frame: viewRect)
+////    for l in layers {
+////
+////        view.layer.addSublayer(l)
+////
+////
+////    }
+//    return view
+//}
+

@@ -44,7 +44,9 @@ class ViewController: UIViewController {
     }
     
 
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 
     
     @IBAction func facebookLoginTppd(_ sender: UITapGestureRecognizer) {

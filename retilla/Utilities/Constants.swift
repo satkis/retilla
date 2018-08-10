@@ -15,6 +15,11 @@ let SEGUE_TOSETTINGSVC = "SettingsVC"
 let SEGUE_INITIALSCREEN = "InitialVC"
 let SEGUE_LOGOUT_TAPPED = "logoutSegue"
 
+// Storyboard IDs
+let INITIALVC_1 = "initial1"
+let INITIALVC_2 = "initial2"
+let INITIALVC_3 = "initial3"
+let INITIALVC_4 = "initial4"
 
 
 // Keys

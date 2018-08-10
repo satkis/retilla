@@ -40,7 +40,7 @@ class Annotations: NSObject, MKAnnotation {
     }
     
     var subtitle: String? {
-        return "dummy subtitle"
+        return ""
     }
     var title: String? {
         return ""

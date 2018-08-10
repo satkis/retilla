@@ -100,8 +100,8 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         imgLbl.isHidden = true
         categoryLbl.isHidden = true
         //imgVisibility()
-        
-
+        registerAnnotationViewClasses()
+        fetchCoordinates()
         let minImg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
         minImg.direction = .down
         let minImgg = UISwipeGestureRecognizer(target: self, action: #selector(MainMapVC.animateImgDown))
@@ -130,8 +130,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     
     override func viewDidAppear(_ animated: Bool) {
-        fetchCoordinates()
-        registerAnnotationViewClasses()
+        
         self.map.addAnnotations(annotationn as! [MKAnnotation])
         activityIndicator.isHidden = true
         self.totalPosts.alpha = 0

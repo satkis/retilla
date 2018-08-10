@@ -19,8 +19,7 @@ class FeedVCC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-         self.navigationController?.isNavigationBarHidden = false
-        
+         self.navigationController?.hidesBarsOnSwipe = true
         
         
 //        headerView.headerLabel.text
@@ -30,6 +29,8 @@ class FeedVCC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
+        
+        
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -50,7 +51,7 @@ class FeedVCC: UITableViewController {
         userIcon.contentMode = .scaleAspectFit
         navigationItem.titleView = userIcon
         
-        self.navigationController?.hidesBarsOnSwipe = true
+        self.navigationController?.isNavigationBarHidden = false
         
         // posts.removeAll()
         //even this is in viewdidload, below will be called only when data changes
