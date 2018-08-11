@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 
-class SettingsVC: UIViewController {
+class SettingsVC: UIViewController, UITextViewDelegate {
 
     var currentUser = UserDefaults.standard.value(forKey: KEY_UID)
     var user: User!
@@ -19,6 +19,8 @@ class SettingsVC: UIViewController {
     var username: String! = "user nmm"
     var feedbackTimestamp: String! = "smth wrongg"
     var newFeedbackKey = DataService.instance.URL_POSTS.childByAutoId().key
+    var placeholderLabel: UILabel!
+    
 //    var userLocationCountry: String? = "no country"
 //    var userLocationCity: String? =  "no cityy"
     
@@ -26,6 +28,8 @@ class SettingsVC: UIViewController {
     
     
     @IBOutlet weak var feedbackTxtField: UITextField!
+    @IBOutlet weak var feedbackTxtView: UITextView!
+    
     @IBOutlet weak var userEmailTxtField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     
@@ -38,6 +42,18 @@ class SettingsVC: UIViewController {
         
         appearFeedbackLbl.alpha = 0
         appearFeedbackWIthContactLbl.alpha = 0
+        
+        feedbackTxtView.delegate = self
+        placeholderLabel = UILabel()
+        placeholderLabel.text = "share feedback here"
+        placeholderLabel.font = UIFont.systemFont(ofSize: (feedbackTxtView.font?.pointSize)!)
+        placeholderLabel.sizeToFit()
+        feedbackTxtView.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: (feedbackTxtView.font?.pointSize)! / 2)
+        placeholderLabel.textColor = UIColor.lightGray
+        placeholderLabel.isHidden = !feedbackTxtView.text.isEmpty
+        
+        
         //feedbackTxtField.delegate = self
         
 //        sendButton.isUserInteractionEnabled = false
@@ -98,6 +114,9 @@ class SettingsVC: UIViewController {
         self.view.endEditing(true)
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !textView.text.isEmpty
+    }
 
     
     func postToFirebase(username: String!, feedbackFieldTxt: String!, userContactFieldTxt: String!, feedbackTimestamp: String!) {
@@ -110,12 +129,12 @@ class SettingsVC: UIViewController {
             "feedback_Time": feedbackTimestamp as Any,
             "username": username as Any,
             "user_typed_contacts": userEmailTxtField!.text! as Any,
-            "feedback": feedbackTxtField.text! as Any
+            "feedback": feedbackTxtView.text! as Any
         ]
         
         let firebaseFeedback = DataService.instance.URL_FEEDBACK.child(newFeedbackKey)
         firebaseFeedback.setValue(feedback)
-        feedbackTxtField.text = ""
+        feedbackTxtView.text = ""
         userEmailTxtField.text = ""
     }
     
@@ -138,11 +157,14 @@ class SettingsVC: UIViewController {
 
     
     @IBAction func sendFeedbackPressed(_ sender: Any) {
-        if self.feedbackTxtField.text != "", self.feedbackTxtField.text != " ", self.feedbackTxtField.text != "  ", self.feedbackTxtField.text != "   ", self.feedbackTxtField.text != "    " {
+        if self.feedbackTxtView.text != "", self.feedbackTxtView.text != " ", self.feedbackTxtView.text != "  ", self.feedbackTxtView.text != "   ", self.feedbackTxtView.text != "    " {
             if self.userEmailTxtField.text != "", self.userEmailTxtField.text != " ", self.userEmailTxtField.text != "  ", self.userEmailTxtField.text != "   ", self.userEmailTxtField.text != "    " {
                 
-            postingDetails()
-      
+                postingDetails()
+                
+                //dismiss keyboard
+                self.view.endEditing(true)
+                
                 UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseInOut, animations: {
                     self.appearFeedbackWIthContactLbl.alpha = 1.0
                 }, completion: nil)
@@ -152,6 +174,8 @@ class SettingsVC: UIViewController {
                 }, completion: nil)
             } else {
                 postingDetails()
+                //dismiss keyboard
+                self.view.endEditing(true)
             }
             
 
@@ -172,7 +196,7 @@ class SettingsVC: UIViewController {
 //            })
         
         } else {
-            feedbackTxtField.shake()
+            feedbackTxtView.shake()
         }
     }
             
@@ -258,6 +282,19 @@ extension UITextField {
         animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 8, y: self.center.y - 8))
         animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 8, y: self.center.y + 8))
   
+        self.layer.add(animation, forKey: "position")
+    }
+}
+
+extension UITextView {
+    func shake(){
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 3
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.center.x - 8, y: self.center.y - 8))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.center.x + 8, y: self.center.y + 8))
+        
         self.layer.add(animation, forKey: "position")
     }
 }

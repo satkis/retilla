@@ -64,8 +64,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         storyTextVIew.delegate = self
         placeholderLabel = UILabel()
-        placeholderLabel.text = "A story about this photo"
-        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (storyTextVIew.font?.pointSize)!)
+        placeholderLabel.text = "add story about this photo"
+//        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (storyTextVIew.font?.pointSize)!)
+        placeholderLabel.font = UIFont.systemFont(ofSize: (storyTextVIew.font?.pointSize)!)
         placeholderLabel.sizeToFit()
         storyTextVIew.addSubview(placeholderLabel)
         placeholderLabel.frame.origin = CGPoint(x: 5, y: (storyTextVIew.font?.pointSize)! / 2)

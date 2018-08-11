@@ -19,7 +19,7 @@ class FeedVCC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-         self.navigationController?.hidesBarsOnSwipe = true
+         self.navigationController?.setNavigationBarHidden(false, animated: true)
         
         
 //        headerView.headerLabel.text
@@ -46,12 +46,11 @@ class FeedVCC: UITableViewController {
         
         
         
-        let userIcon = UIImageView(image: #imageLiteral(resourceName: "userIcon"))
-        userIcon.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
+        let userIcon = UIImageView(image: #imageLiteral(resourceName: "logoo_darker.png"))
+        userIcon.frame = CGRect(x: 0, y: 0, width: 61, height: 20)
         userIcon.contentMode = .scaleAspectFit
         navigationItem.titleView = userIcon
         
-        self.navigationController?.isNavigationBarHidden = false
         
         // posts.removeAll()
         //even this is in viewdidload, below will be called only when data changes

@@ -11,18 +11,20 @@
 
 import UIKit
 
+import Firebase
 
 
 class PageVC: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    var imageView: UIImageView?
+
+    var currentUser_DBRef: DatabaseReference!
+    var currentUser = UserDefaults.standard.value(forKey: KEY_UID)
     
     lazy var VCArr: [UIViewController] = {
         return [
             self.VCInstance(name: INITIALVC_1),
             self.VCInstance(name: INITIALVC_2),
-            self.VCInstance(name: INITIALVC_3),
-            self.VCInstance(name: INITIALVC_4)
+            self.VCInstance(name: INITIALVC_3)
         ]
     }()
     
@@ -35,19 +37,47 @@ class PageVC: UIPageViewController, UIPageViewControllerDataSource, UIPageViewCo
         super.viewDidLoad()
         self.dataSource = self
         self.delegate = self
+        
+//        if UserDefaults.standard.value(forKey: KEY_UID) != nil {
+//            self.performSegue(withIdentifier: "loggedInn", sender: nil)
+//        }
+
+        
         if let firstVC = VCArr.first {
             setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
+        
 //        let bgView = UIView(frame: UIScreen.main.bounds)
 ////        bgView.backgroundColor = UIColor.orange
 //        self.view.backgroundColor =
 //        view.insertSubview(bgView, at: 0)
         
-        imageView = UIImageView(image: UIImage(named: "bg.png")!)
-        imageView!.contentMode = .scaleAspectFit
+        let imageView = UIImageView(image: UIImage(named: "bg.png")!)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         
-        view.insertSubview(imageView!, at: 0)
+//        let xx = view.safeAreaLayoutGuide
+//        view.addConstraint((NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: xx.topAnchor, attribute: .bottom, multiplier: 1, constant: 0)))
+//        view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .bottom, relatedBy: .equal, toItem: xx.bottomAnchor, attribute:.top, multiplier: 1, constant: 20))
+//
+//
+//        view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .notAnAttribute,multiplier: 1, constant: 300))
+//        view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .trailingMargin, relatedBy: .equal, toItem: view, attribute: .trailingMargin, multiplier: 1, constant: 0))
         
+//        UIImageView(image: UIImage(named: "bg.png")!).frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2, height: 185)
+      
+//        imageView.contentMode = .scaleAspectFit
+        
+        view.insertSubview(imageView, at: 0)
+
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if UserDefaults.standard.value(forKey: KEY_UID) != nil {
+            self.performSegue(withIdentifier: SEGUE_TO_FEEDVC, sender: nil)
+        }
     }
     
     override func viewDidLayoutSubviews() {

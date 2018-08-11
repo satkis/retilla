@@ -14,6 +14,8 @@ let SEGUE_POSTDETAILVC = "PostDetailVC"
 let SEGUE_TOSETTINGSVC = "SettingsVC"
 let SEGUE_INITIALSCREEN = "InitialVC"
 let SEGUE_LOGOUT_TAPPED = "logoutSegue"
+let SEGUE_TO_VIEWCONTROLLERVC = "toMainVC"
+let SEGUE_TO_FEEDVC = "toFeedVC"
 
 // Storyboard IDs
 let INITIALVC_1 = "initial1"

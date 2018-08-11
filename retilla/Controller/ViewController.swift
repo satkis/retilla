@@ -29,7 +29,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 //        activityIndicator.isHidden = true
-     
+        if UserDefaults.standard.value(forKey: KEY_UID) != nil {
+            self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+        }
     }
 
     
