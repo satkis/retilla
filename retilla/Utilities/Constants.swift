@@ -23,6 +23,7 @@ let INITIALVC_2 = "initial2"
 let INITIALVC_3 = "initial3"
 let INITIALVC_4 = "initial4"
 
+let CREATINGPOSTVC_ID = "creatingPostVC"
 
 // Keys
 let KEY_UID = "uid"

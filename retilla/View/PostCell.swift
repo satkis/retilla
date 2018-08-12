@@ -34,6 +34,7 @@ class PostCell: UICollectionViewCell {
     
     @IBOutlet weak var readStoryLbl: UILabel!
     
+    @IBOutlet weak var postCellContainer: UIView!
     //@IBOutlet weak var reactionCountLbl: UILabel!
     
     //@IBOutlet weak var reactionImg: UIImageView!
@@ -41,6 +42,10 @@ class PostCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        animationWhileImgLoading()
+        
+        
         //need to call this with code. from Storyboard these won't work because this is collection view. also because this is reusable cell
        
         
@@ -81,6 +86,49 @@ class PostCell: UICollectionViewCell {
 //        return formatter.string(from: datee as Date)
 //    }
     
+    
+    func animationWhileImgLoading() {
+        
+        postCellContainer.backgroundColor = UIColor(white: 1, alpha: 0.1)
+        let darkItem = UILabel()
+        //        darkItem.text = "frfrfrfrfrf"
+        //        darkItem.textColor = UIColor(white: 1, alpha: 1)
+        //        darkItem.font = UIFont.systemFont(ofSize: 50)
+        darkItem.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        darkItem.frame = CGRect(x: 0, y: 0, width: 500, height: 800)
+        postCellContainer.addSubview(darkItem)
+        postCellContainer.sendSubview(toBack: darkItem)
+        
+        let shinyItem = UILabel()
+        //        darkItem.text = "Color"
+        //        darkItem.textColor = UIColor(white: 1, alpha: 1)
+        //        darkItem.font = UIFont.systemFont(ofSize: 50)
+        shinyItem.backgroundColor = UIColor.white
+        shinyItem.frame = CGRect(x: -150, y: 0, width: 500, height: 200)
+        postCellContainer.addSubview(shinyItem)
+        postCellContainer.sendSubview(toBack: shinyItem)
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor, UIColor.clear.cgColor]
+        gradientLayer.locations = [0, 0.5, 1]
+        gradientLayer.frame = shinyItem.frame
+        
+        let angle = 135 * CGFloat.pi / 180
+        gradientLayer.transform = CATransform3DMakeRotation(angle, 0, 0, 1)
+        
+        shinyItem.layer.mask = gradientLayer
+        
+        //animation
+        let animation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.speed = 0.15
+        
+        animation.fromValue = -postCellContainer.frame.width
+        animation.toValue = postCellContainer.frame.width+250
+        animation.repeatCount = Float.infinity
+        
+        gradientLayer.add(animation, forKey: "doesntmatter")
+        //        postImg.layer.addSublayer(gradientLayer)
+    }
     
     
     func configureCell(post: Post, image: UIImage?) {

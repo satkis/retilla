@@ -24,6 +24,7 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     var emaii: String!
     var selectedRow = 0
+    
 
     
     @IBOutlet weak var userNameLbl: UILabel!
@@ -35,12 +36,18 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     @IBOutlet weak var reduceLbl: UILabel!
     @IBOutlet weak var pollutionLbl: UILabel!
     
+    @IBOutlet weak var emptyStateText: UILabel!
+    @IBOutlet weak var emptyStateButton: UIButtonX!
+    
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collection.delegate = self
         collection.dataSource = self
+
+        
         
         let width = (view.frame.size.width - 6) / 3
         let layout = collection.collectionViewLayout as! UICollectionViewFlowLayout
@@ -79,13 +86,23 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 self.userNameLbl.text = "no user ID"
             }
             
-            
+      
             
         }
  
         currentUser_DBRef.child("posts").observeSingleEvent(of: .value) { (snapshot) in
             if let postsnapshots = snapshot.children.allObjects as? [DataSnapshot] {
                 self.postCounterLbl.text = String(postsnapshots.count)
+                
+                if String(postsnapshots.count) == "\(0)" {
+                    self.emptyStateButton.isHidden = false
+                    self.emptyStateText.isHidden = false
+                } else {
+                    self.emptyStateButton.isHidden = true
+                    self.emptyStateText.isHidden = true
+                }
+                
+                
             }
         }
         
@@ -131,8 +148,13 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
     }
 
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+
+        
+        
         
         currentUser_DBRef.child("posts").observe(.value) { (snapshottt) in
             
@@ -259,7 +281,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 //    }
     
 
-
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -268,6 +289,8 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCellinUserVC", for: indexPath) as? PostCellInUserVC {
+            
+
             cell.request?.cancel()
             
             cell.layer.cornerRadius = 3
@@ -288,8 +311,10 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             return PostCellInUserVC()
         }
         
-        }
- 
+
+    }
+        
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedRow = indexPath.item
@@ -328,6 +353,7 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("countcount::", postsInUserVC.count)
         return postsInUserVC.count
     }
     
@@ -335,6 +361,20 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         return 1
     }
     
+    
+    func switchToCreatePostVC() {
+        Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(switchToCreatePostVCSection), userInfo: nil, repeats: false)
+    }
+    
+    @objc func switchToCreatePostVCSection(){
+        tabBarController!.selectedIndex = 1
+    }
+    
+    @IBAction func emptyStateBttnTapped(_ sender: Any) {
+        switchToCreatePostVC()
+    }
+    
+
   
     
     
