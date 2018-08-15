@@ -85,23 +85,14 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                     } else {
                         print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
                         
-                        // adding a reference to our firebase database
-                        let ref = Database.database().reference(fromURL: "https://retilla-220b1.firebaseio.com/")
                         // guard for user id
                         guard let uid = authData?.uid else {
                             return }
                         // create a child reference - uid will let us wrap each users data in a unique user id for later reference
-                        
-//                        let usersReference = ref.child("users").child(uid)
                         let usersReference = DataService.instance.URL_USERS.child(uid)
-                        
                         let graphPath = "me"
-                        
-//                        let parameters = ["fields": "name, first_name, last_name, timezone, picture, email"]
                         let parameters = ["fields": "name, first_name, last_name, email"]
-                        
                         let graphRequest = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters)
-                        
                         graphRequest?.start(completionHandler: { (connection, result, error) in
                             
                             if let error = error {
@@ -109,19 +100,19 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                             } else {
                                 print("resulresult", result as Any)
                                 let data:[String:AnyObject] = result as! [String : AnyObject]
-                                let userName : NSString? = data["name"]! as? NSString
+//                                let userName : NSString? = data["name"]! as? NSString
                                 let firstName : NSString? = data["first_name"]! as? NSString
-                                let lastName : NSString? = data["last_name"]! as? NSString
+                                //let lastName : NSString? = data["last_name"]! as? NSString
                                 let email : NSString? = data["email"]! as? NSString
                                 guard let userd = authData?.uid else { return }
-                                let user = ["name": userName as Any, "first_name": firstName as Any, "last_name": lastName as Any, "email": email as Any]
+                                let user = ["first_name": firstName as Any, "email": email as Any]
                                 print("USER IDDD UID::: \(String(describing: authData?.uid)))")
                                 
                                 usersReference.updateChildValues(user, withCompletionBlock: { (err, ref) in
                                     if err != nil {
                                         DataService.instance.createFirebaseUser(uid: userd, user: user as Dictionary<String, AnyObject>)
                                         UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                                        print("there is error", err!)
+                                        print("there is error_FBLogin", err!)
                                         return
                                     }
                                     print("Save the user successfully into Firebase database")
@@ -158,7 +149,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                                 // Switcher.updateRootVC()
 
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                                
+
                                 let user = ["email": self.emailTxt.text]
                                 DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
                                 print("USER SIGNED UP WITH ID::: \(String(describing: Auth.auth().currentUser?.uid))")
@@ -170,6 +161,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                     }
                 } else {
                     //login if user already exists
+                    
                     Auth.auth().signIn(withEmail: self.emailTxt.text!, password: self.passwordTxt.text!, completion: nil)
                     UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
                     self.currentUser = UserDefaults.standard.value(forKey: KEY_UID)
@@ -193,25 +185,52 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             guard let googleAccessToken = user.authentication.accessToken else { return }
             let credentials = GoogleAuthProvider.credential(withIDToken: googleIDToken, accessToken: googleAccessToken)
             let userGoogleEmail = user.profile.email
+            let userGoogleGivenName = user.profile.givenName
+//            let userGoogleName = user.profile.name gives users full name
             print("userGoogleEmail", userGoogleEmail as Any)
          
 
-            Auth.auth().signInAndRetrieveData(with: credentials) { (user, error) in
+            Auth.auth().signIn(with: credentials) { (user, error) in
                 if let err = error {
                     print("failed to create Firebase user with Google acct", err)
                     return
                 } else {
-//                    guard let uid = user?.uid else { return }
+                    guard let usere = user?.uid else { return }
+                    // create a child reference - uid will let us wrap each users data in a unique user id for later reference
+                    let usersReference = DataService.instance.URL_USERS.child(usere)
+                    let user = ["first_name": userGoogleGivenName as Any, "email": userGoogleEmail as Any]
+                    
+                    usersReference.updateChildValues(user, withCompletionBlock: { (err, ref) in
+                        if err != nil {
+                            DataService.instance.createFirebaseUser(uid: usere, user: user as Dictionary<String, AnyObject>)
+                            UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+                            print("there is error_GoogleLogin", err!)
+                            return
+                        }
+                        print("Save the user successfully into Firebase database")
+                        UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+                        self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+                        
+                    })
+                }
+            }
+        }
+    }
+            
+            
+            
+            
+            //                    guard let uid = user?.uid else { return }
                     
 //                    print("successfully logged into FIrebase with Google", user?.uid as Any)
                     //self.currentUser = Auth.auth().currentUser
-                    UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                    print("useruseruser:::", Auth.auth().currentUser?.uid as Any)
-                    let user = ["email": userGoogleEmail]
-                    DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
-                    
-                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-                    print("logged in and sent to FeedVC after Google login")
+//                    UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+//                    print("useruseruser:::", Auth.auth().currentUser?.uid as Any)
+//                    let user = ["email": userGoogleEmail]
+//                    DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
+//
+//                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+//                    print("logged in and sent to FeedVC after Google login")
                     
                     
 //                    self.currentUser = Auth.auth().currentUser
@@ -220,10 +239,10 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 //                    DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
 //                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
 //                    print("logged in okk:::")
-                }
-            }
-        }
-    }
+//                }
+//            }
+//        }
+//    }
 
     
     
