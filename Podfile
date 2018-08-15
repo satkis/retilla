@@ -16,7 +16,7 @@ pod 'AppAuth'
 
 # pod 'FBSDKCoreKit'
 # pod 'FBSDKShareKit'
-# pod 'FBSDKLoginKit'
+ pod 'FBSDKLoginKit'
 
 pod 'FacebookCore'
 pod 'FacebookLogin'

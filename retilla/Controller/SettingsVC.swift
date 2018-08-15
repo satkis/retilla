@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 
 class SettingsVC: UIViewController, UITextViewDelegate {
@@ -232,7 +233,7 @@ class SettingsVC: UIViewController, UITextViewDelegate {
     @IBAction func logOutPressed(_ sender: Any) {
 
        //https://www.youtube.com/watch?v=lvz0cPkIxzM partly used logic from this link
-        
+        try! GIDSignIn.sharedInstance().signOut()
         UserDefaults.standard.removeObject(forKey: KEY_UID)
         try! Auth.auth().signOut()
         

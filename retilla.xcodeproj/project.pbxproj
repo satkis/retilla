@@ -21,7 +21,6 @@
 		FF7D5D23201672E70016F853 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D21201672E70016F853 /* Main.storyboard */; };
 		FF7D5D25201672E70016F853 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D24201672E70016F853 /* Assets.xcassets */; };
 		FF7D5D28201672E70016F853 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D26201672E70016F853 /* LaunchScreen.storyboard */; };
-		FF7D5D302016868B0016F853 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF7D5D2F2016868A0016F853 /* GoogleService-Info.plist */; };
 		FF7D5D372016885B0016F853 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D362016885B0016F853 /* Constants.swift */; };
 		FF7D5D3920168A620016F853 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7D5D3820168A620016F853 /* DataService.swift */; };
 		FF85071220276B81003CB080 /* PostDetailVCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF85071120276B81003CB080 /* PostDetailVCC.swift */; };
@@ -30,6 +29,7 @@
 		FF919B11201A70EE00270B65 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B10201A70EE00270B65 /* Post.swift */; };
 		FF919B13201AAE7200270B65 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B12201AAE7200270B65 /* PostCell.swift */; };
 		FF919B1B201CB7D900270B65 /* FeedVCC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF919B1A201CB7D800270B65 /* FeedVCC.swift */; };
+		FF98109521237A9C0049157A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF98109421237A9B0049157A /* GoogleService-Info.plist */; };
 		FF9AAE0320E1691B00E1FF93 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9AAE0120E1691B00E1FF93 /* HeaderView.swift */; };
 		FF9AAE0420E1691B00E1FF93 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9AAE0220E1691B00E1FF93 /* HeaderView.xib */; };
 		FF9AAE0720E1829000E1FF93 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9AAE0620E1829000E1FF93 /* ImageView.swift */; };
@@ -71,7 +71,6 @@
 		FF7D5D24201672E70016F853 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF7D5D27201672E70016F853 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF7D5D29201672E70016F853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF7D5D2F2016868A0016F853 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF7D5D362016885B0016F853 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FF7D5D3820168A620016F853 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		FF85071120276B81003CB080 /* PostDetailVCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailVCC.swift; sourceTree = "<group>"; };
@@ -80,6 +79,7 @@
 		FF919B10201A70EE00270B65 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		FF919B12201AAE7200270B65 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		FF919B1A201CB7D800270B65 /* FeedVCC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVCC.swift; sourceTree = "<group>"; };
+		FF98109421237A9B0049157A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF9AAE0120E1691B00E1FF93 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		FF9AAE0220E1691B00E1FF93 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		FF9AAE0620E1829000E1FF93 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 				FF7D5D24201672E70016F853 /* Assets.xcassets */,
 				FF7D5D26201672E70016F853 /* LaunchScreen.storyboard */,
 				FF7D5D29201672E70016F853 /* Info.plist */,
-				FF7D5D2F2016868A0016F853 /* GoogleService-Info.plist */,
+				FF98109421237A9B0049157A /* GoogleService-Info.plist */,
 			);
 			path = retilla;
 			sourceTree = "<group>";
@@ -317,10 +317,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF98109521237A9C0049157A /* GoogleService-Info.plist in Resources */,
 				FF3F411F2104FFB100B134DC /* PostCellInUserVC.xib in Resources */,
 				FF7D5D28201672E70016F853 /* LaunchScreen.storyboard in Resources */,
 				FF9AAE0420E1691B00E1FF93 /* HeaderView.xib in Resources */,
-				FF7D5D302016868B0016F853 /* GoogleService-Info.plist in Resources */,
 				FF7D5D25201672E70016F853 /* Assets.xcassets in Resources */,
 				FF7D5D23201672E70016F853 /* Main.storyboard in Resources */,
 			);

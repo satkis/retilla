@@ -13,7 +13,7 @@ import GoogleSignIn
 import AppAuth
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     //var fbAccessToken: AccessToken?
@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Override point for customization after application launch.
 
         FirebaseApp.configure()
-        
+  
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
 //        GIDSignIn.sharedInstance().clientID = "41622738363-efr12s81k1q1ebfqe4v4mk8ek2annucd.apps.googleusercontent.com"
-         GIDSignIn.sharedInstance().delegate = self
+         
         
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -34,33 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         return true
     }
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-        if let err = error {
-            print("failed to log in into Google", err)
-        } else {
-            print("singed in with GOOGLE successfully", user)
-            guard let googleIDToken = user.authentication.accessToken else { return }
-            guard let googleAccessToken = user.authentication.accessToken else { return }
-            let credentials = GoogleAuthProvider.credential(withIDToken: googleIDToken, accessToken: googleAccessToken)
-            
-            Auth.auth().signIn(with: credentials) { (user, error) in
-                if let err = error {
-                    print("failed to create Firebase user with Google acct", err)
-                    return
-                } else {
-                    guard let uid = user?.uid else { return }
-                    print("successfully logged into FIrebase with Google", user?.uid)
-//                    self.currentUser = Auth.auth().currentUser
-//                    UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-//                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-                    print("logged in and sent to FeedVC after Google login")
-                }
-            }
-        }
-    }
-    
-    
+
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         let handled: Bool = SDKApplicationDelegate.shared.application(app, open: url, options: options)
@@ -72,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
 
     
-    public func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         
         return  GIDSignIn.sharedInstance().handle(url,sourceApplication: sourceApplication, annotation: annotation)
         
