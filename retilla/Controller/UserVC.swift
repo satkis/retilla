@@ -80,8 +80,8 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             } else if user.email.contains("@") {
                 let emailCutOff = user.email.components(separatedBy: "@").first
                 self.userNameLbl.text = emailCutOff
-            } else if user.email.contains("Anonymous") {
-                self.userNameLbl.text = "Anonymous"
+            } else if user.email.contains("Guest") {
+                self.userNameLbl.text = "Guest"
             } else {
                 self.userNameLbl.text = "no user ID"
             }

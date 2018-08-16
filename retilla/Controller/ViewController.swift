@@ -37,12 +37,10 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
         
-        let googleButton = GIDSignInButton()
-        googleButton.frame = CGRect(x: 30, y: 350, width: view.frame.width - 32, height: 50)
-        view.addSubview(googleButton)
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().signIn()
+//        let googleButton = GIDSignInButton()
+//        googleButton.frame = CGRect(x: 30, y: 350, width: view.frame.width - 32, height: 50)
+//        view.addSubview(googleButton)
+
     }
 
     
@@ -143,7 +141,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                         //create user if email and password not existing
                         Auth.auth().createUser(withEmail: self.emailTxt.text!, password: self.passwordTxt.text!, completion: { (result, error) in
                             if error != nil {
-                                self.showErrorAlert(title: "smth wrong with acct creation", msg: "try later or continue  Anonymously")
+                                self.showErrorAlert(title: "Something went wrong with account creation", msg: "try later or continue as Guest")
                             } else {
                                 //https://medium.com/@paul.allies/ios-swift4-login-logout-branching-4cdbc1f51e2c
                                 // Switcher.updateRootVC()
@@ -157,7 +155,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                             }
                         }
                         )} else {
-                        self.showErrorAlert(title: "kitokia error", msg: "neaisku kas negerai")
+                        self.showErrorAlert(title: "Something went wrong", msg: "Try again later")
                     }
                 } else {
                     //login if user already exists
@@ -169,7 +167,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                 }
             }
             )} else {
-            self.showErrorAlert(title: "enter email or password", msg: "enter email or password")
+            self.showErrorAlert(title: "enter email or password", msg: "")
         }
     }
     
@@ -247,28 +245,45 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
     
     @IBAction func googleLoginTapped(_ sender: UITapGestureRecognizer) {
-        
+        print("tapped google")
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().signIn()
     }
     
     
 
     
     
-    @IBAction func loginAnonymouslyTapped(_ sender: Any) {
+//    @IBAction func loginAnonymouslyTapped(_ sender: Any) {
+//        Auth.auth().signInAnonymously { (user, error) in
+//            if error == nil {
+//                // successfully sign in anonymously
+//
+//                UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
+//                let user = ["email": "Anonymous\(arc4random())"]
+//                DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
+//                self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
+//                print("anonymous user: \((Auth.auth().currentUser?.uid)!)")
+//            }
+//        }
+//    }
+    
+    
+    @IBAction func anonymouslyLoginTapped(_ sender: UITapGestureRecognizer) {
         Auth.auth().signInAnonymously { (user, error) in
             if error == nil {
                 // successfully sign in anonymously
                 
                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-                let user = ["email": "Anonymous\(arc4random())"]
+                let user = ["email": "Guest\(arc4random())"]
                 DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                 print("anonymous user: \((Auth.auth().currentUser?.uid)!)")
             }
         }
+        
     }
-    
-    
     
     
     

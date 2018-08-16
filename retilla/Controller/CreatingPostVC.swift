@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import CoreLocation
 
-class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, UITextViewDelegate {
+class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
 
     var currentUser: DatabaseReference!
     var user: User!
@@ -22,20 +22,19 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var posts = [Post]()
     var newPostKey = DataService.instance.URL_POSTS.childByAutoId().key
     var selectedSection: Int! = nil
-    var postLocation_city: String! = "no city"
-    var postLocation_country: String! = "no country"
+    var postLocation_city: String! = "noo city"
+    var postLocation_country: String! = "noo country"
     var postCoordinates: String!
     var lat: String!
     var long: String!
     var postTimestamp: String! = "mmmm"
     var username: String! = "usrnm na"
     var placeholderLabel: UILabel!
-
-    
-    let locationManager = CLLocationManager()
-    //let userVCRef = UserVC()
+    var locationManager = CLLocationManager()
     
     private var image: UIImage!
+    
+    let authorizationStatus = CLLocationManager.authorizationStatus()
     
     
     @IBOutlet weak var chooseLbl: UILabel!
@@ -50,6 +49,11 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet var storyTextVIew: UITextView!
     
     @IBOutlet weak var postSegments: UISegmentedControl!
+    @IBOutlet weak var textForGuestsLbl: UILabel!
+    
+    @IBOutlet weak var buttonForGuestsLbl: UIButton!
+    
+    @IBOutlet weak var sharePostBttnLbl: UIBarButtonItem!
     
     //@IBOutlet weak var locationLbl_city: UILabel!
     
@@ -77,7 +81,9 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
 
         print("viewDidLoad of CreatingPostVC")
         locationManager.delegate = self
-        locationAuthStatus()
+        
+        
+//       locationAuthStatus()
 //        handleLocationAuthorizationStatus(status: )
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -98,10 +104,44 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
             } else if user.email.contains("@") {
                 let emailCutOff = user.email.components(separatedBy: "@").first
                 self.username = emailCutOff
-            } else if user.email.contains("Anonymous") {
-                self.username = "Anonymous"
+            } else if user.email.contains("Guest") {
+                self.username = "Guest"
             } else {
                 self.username = "no user ID"
+            }
+        }
+        
+        configureLocationServices()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            print("userLocationUPD_ViewDIdLoad")
+            locationManager.startUpdatingLocation()
+            
+        } else {
+            print("not updating user location")
+            return
+            
+        }
+    }
+
+
+    
+
+    override func viewWillAppear(_ animated: Bool) {
+        currentUser.observeSingleEvent(of: .value) { (snapshot) in
+            
+            let snap = snapshot.value as? Dictionary<String, AnyObject>
+            print("snap::: \(String(describing: snap))")
+            
+            let key = snapshot.key
+            let user = User(userKey: key, dictionary: snap!)
+            
+            if user.email.contains("Guest") {
+                self.textForGuestsLbl.isHidden = false
+                self.buttonForGuestsLbl.isHidden = false
+            } else {
+                self.textForGuestsLbl.isHidden = true
+                self.buttonForGuestsLbl.isHidden = true
             }
         }
     }
@@ -110,7 +150,28 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidAppear(_ animated: Bool) {
         print("viewDidAppear of CreatingPostVC")
         
+        if authorizationStatus == .denied {
+            print("access declined_viewDidAppear")
+            showErrorAlert(title: "As you denied access to your location, you cannot create posts", msg: "If you want to create posts, enable location access in your iPhone settings")
+            self.sharePostBttnLbl.isEnabled = false
+            locationManager.stopUpdatingLocation()
+        } else if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+            print("allowedLocation_viewDidAppear")
+            if CLLocationManager.locationServicesEnabled() {
+                print("start upd location_viewDidAppear")
+                locationManager.startUpdatingLocation()
+            } else {
+                
+                print("nzn nzn nzn_viewDidAppear")
+                return
+                
+            }
+        } else {
+            print("returnreturnretrun")
+            return
+        }
     }
+    
     
     // NEED TO CORRECT doesnt disable if image not selected
 //    func dismissAnyBeforeImageSelected() {
@@ -254,19 +315,41 @@ func textViewDidChange(_ textView: UITextView) {
         
     }
 
+//
+//    func locationAuthStatus() {
+//        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+//            locationManager.startUpdatingLocation()
+//        } else {
+//            locationManager.requestWhenInUseAuthorization()
+////            userCamera.isHidden = true
+//
+//        }
+//    }
     
-    func locationAuthStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-        }
-    }
+//    func locationAuthStatus(status: CLAuthorizationStatus) {
+//        switch status {
+//        case .notDetermined:
+//            locationManager.requestWhenInUseAuthorization()
+//            print("not determineddddd")
+//        case .authorizedWhenInUse, .authorizedAlways:
+//            print("authorizzzed")
+//            locationManager.startUpdatingLocation()
+//        case .denied:
+//
+//            showErrorAlert(title: "user denied location", msg: "denied location")
+//        case .restricted:
+//            showErrorAlert(title: "restricted", msg: "restricted")
+//        }
+//    }
+    
+
+    
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+        print("didUpdateLocations:::")
         if let loc = locations.first {
-            print(loc)
+            print("loclocloc:::", loc)
             let lat = loc.coordinate.latitude
             let long = loc.coordinate.longitude
             
@@ -276,16 +359,17 @@ func textViewDidChange(_ textView: UITextView) {
                 if error == nil {
                     
                     if let place = placemark?[0] {
+                        print("placeplaceplace:::", place)
                         if let locality = place.locality {
                             self.postLocation_city = locality
                             self.postLocation_country = place.country
-//                            self.locationLbl_city.text = locality
-//                            self.locationLbl_country.text = place.country
+                            //                            self.locationLbl_city.text = locality
+                            //                            self.locationLbl_country.text = place.country
                         } else {
                             self.postLocation_city = "n/a"
                             self.postLocation_country = "n/a"
-//                            self.locationLbl_city.text = "n/a"
-//                            self.locationLbl_country.text = "n/aa"
+                            //                            self.locationLbl_city.text = "n/a"
+                            //                            self.locationLbl_country.text = "n/aa"
                         }
                     }
                 } else {
@@ -295,26 +379,20 @@ func textViewDidChange(_ textView: UITextView) {
         }
     }
     
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        handleLocationAuthorizationStatus(status: status)
-//    }
+
     
     // Respond to the result of the location manager authorization status
-    func handleLocationAuthorizationStatus(status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            locationManager.startUpdatingLocation()
-        case .denied:
-            print("I'm sorry - I can't show location. User has not authorized it")
-        case .restricted:
-            print("Access denied - likely parental controls are restricting use in this app.")
-        }
-    }
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
     
  
@@ -522,7 +600,7 @@ func textViewDidChange(_ textView: UITextView) {
                     self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation_city: self.postLocation_city, postLocation_country: self.postLocation_country, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
                     
                     self.dismiss(animated: true, completion: nil)
-                    self.performSegue(withIdentifier: "createdPost", sender: nil)
+                    self.performSegue(withIdentifier: SEGUE_TO_FEEDVC_FROM_CREATE_POST, sender: nil)
                     
 //                    let FeedVC: FeedVCC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
 //                    let nvc: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "barController") as! UITabBarController
@@ -576,11 +654,15 @@ func textViewDidChange(_ textView: UITextView) {
         if self.chooseLbl.alpha == CGFloat(0) {
             
             UIView.animate(withDuration: 0.3) {
+                self.textForGuestsLbl.alpha = 0
+                self.buttonForGuestsLbl.alpha = 0
                 self.chooseLbl.alpha = 1
                 self.explanationLbl.alpha = 1
             }
         } else {
             UIView.animate(withDuration: 0.3) {
+                self.textForGuestsLbl.alpha = 1
+                self.buttonForGuestsLbl.alpha = 1
                 self.chooseLbl.alpha = 0
                 self.explanationLbl.alpha = 0
             }
@@ -588,9 +670,73 @@ func textViewDidChange(_ textView: UITextView) {
     }
     
     
+    @IBAction func guestLoginwithDiffAcctTapped(_ sender: Any) {
+//        self.performSegue(withIdentifier: SEGUE_TO_LOGINVC_FROM_CREATEPOSTVC, sender: self)
+        
+        UserDefaults.standard.removeObject(forKey: KEY_UID)
+        try! Auth.auth().signOut()
+        
+        let initialVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let appDelegate = UIApplication.shared.delegate
+        appDelegate?.window??.rootViewController = initialVC
+        
+    }
+    
+    
 
 
 }
+
+extension CreatingPostVC: CLLocationManagerDelegate {
+    
+    func configureLocationServices() {
+        if authorizationStatus == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            
+        } else if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+            print("allowedLocation_configureLocationServices")
+            if CLLocationManager.locationServicesEnabled() {
+                print("start upd location_configureLocationServices")
+                locationManager.startUpdatingLocation()
+                
+            } else {
+                
+                print("nzn nzn nzn_configureLocationServices")
+                return
+                
+            }
+        } else {
+            print("returnreturnretrun_configureLocationServices")
+            return
+        }
+    }
+
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .denied || status == .restricted {
+            print("access declined")
+            showErrorAlert(title: "As you denied access to your location, you cannot create posts", msg: "If you want to create posts, enable location access in your iPhone settings")
+            self.sharePostBttnLbl.isEnabled = false
+            locationManager.stopUpdatingLocation()
+        } else if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+            print("allowedLocation")
+            if CLLocationManager.locationServicesEnabled() {
+                print("start upd location")
+                locationManager.startUpdatingLocation()
+            } else {
+                
+                print("nzn nzn nzn")
+                return
+            }
+            
+        }
+        
+    }
+    
+}
+
+
 
 extension UISegmentedControl {
     func shake(){

@@ -16,6 +16,8 @@ let SEGUE_INITIALSCREEN = "InitialVC"
 let SEGUE_LOGOUT_TAPPED = "logoutSegue"
 let SEGUE_TO_VIEWCONTROLLERVC = "toMainVC"
 let SEGUE_TO_FEEDVC = "toFeedVC"
+let SEGUE_TO_LOGINVC_FROM_CREATEPOSTVC = "usingOtherMethodButtonToLoginVC"
+let SEGUE_TO_FEEDVC_FROM_CREATE_POST = "createdPost"
 
 // Storyboard IDs
 let INITIALVC_1 = "initial1"

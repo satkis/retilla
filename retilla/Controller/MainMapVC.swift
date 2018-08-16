@@ -12,7 +12,7 @@ import CoreLocation
 import Firebase
 
 
-class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MainMapVC: UIViewController {
 
     @IBOutlet weak var map: MKMapView!
     //@IBOutlet weak var pullUpViewHeightConstraint: NSLayoutConstraint!
@@ -74,7 +74,11 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     //    var hashh: String?
     
     let locationManager = CLLocationManager()
-    let regionRadius: CLLocationDistance = 9500
+    let regionRadius: Double = 4500
+    
+    let authorizationStatus = CLLocationManager.authorizationStatus()
+    
+    let createPostVc = CreatingPostVC()
     
     //these will need to be downloaded from Firebase and here should be coordinates
     //    let addresses = [
@@ -87,8 +91,7 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         map.delegate = self
-        //self.view.addSubview(DetailPinView)
-        locationAuthStatus()
+
         hashtagLbl.isHidden = true
         sectionNrLbl.isHidden = true
         sectionImg.isHidden = true
@@ -131,6 +134,10 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     
     override func viewDidAppear(_ animated: Bool) {
         
+        locationManager.delegate = self
+        configureLocationServices()
+
+        
         self.map.addAnnotations(annotationn as! [MKAnnotation])
         activityIndicator.isHidden = true
         self.totalPosts.alpha = 0
@@ -164,29 +171,51 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     }
     
     
-    func locationAuthStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            map.showsUserLocation = false
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-        }
-    }
+//    func locationAuthStatus() {
+//        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+//            map.showsUserLocation = false
+//        } else {
+//            locationManager.requestWhenInUseAuthorization()
+//        }
+//    }
+//
+//
+//    func locationAuthStatus(status: CLAuthorizationStatus) {
+//        switch status {
+//        case .notDetermined:
+//            locationManager.requestWhenInUseAuthorization()
+//            print("not determineddddd")
+//        case .authorizedWhenInUse, .authorizedAlways:
+//            print("authorizzzed")
+//            locationManager.startUpdatingLocation()
+//        case .denied:
+//
+//            showErrorAlert(title: "user denied location", msg: "denied location")
+//        case .restricted:
+//            showErrorAlert(title: "restricted", msg: "restricted")
+//        }
+//    }
     
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
-        map.setRegion(coordinateRegion, animated: true)
-    }
+
     
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        if let loc = userLocation.location {
-            centerMapOnLocation(location: loc)
-            print("location loc: \(loc)")
-            let lat = loc.coordinate.latitude
-            let long = loc.coordinate.longitude
-            print(lat, long)
-            
-        }
-    }
+//    func centerMapOnLocation(location: CLLocation) {
+//        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+//        map.setRegion(coordinateRegion, animated: true)
+//    }
+    
+    
+    
+    
+//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+//        if let loc = userLocation.location {
+////            centerMapOnLocation(location: loc)
+//            print("location loc: \(loc)")
+//            let lat = loc.coordinate.latitude
+//            let long = loc.coordinate.longitude
+//            print(lat, long)
+//
+//        }
+//    }
     
     
     
@@ -478,7 +507,9 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
         }
     }
     
+
     
+
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
@@ -857,10 +888,52 @@ class MainMapVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate 
     //
     //
     
+    func showErrorAlert(title: String, msg: String) {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
     
     
     
     
     
+}
+
+extension MainMapVC: CLLocationManagerDelegate {
     
+    func configureLocationServices() {
+        if authorizationStatus == .notDetermined {
+            locationManager.requestAlwaysAuthorization()
+        } else {
+            return
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        centerMapOnUserLocation()
+        
+        if status == .denied || status == .restricted {
+            print("access declined")
+//            showErrorAlert(title: "As you denied access to your location, you cannot create posts", msg: "If you want to create posts, enable location access in your iPhone settings")
+//            createPostVc.sharePostBttnLbl.isEnabled = false
+            
+        } else {
+            print("nzn nzn nzn")
+            return
+        }
+    }
+    
+}
+
+
+extension MainMapVC: MKMapViewDelegate {
+    func centerMapOnUserLocation() {
+        guard let coordinate = locationManager.location?.coordinate else { return }
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        map.setRegion(coordinateRegion, animated: true)
+    }
+
 }

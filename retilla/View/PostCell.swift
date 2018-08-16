@@ -153,8 +153,8 @@ class PostCell: UICollectionViewCell {
         }
         
         if let user = post.username, post.username != "" {
-            if user.contains("Anonymous") {
-                self.userNameLbl.text = "Anonymous"
+            if user.contains("Guest") {
+                self.userNameLbl.text = "Guest"
             } else {
                 self.userNameLbl.text = user
             }
