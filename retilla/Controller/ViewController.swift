@@ -58,7 +58,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         connectionText.isHidden = true
         effect = blurrView.effect
         blurrView.effect = nil
-       
+       itemView.isHidden = true
+        blurrView.isHidden = true
+        
         
         reachability.whenReachable = { _ in
             DispatchQueue.main.async {

@@ -728,14 +728,36 @@ class MainMapVC: UIViewController {
             //        animateViewUp()
             //        addSwipe()
         } else {
-            imgLbl.isHidden = true
-            activityIndicator.isHidden = false
-        }
+            //            hashtagLbl.isHidden = true
+            sectionNrLbl.isHidden = true
+            sectionImg.isHidden = true
+            //            cityLbl.isHidden = true
+            //            countryLbl.isHidden = true
+            timeStampLbl.isHidden = true
+            //            postStoryLbl.isHidden = true
+            //            activityIndicator.isHidden = true
+            //            imgLbl.isHidden = true
+            categoryLbl.isHidden = true
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.darkFillView.transform = .identity
+                self.slideUpMenu.transform = .identity
+                self.menuPopUpBttn.transform = .identity
+                //                self.imgLbl.transform = CGAffineTransform(translationX: -120, y: 0)
+                //                self.activityIndicator.transform = CGAffineTransform(translationX: -120, y: 0)
+                //                self.imgAway()
+                self.activityIndicator.transform = .identity
+                self.imgLbl.transform = .identity
+                //self.imgLbl.isHidden = true
+                //self.activityIndicator.isHidden = false
+            }) { (true) in
+            }
         
 //            activityIndicator.isHidden = false
 //            activityIndicator.startAnimating()
         
         
+    }
     }
 
     
@@ -743,7 +765,16 @@ class MainMapVC: UIViewController {
         //self.imageLbl.transform = CGAffineTransform.init(scaleX: 0.2, y: 0.2)
 
         UIView.animate(withDuration: 0.25) { () -> Void in
-            self.imgLbl.frame = CGRect(x: 20, y: 368, width: 70, height: 70)
+            self.imgLbl.frame = CGRect(x: 20, y: self.view.frame.height - self.slideUpMenu.frame.height - 70, width: 70, height: 70)
+
+            
+            //        itemView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+            //        itemView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50).isActive = true
+            //        itemView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+            //        itemView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+            
+         
+//            self.imgLbl.transform = .identity
 //            self.imgLbl.layer.cornerRadius = 8.0
 //            self.imgLbl.transform = .identity
 //            self.activityIndicator.transform = .identity
