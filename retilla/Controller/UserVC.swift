@@ -241,10 +241,10 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     //settingsButton.contentMode = .scaleAspectFit
     navigationItem.rightBarButtonItem = rr
     
-    let container = UIView(frame: CGRect(x: 0, y: 0, width: 112, height: 44))
+    let container = UIView(frame: CGRect(x: 0, y: 0, width: 122, height: 23))
     let logo = UIImage(named: "logoo_darker")
    
-    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 112, height: 44))
+    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 122, height: 23))
     imageView.image = logo
     imageView.layer.masksToBounds = true
     imageView.clipsToBounds = true

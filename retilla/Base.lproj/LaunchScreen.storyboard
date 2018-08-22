@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoo_darker" translatesAutoresizingMaskIntoConstraints="NO" id="Yqy-yD-FH2">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Yqy-yD-FH2">
                                 <rect key="frame" x="95" y="284.5" width="185" height="98"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="185" id="9IJ-Xn-sDY"/>
@@ -26,7 +26,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.94331009510813413" green="0.98613496244871257" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Yqy-yD-FH2" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="5XT-uv-bRr"/>
                             <constraint firstItem="Yqy-yD-FH2" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TH1-wm-eIR"/>
@@ -40,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logoo_darker" width="510" height="200"/>
+        <image name="logo" width="127" height="50"/>
     </resources>
 </document>

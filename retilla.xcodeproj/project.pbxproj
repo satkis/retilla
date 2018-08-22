@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		384E3630A61D15FC054DFDC5 /* Pods_retilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */; };
 		FF0EF193210B83E2006FD5E3 /* UpdateRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0EF192210B83E2006FD5E3 /* UpdateRootVC.swift */; };
+		FF17EDDC212DD776004595F8 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF17EDDB212DD776004595F8 /* InternetConnection.swift */; };
 		FF3F411B2104F8B400B134DC /* postInUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F411A2104F8B400B134DC /* postInUserVC.swift */; };
 		FF3F411E2104FFB100B134DC /* PostCellInUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */; };
 		FF3F411F2104FFB100B134DC /* PostCellInUserVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */; };
@@ -57,6 +58,7 @@
 		EA4DC4C2839C4A83E943BA88 /* Pods_retilla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_retilla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCBC503330999610F5889E89 /* Pods-retilla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-retilla.debug.xcconfig"; path = "Pods/Target Support Files/Pods-retilla/Pods-retilla.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0EF192210B83E2006FD5E3 /* UpdateRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateRootVC.swift; sourceTree = "<group>"; };
+		FF17EDDB212DD776004595F8 /* InternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		FF3F411A2104F8B400B134DC /* postInUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postInUserVC.swift; sourceTree = "<group>"; };
 		FF3F411C2104FFB100B134DC /* PostCellInUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellInUserVC.swift; sourceTree = "<group>"; };
 		FF3F411D2104FFB100B134DC /* PostCellInUserVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCellInUserVC.xib; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		FF7D5D352016884E0016F853 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FF17EDDB212DD776004595F8 /* InternetConnection.swift */,
 				FF7D5D3820168A620016F853 /* DataService.swift */,
 			);
 			path = Services;
@@ -431,6 +434,7 @@
 				FFA47F4F20A79259005F0AF3 /* SettingsVC.swift in Sources */,
 				FF0EF193210B83E2006FD5E3 /* UpdateRootVC.swift in Sources */,
 				FFF5857620FB577300CA3995 /* UITextFieldX.swift in Sources */,
+				FF17EDDC212DD776004595F8 /* InternetConnection.swift in Sources */,
 				FFF5857B20FB577300CA3995 /* UIButtonX.swift in Sources */,
 				FFC2789521125F5900B52E26 /* AnnotationView.swift in Sources */,
 				FFC278972112610300B52E26 /* ClusterView.swift in Sources */,

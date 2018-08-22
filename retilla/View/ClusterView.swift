@@ -46,7 +46,7 @@ class ClusterView: MKAnnotationView {
                 
                 image = renderer.image { _ in
                     //fill full circle with REDUCE[0] color
-                    UIColor.init(cgColor: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)).setFill()
+                    UIColor.init(cgColor: #colorLiteral(red: 0.6672604313, green: 0.8732352475, blue: 0.7655537169, alpha: 1)).setFill()
                     UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 40, height: 40)).fill()
                     
                     //fill pie with RECYCLE[1] color

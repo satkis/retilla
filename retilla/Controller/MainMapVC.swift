@@ -80,6 +80,7 @@ class MainMapVC: UIViewController {
     
     let createPostVc = CreatingPostVC()
     
+
     //these will need to be downloaded from Firebase and here should be coordinates
     //    let addresses = [
     //
@@ -123,7 +124,16 @@ class MainMapVC: UIViewController {
         
         // reactionLbl.text = annotationnnnn?.hashtag
         // print("reactionLBL.text in viewdidLoad: \(reactionLbl.text)")
-  
+        if CLLocationManager.locationServicesEnabled() {
+            print("userLocationUPD_ViewDIdLoad_MainMapVC")
+            locationManager.startUpdatingLocation()
+            
+        } else {
+            locationManager.stopUpdatingLocation()
+            print("not updating user location_MainMapVC")
+            //return
+            
+        }
 
     }
     
@@ -154,6 +164,8 @@ class MainMapVC: UIViewController {
             }
         }
     }
+
+
     
     func showTotalPosts() {
         if self.totalPosts.alpha == CGFloat(0) {
@@ -906,7 +918,22 @@ extension MainMapVC: CLLocationManagerDelegate {
     func configureLocationServices() {
         if authorizationStatus == .notDetermined {
             locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            
+        } else if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
+            print("allowedLocation_configureLocationServices_MainMapVC")
+            if CLLocationManager.locationServicesEnabled() {
+                print("start upd location_configureLocationServices_MainMapVC")
+                locationManager.startUpdatingLocation()
+                
+            } else {
+                
+                print("nzn nzn nzn_configureLocationServices_MainMapVC")
+                return
+                
+            }
         } else {
+            print("returnreturnretrun_configureLocationServices_MainMapVC")
             return
         }
     }

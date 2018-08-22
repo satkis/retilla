@@ -21,7 +21,10 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var itemView: UIView!
     
+    @IBOutlet weak var blurrView: UIVisualEffectView!
+    @IBOutlet weak var TCs_stack: UIStackView!
     
     var dict: NSDictionary!
     var currentUser_DBRef: DatabaseReference!
@@ -29,8 +32,53 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     var fbAccessToken = AccessToken.self
     var user: User!
     
+    var activityIndicatorr: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    let reachability =  InternetConnection()!
+    var effect: UIVisualEffect!
+    
+    let connectionText: UITextView = {
+        let textView = UITextView()
+        textView.text = "No internet connection. Enable it to continue."
+        textView.font = UIFont.boldSystemFont(ofSize: 23)
+        textView.textColor = #colorLiteral(red: 1, green: 0.1180567068, blue: 0.1035009349, alpha: 1)
+        textView.backgroundColor = UIColor.clear
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textAlignment = .center
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.isSelectable = false
+        return textView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(connectionText)
+        connectionText.isHidden = true
+        effect = blurrView.effect
+        blurrView.effect = nil
+       
+        
+        reachability.whenReachable = { _ in
+            DispatchQueue.main.async {
+                self.view.backgroundColor = UIColor.green
+            }
+        }
+        
+        reachability.whenUnreachable = { _ in
+            DispatchQueue.main.async {
+                self.view.backgroundColor = UIColor.red
+            }
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(internetChanged), name: Notification.Name.reachabilityChanged , object: reachability)
+        do{
+            try reachability.startNotifier()
+        } catch {
+            print("Could not strat notifier")
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
 //        activityIndicator.isHidden = true
         if UserDefaults.standard.value(forKey: KEY_UID) != nil {
@@ -40,20 +88,75 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 //        let googleButton = GIDSignInButton()
 //        googleButton.frame = CGRect(x: 30, y: 350, width: view.frame.width - 32, height: 50)
 //        view.addSubview(googleButton)
-
+        setupLayout()
+        
     }
-
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         activityIndicator.isHidden = true
 //        viewDidAppear doesnt require user to login again if he did that once
+
+        
         
         if UserDefaults.standard.value(forKey: KEY_UID) != nil {
             self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
         
        
+    }
+    
+    func animateIn() {
+        self.view.addSubview(itemView)
+//        itemView.center = self.view.center
+        itemView.layer.cornerRadius = 5
+        //itemView.frame = CGRect(x: 0, y: 250, width: view.frame.width, height: 350)
+        
+//                itemView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+//                itemView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50).isActive = true
+//                itemView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+//                itemView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+        itemView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        itemView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.blurrView.effect = self.effect
+            self.itemView.alpha = 1
+            self.itemView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    private func setupLayout() {
+        connectionText.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+        connectionText.bottomAnchor.constraint(equalTo: emailTxt.topAnchor, constant: 150)
+//        connectionText.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+        connectionText.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        connectionText.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        
+//        itemView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+//        itemView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50).isActive = true
+//        itemView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+//        itemView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+    }
+    
+    @objc func internetChanged(note:Notification)  {
+        let reachability = note.object as! InternetConnection
+        if reachability.connection != .none {
+            if reachability.connection == .wifi {
+                self.view.backgroundColor = UIColor.green
+            } else {
+                DispatchQueue.main.async {
+                    self.view.backgroundColor = UIColor.orange
+                }
+            }
+        } else{
+            DispatchQueue.main.async {
+                self.connectionText.isHidden = false
+                self.animateIn()
+                
+            }
+        }
     }
     
 
@@ -215,7 +318,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         }
     }
             
-            
+    @IBAction func TCs_tapped(_ sender: UIButton) {
+    }
+    
             
             
             //                    guard let uid = user?.uid else { return }
@@ -271,6 +376,13 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
     
     @IBAction func anonymouslyLoginTapped(_ sender: UITapGestureRecognizer) {
+        activityIndicatorr.center = self.view.center
+        activityIndicatorr.hidesWhenStopped = true
+        activityIndicatorr.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activityIndicatorr)
+        
+        activityIndicatorr.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         Auth.auth().signInAnonymously { (user, error) in
             if error == nil {
                 // successfully sign in anonymously
@@ -278,6 +390,8 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
                 let user = ["email": "Guest\(arc4random())"]
                 DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
+                self.activityIndicatorr.stopAnimating()
+                UIApplication.shared.endIgnoringInteractionEvents()
                 self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
                 print("anonymous user: \((Auth.auth().currentUser?.uid)!)")
             }

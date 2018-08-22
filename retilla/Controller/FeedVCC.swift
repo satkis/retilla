@@ -35,6 +35,9 @@ class FeedVCC: UITableViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        
+//        tableView.reloadData()
+        
         categories = [headerStruct.init(image: #imageLiteral(resourceName: "circle0"), name: "REUSE"),
                       headerStruct.init(image: #imageLiteral(resourceName: "circle1"), name: "RECYCLE"),
                       headerStruct.init(image: #imageLiteral(resourceName: "circle2"), name: "REDUCE"),

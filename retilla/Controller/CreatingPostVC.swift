@@ -32,6 +32,8 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     var placeholderLabel: UILabel!
     var locationManager = CLLocationManager()
     
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     private var image: UIImage!
     
     let authorizationStatus = CLLocationManager.authorizationStatus()
@@ -114,12 +116,13 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         configureLocationServices()
         
         if CLLocationManager.locationServicesEnabled() {
-            print("userLocationUPD_ViewDIdLoad")
+            print("userLocationUPD_ViewDIdLoad_createPostVC")
             locationManager.startUpdatingLocation()
             
         } else {
-            print("not updating user location")
-            return
+            locationManager.stopUpdatingLocation()
+            print("not updating user location_CreatePostVC")
+           // return
             
         }
     }
@@ -529,10 +532,28 @@ func textViewDidChange(_ textView: UITextView) {
         
 //    }
     
+//    func switchToFeedVC() {
+//        Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(switchToFeedVC_objc), userInfo: nil, repeats: false)
+//    }
+//
+//    @objc func switchToFeedVC_objc(){
+//        tabBarController!.selectedIndex = 0
+//    }
+    
+    
+    
     @IBAction func sharePost(_ sender: Any) {
         if let _ = imageSelectorImage.image, imageSelected == true  {
             if selectedSection != nil {
-            
+                
+                activityIndicator.center = self.view.center
+                activityIndicator.hidesWhenStopped = true
+                activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+                view.addSubview(activityIndicator)
+                
+                activityIndicator.startAnimating()
+                UIApplication.shared.beginIgnoringInteractionEvents()
+                
             if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.3) {
                 print("uploadData::: \(uploadData)")
                 let metadata = StorageMetadata()
@@ -599,8 +620,13 @@ func textViewDidChange(_ textView: UITextView) {
                     
                     self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation_city: self.postLocation_city, postLocation_country: self.postLocation_country, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
                     
+//
+                    self.activityIndicator.stopAnimating()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     self.dismiss(animated: true, completion: nil)
-                    self.performSegue(withIdentifier: SEGUE_TO_FEEDVC_FROM_CREATE_POST, sender: nil)
+//                    self.switchToFeedVC()
+                    self.performSegue(withIdentifier: "createdPost", sender: nil)
+                    
                     
 //                    let FeedVC: FeedVCC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
 //                    let nvc: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "barController") as! UITabBarController
@@ -649,6 +675,8 @@ func textViewDidChange(_ textView: UITextView) {
     }
     
     
+    
+    
     @IBAction func explanationTapped(_ sender: Any) {
         
         if self.chooseLbl.alpha == CGFloat(0) {
@@ -695,19 +723,19 @@ extension CreatingPostVC: CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
             
         } else if authorizationStatus == .authorizedAlways || authorizationStatus == .authorizedWhenInUse {
-            print("allowedLocation_configureLocationServices")
+            print("allowedLocation_configureLocationServices_CreatePostVC")
             if CLLocationManager.locationServicesEnabled() {
-                print("start upd location_configureLocationServices")
+                print("start upd location_configureLocationServices_CreatePostVC")
                 locationManager.startUpdatingLocation()
                 
             } else {
                 
-                print("nzn nzn nzn_configureLocationServices")
+                print("nzn nzn nzn_configureLocationServices_CreatePostVC")
                 return
                 
             }
         } else {
-            print("returnreturnretrun_configureLocationServices")
+            print("returnreturnretrun_configureLocationServices_CreatePostVC")
             return
         }
     }
