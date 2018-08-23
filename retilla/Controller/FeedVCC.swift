@@ -49,8 +49,8 @@ class FeedVCC: UITableViewController {
         
         
         
-        let userIcon = UIImageView(image: #imageLiteral(resourceName: "logoo_darker.png"))
-        userIcon.frame = CGRect(x: 0, y: 0, width: 61, height: 20)
+        let userIcon = UIImageView(image: #imageLiteral(resourceName: "logoo_darker"))
+        userIcon.frame = CGRect(x: 0, y: 0, width: 122, height: 23)
         userIcon.contentMode = .scaleAspectFit
         navigationItem.titleView = userIcon
         

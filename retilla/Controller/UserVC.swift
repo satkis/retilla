@@ -158,7 +158,7 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
         currentUser_DBRef.child("posts").observe(.value) { (snapshottt) in
             
-            print("snapshottt: \(snapshottt.value)")
+            //print("snapshottt: \(snapshottt.value)")
             
             self.postsInUserVC = []
             
