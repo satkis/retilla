@@ -18,6 +18,8 @@ let SEGUE_TO_VIEWCONTROLLERVC = "toMainVC"
 let SEGUE_TO_FEEDVC = "toFeedVC"
 let SEGUE_TO_LOGINVC_FROM_CREATEPOSTVC = "usingOtherMethodButtonToLoginVC"
 let SEGUE_TO_FEEDVC_FROM_CREATE_POST = "createdPost"
+let SEGUE_TO_RULESVC = "toRulesVC"
+let SEGUE_TO_LOGINVC_FROM_RULES = "toLoginVC"
 
 // Storyboard IDs
 let INITIALVC_1 = "initial1"

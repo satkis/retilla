@@ -274,8 +274,11 @@ class MainMapVC: UIViewController {
                     print("snap in MainMapVC:::: \(snap)")
                     let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
                     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+                   
                     
-                    self.map.setRegion(region, animated: true)
+//                    self.map.setRegion(region, animated: true)
+                    self.map.setCenter(center, animated: true)
+                    print("ffffff", self.map.setCenter(center, animated: true))
                     
                     let pinCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, long)
                     
@@ -793,10 +796,11 @@ class MainMapVC: UIViewController {
         
         UIView.animate(withDuration: 0.25) { () -> Void in
 //            self.imgLbl.alpha = 1
-            let xx = self.view.frame.width / 2 - 290/2
-            let yy = self.view.frame.height / 2 - 300
-            self.imgLbl.center = self.view.center
-            self.imgLbl.frame = CGRect(x: xx, y: yy, width: 290, height: 350)
+//            let xx = self.view.frame.width / 2 - 290/2
+//            let yy = self.view.frame.height / 2 - 300
+//            self.imgLbl.center = self.view.center
+//            self.imgLbl.frame = CGRect(x: xx, y: yy, width: 290, height: 350)
+            self.imgLbl.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height / 2)
             self.imgLbl.contentMode = .scaleAspectFit
 //            self.imgLbl.layer.cornerRadius = 8.0
         }

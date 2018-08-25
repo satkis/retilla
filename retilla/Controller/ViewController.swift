@@ -54,6 +54,8 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         view.addSubview(connectionText)
         connectionText.isHidden = true
         effect = blurrView.effect
@@ -321,6 +323,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     }
             
     @IBAction func TCs_tapped(_ sender: UIButton) {
+        performSegue(withIdentifier: SEGUE_TO_RULESVC, sender: nil)
     }
     
             

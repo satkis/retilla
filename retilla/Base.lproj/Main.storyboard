@@ -187,7 +187,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="guestLoginwithDiffAcctTapped:" destination="E2X-nO-2OY" eventType="touchUpInside" id="4i4-gZ-eHU"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="usingOtherMethodButtonToLoginVC" id="EOs-K1-yQm"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foB-CO-5RT">
@@ -279,7 +278,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1738.4000000000001" y="-271.18226600985224"/>
+            <point key="canvasLocation" x="7392.8000000000002" y="-271.18226600985224"/>
         </scene>
         <!--Main MapVC-->
         <scene sceneID="RJ1-UJ-fss">
@@ -659,7 +658,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1863" y="416"/>
+            <point key="canvasLocation" x="6573.6000000000004" y="415.27093596059115"/>
         </scene>
         <!--UserVC-->
         <scene sceneID="Kj2-XL-qRH">
@@ -973,21 +972,8 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings_bg" translatesAutoresizingMaskIntoConstraints="NO" id="gzC-xa-oMa">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yI-6q-PAd">
-                                <rect key="frame" x="280" y="664" width="80" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="0fJ-R8-txh"/>
-                                    <constraint firstAttribute="width" constant="80" id="vLN-KR-ukb"/>
-                                </constraints>
-                                <state key="normal" title="Log out">
-                                    <color key="titleColor" red="0.97983423223350252" green="0.15805797642254935" blue="0.18974300675016878" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="logOutPressed:" destination="WB3-h3-bbd" eventType="touchUpInside" id="06S-kn-Lex"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3su-KA-ZHf">
-                                <rect key="frame" x="165" y="203" width="45" height="21"/>
+                                <rect key="frame" x="165" y="173" width="45" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="4dU-a9-wFd"/>
                                     <constraint firstAttribute="height" constant="21" id="vmX-Rd-lkQ"/>
@@ -997,7 +983,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Abf-IY-OeH" customClass="UIButtonX" customModule="retilla" customModuleProvider="target">
-                                <rect key="frame" x="72" y="148" width="230" height="40"/>
+                                <rect key="frame" x="72" y="118" width="230" height="40"/>
                                 <color key="backgroundColor" red="0.90563305901041591" green="0.91209034569778669" blue="0.93146220575989847" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="4jM-F5-iVB"/>
@@ -1014,7 +1000,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMC-T9-Pg7">
-                                <rect key="frame" x="0.0" y="239" width="375" height="220"/>
+                                <rect key="frame" x="0.0" y="209" width="375" height="220"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ptl-YK-tG3">
                                         <rect key="frame" x="8" y="25" width="359" height="92"/>
@@ -1072,7 +1058,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Sgd-Q4-60i">
-                                <rect key="frame" x="64.333333333333329" y="479" width="246.66666666666669" height="52.666666666666629"/>
+                                <rect key="frame" x="64.333333333333329" y="439" width="246.66666666666669" height="52.666666666666686"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks for your feedback!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ABd-b9-HSS">
                                         <rect key="frame" x="0.0" y="0.0" width="246.66666666666666" height="26.333333333333332"/>
@@ -1088,24 +1074,59 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                     </label>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="R6k-Aw-Yls">
+                                <rect key="frame" x="24" y="679" width="327" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUY-l2-QVE" customClass="UIButtonX" customModule="retilla" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="147" height="40"/>
+                                        <color key="backgroundColor" red="0.90563305900000002" green="0.91209034570000003" blue="0.93146220580000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="147" id="GDC-u6-GdL"/>
+                                            <constraint firstAttribute="height" constant="40" id="O1b-Uz-hfv"/>
+                                        </constraints>
+                                        <state key="normal" title="Share with friends!"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="13"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="shareAPpp:" destination="WB3-h3-bbd" eventType="touchUpInside" id="oTU-gw-88h"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yI-6q-PAd">
+                                        <rect key="frame" x="247" y="0.0" width="80" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Ni0-NL-Qro"/>
+                                            <constraint firstAttribute="height" constant="50" id="qGs-Yi-JA6"/>
+                                        </constraints>
+                                        <state key="normal" title="Log out">
+                                            <color key="titleColor" red="0.97983423223350252" green="0.15805797642254935" blue="0.18974300675016878" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="logOutPressed:" destination="WB3-h3-bbd" eventType="touchUpInside" id="06S-kn-Lex"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dMC-T9-Pg7" firstAttribute="trailing" secondItem="Ubs-Fw-xfA" secondAttribute="trailing" id="6NU-ms-7qh"/>
-                            <constraint firstItem="Ubs-Fw-xfA" firstAttribute="trailing" secondItem="4yI-6q-PAd" secondAttribute="trailing" constant="15" id="7EE-yk-B6m"/>
                             <constraint firstItem="Sgd-Q4-60i" firstAttribute="centerX" secondItem="AMJ-R3-gi7" secondAttribute="centerX" id="B0X-Lb-nPa"/>
                             <constraint firstItem="gzC-xa-oMa" firstAttribute="trailing" secondItem="Ubs-Fw-xfA" secondAttribute="trailing" id="CFA-fj-P5Q"/>
                             <constraint firstItem="dMC-T9-Pg7" firstAttribute="top" secondItem="3su-KA-ZHf" secondAttribute="bottom" constant="15" id="EW6-X0-Ltp"/>
+                            <constraint firstItem="R6k-Aw-Yls" firstAttribute="centerX" secondItem="AMJ-R3-gi7" secondAttribute="centerX" id="Uii-Bt-uPn"/>
                             <constraint firstItem="gzC-xa-oMa" firstAttribute="top" secondItem="AMJ-R3-gi7" secondAttribute="top" id="bZh-9E-1Jt"/>
                             <constraint firstItem="3su-KA-ZHf" firstAttribute="top" secondItem="Abf-IY-OeH" secondAttribute="bottom" constant="15" id="dy6-jf-QyB"/>
                             <constraint firstItem="gzC-xa-oMa" firstAttribute="leading" secondItem="Ubs-Fw-xfA" secondAttribute="leading" id="exL-Yp-KXM"/>
+                            <constraint firstItem="Ubs-Fw-xfA" firstAttribute="bottom" secondItem="R6k-Aw-Yls" secondAttribute="bottom" constant="10" id="hkn-ph-J6C"/>
                             <constraint firstItem="3su-KA-ZHf" firstAttribute="centerX" secondItem="AMJ-R3-gi7" secondAttribute="centerX" id="ilY-pg-fnh"/>
                             <constraint firstAttribute="bottom" secondItem="gzC-xa-oMa" secondAttribute="bottom" id="jVl-Ol-0l9"/>
                             <constraint firstItem="Abf-IY-OeH" firstAttribute="centerX" secondItem="AMJ-R3-gi7" secondAttribute="centerX" id="l8A-YA-mtn"/>
                             <constraint firstItem="dMC-T9-Pg7" firstAttribute="leading" secondItem="Ubs-Fw-xfA" secondAttribute="leading" id="mdi-Hb-U3s"/>
-                            <constraint firstItem="Abf-IY-OeH" firstAttribute="top" secondItem="Ubs-Fw-xfA" secondAttribute="top" constant="60" id="r68-rT-tZK"/>
-                            <constraint firstItem="Sgd-Q4-60i" firstAttribute="top" secondItem="dMC-T9-Pg7" secondAttribute="bottom" constant="20" id="vcX-mW-thI"/>
-                            <constraint firstItem="Ubs-Fw-xfA" firstAttribute="bottom" secondItem="4yI-6q-PAd" secondAttribute="bottom" constant="15" id="y9F-EC-Uql"/>
+                            <constraint firstItem="Abf-IY-OeH" firstAttribute="top" secondItem="Ubs-Fw-xfA" secondAttribute="top" constant="30" id="r68-rT-tZK"/>
+                            <constraint firstItem="Sgd-Q4-60i" firstAttribute="top" secondItem="dMC-T9-Pg7" secondAttribute="bottom" constant="10" id="vcX-mW-thI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ubs-Fw-xfA"/>
                     </view>
@@ -1119,7 +1140,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T7V-8t-atC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2620" y="846.79802955665025"/>
+            <point key="canvasLocation" x="7332" y="846.79802955665025"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="5Qf-An-w3j">
@@ -1139,7 +1160,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nGQ-en-rzP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-62" y="-966"/>
+            <point key="canvasLocation" x="879.20000000000005" y="-966.50246305418727"/>
         </scene>
         <!--PageVC-->
         <scene sceneID="Ots-py-Rw4">
@@ -1236,7 +1257,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="letsGoTapped:" destination="IhB-Bc-vDQ" eventType="touchUpInside" id="2Rm-jC-aFN"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="toMainVC" id="03B-cq-DbS"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="toMainVC" id="7UT-XJ-Xp1"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1410,7 +1431,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yn3-X4-fWh" userLabel="T&amp;Cs stack">
-                                <rect key="frame" x="29.666666666666657" y="753" width="315" height="25"/>
+                                <rect key="frame" x="53" y="753" width="269" height="25"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By logging in, you agree to to this app's" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39Q-f9-sZY">
                                         <rect key="frame" x="0.0" y="0.0" width="232" height="25"/>
@@ -1423,17 +1444,18 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkL-3j-ePk">
-                                        <rect key="frame" x="232" y="0.0" width="83" height="25"/>
+                                        <rect key="frame" x="232" y="0.0" width="37" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="duD-j6-WjO"/>
-                                            <constraint firstAttribute="width" constant="83" id="s2r-Gy-LNC"/>
+                                            <constraint firstAttribute="width" constant="37" id="s2r-Gy-LNC"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                        <state key="normal" title="Terms of Use.">
+                                        <state key="normal" title="rules.">
                                             <color key="titleColor" red="0.39145333469999999" green="0.72218951480000004" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="TCs_tapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aTb-Sy-A20"/>
+                                            <segue destination="Tkc-yQ-3EK" kind="show" identifier="toRulesVC" id="DhN-wl-62k"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1517,6 +1539,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="q0x-x6-1uW"/>
                     <connections>
                         <outlet property="TCs_stack" destination="Yn3-X4-fWh" id="Vvo-JF-kg0"/>
                         <outlet property="activityIndicator" destination="7w9-kw-i5e" id="6GY-kv-HSd"/>
@@ -1544,7 +1567,379 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1114.4000000000001" y="-894.0886699507389"/>
+            <point key="canvasLocation" x="-172" y="-894.0886699507389"/>
+        </scene>
+        <!--Rules-->
+        <scene sceneID="RnV-0k-aQB">
+            <objects>
+                <viewController title="Rules" id="Tkc-yQ-3EK" customClass="RulesVC" customModule="retilla" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uDf-94-Y9C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-xB-dB6">
+                                <rect key="frame" x="0.0" y="44" width="375" height="1272"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqp-ht-hIx" userLabel="content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1312"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ofE-64-v2A">
+                                                <rect key="frame" x="5" y="55" width="365" height="177"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Service &amp; Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFc-no-3j5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="365" height="23"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="23" id="K4r-AY-gWY"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wasteBud" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHN-cJ-d6c">
+                                                        <rect key="frame" x="0.0" y="28" width="365" height="15"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="15" id="3jj-b2-sSF"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last updated: August 25, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaI-Hh-Mek">
+                                                        <rect key="frame" x="0.0" y="48" width="365" height="15"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="15" id="MoM-vt-A3Q"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGn-4x-biL">
+                                                        <rect key="frame" x="0.0" y="68" width="365" height="52"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="52" id="wXo-WE-Eyd"/>
+                                                        </constraints>
+                                                        <string key="text">wasteBud app is an experimental project to check whether people would like to make posts and share experiences how they make our planet a cleaner place.</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8NW-S4-uGl">
+                                                        <rect key="frame" x="0.0" y="125" width="365" height="52"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="52" id="Oa8-NV-QKk"/>
+                                                        </constraints>
+                                                        <string key="text">By using wasteBud app you’re agreeing with the rules below. If you don’t agree, don’t use this app. Also, users of the wasteBud app must be 13 years or older. If you are younger, don’t use this app.</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Hek-Xi-rSZ">
+                                                <rect key="frame" x="5" y="252" width="365" height="201"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is how it works:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IdE-ef-gAk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="136.33333333333334" height="17"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9V-Kg-W2Q">
+                                                        <rect key="frame" x="0.0" y="22" width="334" height="117"/>
+                                                        <string key="text">1. Download the wasteBud app (available on App Store only).
+2. Login or create an account
+3. Create a post related to one of the topics: reusing, recycling, reducing or pollution.
+   a. Add a photo (mandatory)
+   b. Add tags related to your photo (optional)
+   c. Write a story related to your photo (optional)
+4. Share the post for others to see.
+</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All posts are available to see for everyone who uses the app. Posts can be found on the main feed tab or visible on the map." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25e-t7-Yru">
+                                                        <rect key="frame" x="0.0" y="144" width="343.66666666666669" height="26"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wasteBud app collects some of your personal data to improve and individualize user’s experience of using it." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udj-nv-LvK">
+                                                        <rect key="frame" x="0.0" y="175" width="365" height="26"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="nTG-Vx-dWF">
+                                                <rect key="frame" x="5" y="473" width="365" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What data the wasteBud app collects?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EkR-e2-K9u">
+                                                        <rect key="frame" x="0.0" y="0.0" width="256.66666666666669" height="17"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are four ways how you can login (i.e. create account on the wasteBud)." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lQ-la-p1C">
+                                                        <rect key="frame" x="0.0" y="22" width="353.66666666666669" height="13"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hXj-t1-ss2">
+                                                <rect key="frame" x="5" y="784.33333333333337" width="365" height="87"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The use of data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ica-sX-ieK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="103.33333333333333" height="17"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ez-hx-fhc">
+                                                        <rect key="frame" x="0.0" y="22" width="345.66666666666669" height="65"/>
+                                                        <string key="text">Collected data may be used to:
+• provide analysis or valuable information to improve the service of the app;
+• monitor the usage of the app;
+• track, detect, prevent and address technical issues or crashes of the app.
+</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Evc-Ic-hkt">
+                                                <rect key="frame" x="5" y="891.33333333333337" width="365" height="95"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where data gets stored?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EiH-pc-uv3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="163.66666666666666" height="17"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AB9-QR-jT2">
+                                                        <rect key="frame" x="0.0" y="17" width="365" height="78"/>
+                                                        <string key="text">wasteBud app is connected to Firebase database which stores the data related to this app. Also, users’ sessions of the app usage are tracked and monitored with Firebase, which help to analyze the performance of the app and make improvements. Firebase is a mobile and web application development platform owned by Google.
+</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="GkH-lD-Lhp">
+                                                <rect key="frame" x="5" y="1006.3333333333333" width="365" height="82"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What data rights do you have?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hta-RN-HWA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="202.66666666666666" height="17"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="After you login/register to the app and/or make posts, at any time you can request to delete your data." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzo-AT-YbL">
+                                                        <rect key="frame" x="0.0" y="17" width="339" height="26"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sba-Dk-ZfB">
+                                                        <rect key="frame" x="0.0" y="43" width="361.66666666666669" height="39"/>
+                                                        <string key="text">If you want your data to be deleted, send a request to karolis.satkauskas@gmail.com with subject line “data rights”. We will make sure to delete it within 30 days from the request date.</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="xGW-1Q-z0a">
+                                                <rect key="frame" x="5" y="1108.3333333333333" width="365" height="95"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other important details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5b-yP-K8x">
+                                                        <rect key="frame" x="0.0" y="0.0" width="155" height="17"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mo3-2C-XBX">
+                                                        <rect key="frame" x="0.0" y="17" width="365" height="78"/>
+                                                        <string key="text">• Information mentioned above may be changed. It’s up to you to come back and review this document from time to time. If you’ll find some details to which you may not agree, feel free to stop using this app.
+• The content you put to this app is yours, but you agree to let us use it how we want it. If you don’t agree, feel free to stop using this app.
+</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="rKL-OC-IQa">
+                                                <rect key="frame" x="5" y="1223.3333333333333" width="365" height="43"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7X-r3-O39">
+                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="17"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5FO-Ks-HtX">
+                                                        <rect key="frame" x="0.0" y="17" width="339.33333333333331" height="26"/>
+                                                        <string key="text">If you have any questions please reach us: karolis.satkauskas@gmail.com.
+</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="F43-LX-SMX">
+                                                <rect key="frame" x="5" y="528" width="365" height="236.33333333333337"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you login as a Guest, then the app collects:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OmE-xu-Tae">
+                                                        <rect key="frame" x="0.0" y="0.0" width="235.66666666666666" height="13.333333333333334"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="no personal data." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Hh-Wi-fvi">
+                                                        <rect key="frame" x="0.0" y="18.333333333333371" width="80" height="13"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you login with your email, then the app collects:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUH-83-o9g">
+                                                        <rect key="frame" x="0.0" y="36.333333333333371" width="259.66666666666669" height="13.333333333333336"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="• email" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csL-OW-Hrq">
+                                                        <rect key="frame" x="0.0" y="54.666666666666629" width="32.333333333333336" height="13"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you login with Facebook or Google, then the app collects:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evY-vl-8J9">
+                                                        <rect key="frame" x="0.0" y="72.666666666666629" width="312" height="13.333333333333329"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ve-qm-h9E">
+                                                        <rect key="frame" x="0.0" y="91" width="34.333333333333336" height="26"/>
+                                                        <string key="text">• email
+• name</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other details that the app collects:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfR-ck-9Dg">
+                                                        <rect key="frame" x="0.0" y="121.99999999999999" width="181" height="13.333333333333329"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="11" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEp-qh-sEZ">
+                                                        <rect key="frame" x="0.0" y="140.33333333333337" width="360" height="78"/>
+                                                        <string key="text">• After you login, the app requests to access your location (coordinates). It is needed, so that when you make a post, the app would know exactly where to add the pin on the map and show country &amp; city when the post is reviewed by you or other users.
+• The app collects the time when the post is created.
+• The app has access to the photos that you select to post to the app.</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note: the app doesn’t have access to your passwords." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0x-By-Qzg">
+                                                        <rect key="frame" x="0.0" y="223.33333333333337" width="251.66666666666666" height="13"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="ofE-64-v2A" firstAttribute="top" secondItem="bqp-ht-hIx" secondAttribute="top" constant="55" id="7It-5R-e4x"/>
+                                            <constraint firstItem="Hek-Xi-rSZ" firstAttribute="top" secondItem="ofE-64-v2A" secondAttribute="bottom" constant="20" id="7Mn-ul-Ndu"/>
+                                            <constraint firstItem="nTG-Vx-dWF" firstAttribute="top" secondItem="Hek-Xi-rSZ" secondAttribute="bottom" constant="20" id="89e-da-91i"/>
+                                            <constraint firstItem="rKL-OC-IQa" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="B4A-bA-j6l"/>
+                                            <constraint firstItem="F43-LX-SMX" firstAttribute="top" secondItem="nTG-Vx-dWF" secondAttribute="bottom" constant="20" id="B9D-wi-o2u"/>
+                                            <constraint firstItem="hXj-t1-ss2" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="DKu-qu-dok"/>
+                                            <constraint firstAttribute="trailing" secondItem="Hek-Xi-rSZ" secondAttribute="trailing" constant="5" id="EPI-NZ-Wo3"/>
+                                            <constraint firstAttribute="trailing" secondItem="hXj-t1-ss2" secondAttribute="trailing" constant="5" id="I1B-Df-hsR"/>
+                                            <constraint firstAttribute="trailing" secondItem="F43-LX-SMX" secondAttribute="trailing" constant="5" id="LMO-UG-caW"/>
+                                            <constraint firstItem="rKL-OC-IQa" firstAttribute="top" secondItem="xGW-1Q-z0a" secondAttribute="bottom" constant="20" id="Mx2-qj-cye"/>
+                                            <constraint firstAttribute="trailing" secondItem="ofE-64-v2A" secondAttribute="trailing" constant="5" id="NDM-ac-no8"/>
+                                            <constraint firstItem="xGW-1Q-z0a" firstAttribute="top" secondItem="GkH-lD-Lhp" secondAttribute="bottom" constant="20" id="Nk5-6I-xgs"/>
+                                            <constraint firstAttribute="trailing" secondItem="xGW-1Q-z0a" secondAttribute="trailing" constant="5" id="PW8-xb-AYb"/>
+                                            <constraint firstAttribute="trailing" secondItem="GkH-lD-Lhp" secondAttribute="trailing" constant="5" id="PdN-9r-UQJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="rKL-OC-IQa" secondAttribute="trailing" constant="5" id="Sii-Pi-Njd"/>
+                                            <constraint firstItem="Evc-Ic-hkt" firstAttribute="top" secondItem="hXj-t1-ss2" secondAttribute="bottom" constant="20" id="T1V-yd-cSF"/>
+                                            <constraint firstItem="ofE-64-v2A" firstAttribute="top" secondItem="bqp-ht-hIx" secondAttribute="top" constant="55" id="T6T-mb-wPg"/>
+                                            <constraint firstItem="ofE-64-v2A" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="V35-Sq-Dpb"/>
+                                            <constraint firstItem="nTG-Vx-dWF" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="d9s-PQ-VwY"/>
+                                            <constraint firstItem="F43-LX-SMX" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="e8y-yK-44R"/>
+                                            <constraint firstAttribute="trailing" secondItem="nTG-Vx-dWF" secondAttribute="trailing" constant="5" id="gL4-Xr-jSI"/>
+                                            <constraint firstAttribute="bottom" secondItem="rKL-OC-IQa" secondAttribute="bottom" constant="45.666666666666742" id="iOw-QZ-k1o"/>
+                                            <constraint firstAttribute="trailing" secondItem="Evc-Ic-hkt" secondAttribute="trailing" constant="5" id="m1P-Su-xVq"/>
+                                            <constraint firstItem="GkH-lD-Lhp" firstAttribute="top" secondItem="Evc-Ic-hkt" secondAttribute="bottom" constant="20" id="n3W-ZR-s3V"/>
+                                            <constraint firstItem="Evc-Ic-hkt" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="pm2-ah-hKs"/>
+                                            <constraint firstItem="xGW-1Q-z0a" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="t4k-f5-NCP"/>
+                                            <constraint firstItem="ofE-64-v2A" firstAttribute="centerX" secondItem="bqp-ht-hIx" secondAttribute="centerX" id="xCz-XG-sPS"/>
+                                            <constraint firstItem="hXj-t1-ss2" firstAttribute="top" secondItem="F43-LX-SMX" secondAttribute="bottom" constant="20" id="xZ4-W5-mH9"/>
+                                            <constraint firstItem="Hek-Xi-rSZ" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="yWu-OZ-aoY"/>
+                                            <constraint firstItem="GkH-lD-Lhp" firstAttribute="leading" secondItem="bqp-ht-hIx" secondAttribute="leading" constant="5" id="yXF-Xk-Ze0"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="bqp-ht-hIx" firstAttribute="leading" secondItem="Bfw-xB-dB6" secondAttribute="leading" id="2cZ-Er-lo8"/>
+                                    <constraint firstItem="bqp-ht-hIx" firstAttribute="height" secondItem="Bfw-xB-dB6" secondAttribute="height" priority="250" id="9g4-0j-hDG"/>
+                                    <constraint firstAttribute="bottom" secondItem="bqp-ht-hIx" secondAttribute="bottom" id="Mdc-3s-fza"/>
+                                    <constraint firstItem="bqp-ht-hIx" firstAttribute="top" secondItem="Bfw-xB-dB6" secondAttribute="top" id="bOi-eZ-Pzd"/>
+                                    <constraint firstItem="bqp-ht-hIx" firstAttribute="width" secondItem="Bfw-xB-dB6" secondAttribute="width" id="ovE-ee-Lah"/>
+                                    <constraint firstAttribute="trailing" secondItem="bqp-ht-hIx" secondAttribute="trailing" id="tai-tj-X5Y"/>
+                                </constraints>
+                            </scrollView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aJK-H2-nYc">
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="kf2-hN-xcz"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem id="s5M-J3-KTa">
+                                        <barButtonItem key="leftBarButtonItem" title="Login" id="PFA-qm-t3m">
+                                            <connections>
+                                                <action selector="loginBttnPressed:" destination="Tkc-yQ-3EK" id="x63-gV-jee"/>
+                                                <segue destination="BYZ-38-t0r" kind="show" identifier="toLoginVC" id="4e0-Ev-0Eh"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Bfw-xB-dB6" firstAttribute="leading" secondItem="4IH-To-NYx" secondAttribute="leading" id="82E-6e-NST"/>
+                            <constraint firstItem="Bfw-xB-dB6" firstAttribute="top" secondItem="4IH-To-NYx" secondAttribute="top" id="JuU-GX-i0Y"/>
+                            <constraint firstItem="4IH-To-NYx" firstAttribute="trailing" secondItem="Bfw-xB-dB6" secondAttribute="trailing" id="Pdx-KX-ULL"/>
+                            <constraint firstAttribute="trailing" secondItem="aJK-H2-nYc" secondAttribute="trailing" id="hEc-WQ-S5I"/>
+                            <constraint firstItem="aJK-H2-nYc" firstAttribute="leading" secondItem="uDf-94-Y9C" secondAttribute="leading" id="mpl-2N-xJa"/>
+                            <constraint firstItem="4IH-To-NYx" firstAttribute="bottom" secondItem="Bfw-xB-dB6" secondAttribute="bottom" id="nHX-AX-4GK"/>
+                            <constraint firstItem="aJK-H2-nYc" firstAttribute="top" secondItem="4IH-To-NYx" secondAttribute="top" id="qLa-GQ-8gN"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4IH-To-NYx"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="KeG-4E-0Mr">
+                        <barButtonItem key="backBarButtonItem" title="Login" id="DNj-bs-xBx"/>
+                    </navigationItem>
+                    <size key="freeformSize" width="375" height="1350"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yFL-wh-LAM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-916" y="56.896551724137936"/>
         </scene>
         <!--Reset PasswordVC-->
         <scene sceneID="IsA-vR-c0z">
@@ -1653,7 +2048,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mrk-LG-ZT6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="k14-C3-lel"/>
             </objects>
-            <point key="canvasLocation" x="-1114.4000000000001" y="-195.81280788177341"/>
+            <point key="canvasLocation" x="3597.5999999999999" y="-195.81280788177341"/>
         </scene>
         <!--Post DetailVCC-->
         <scene sceneID="zGx-GH-M5Q">
@@ -1876,7 +2271,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2888.8000000000002" y="-1156.4039408866995"/>
+            <point key="canvasLocation" x="3831.1999999999998" y="-1156.4039408866995"/>
         </scene>
         <!--FeedVCC-->
         <scene sceneID="A6n-P7-zeL">
@@ -2036,7 +2431,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A1Z-sb-YZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1749.5999999999999" y="-1156.4039408866995"/>
+            <point key="canvasLocation" x="2692" y="-1156.4039408866995"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="haC-3h-UwD">
@@ -2060,7 +2455,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r8Y-8u-Xzq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="-1156"/>
+            <point key="canvasLocation" x="1866.4000000000001" y="-1156.4039408866995"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yRA-km-evn">
@@ -2079,7 +2474,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCj-hs-vIf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="416.94152923538235"/>
+            <point key="canvasLocation" x="5636" y="416.74876847290642"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Hj-f9-MVU">
@@ -2118,7 +2513,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqI-BT-tys" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="-460.11994002998506"/>
+            <point key="canvasLocation" x="6578.3999999999996" y="-460.34482758620692"/>
         </scene>
     </scenes>
     <resources>
@@ -2147,9 +2542,9 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
         <image name="walkthrough3" width="375" height="812"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RUH-1t-vT0"/>
-        <segue reference="Hkb-i2-e0H"/>
-        <segue reference="03B-cq-DbS"/>
-        <segue reference="2Ik-J6-7ya"/>
+        <segue reference="7si-gc-7He"/>
+        <segue reference="uFg-Ny-Eed"/>
+        <segue reference="4e0-Ev-0Eh"/>
+        <segue reference="vkO-YP-cXP"/>
     </inferredMetricsTieBreakers>
 </document>

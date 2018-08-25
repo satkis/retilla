@@ -21,6 +21,7 @@ class SettingsVC: UIViewController, UITextViewDelegate {
     var feedbackTimestamp: String! = "smth wrongg"
     var newFeedbackKey = DataService.instance.URL_POSTS.childByAutoId().key
     var placeholderLabel: UILabel!
+    final private let message = "Hey, check out this app called wasteBud. Download it on the App Store."
     
 //    var userLocationCountry: String? = "no country"
 //    var userLocationCity: String? =  "no cityy"
@@ -227,6 +228,25 @@ class SettingsVC: UIViewController, UITextViewDelegate {
             
         }
     }
+    
+    @IBAction func shareAPpp(_ sender: Any) {
+        guard let image = UIImage(named: "logo") else { return }
+        
+        let activityController = UIActivityViewController(activityItems: [message, image], applicationActivities: nil)
+        
+        activityController.completionWithItemsHandler = { (nil, completed, _, error) in
+            if completed {
+                print("completedd")
+            } else {
+                print("cancelled")
+            }
+        }
+        present(activityController, animated: true) {
+            print("presented")
+        }
+        
+    }
+    
 
     
     

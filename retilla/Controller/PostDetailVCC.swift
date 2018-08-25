@@ -412,7 +412,7 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
         
         UIView.animate(withDuration: 0.25) { () -> Void in
             //            self.imgLbl.alpha = 1
-            self.imageLbl.frame = CGRect(x: 0, y: 150, width: 375, height: 450)
+            self.imageLbl.frame = CGRect(x: 0, y: 70, width: self.view.frame.width, height: self.view.frame.height / 2)
             self.imageLbl.contentMode = .scaleAspectFit
             //            self.imgLbl.layer.cornerRadius = 8.0
         }
