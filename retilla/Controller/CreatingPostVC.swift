@@ -11,7 +11,7 @@ import Firebase
 import CoreLocation
 
 class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
-
+    
     var currentUser: DatabaseReference!
     var user: User!
     var imagePicker: UIImagePickerController!
@@ -45,7 +45,6 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var imageSelectorImage: UIImageView!
     
-    //@IBOutlet weak var usersCamera: UIImageView!
     
     @IBOutlet var userCamera: UIImageView!
     @IBOutlet var storyTextVIew: UITextView!
@@ -57,10 +56,6 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var sharePostBttnLbl: UIBarButtonItem!
     
-    //@IBOutlet weak var locationLbl_city: UILabel!
-    
-    //@IBOutlet weak var locationLbl_country: UILabel!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,22 +66,18 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         storyTextVIew.delegate = self
         placeholderLabel = UILabel()
         placeholderLabel.text = "type a story about your photo"
-//        placeholderLabel.font = UIFont.italicSystemFont(ofSize: (storyTextVIew.font?.pointSize)!)
         placeholderLabel.font = UIFont.systemFont(ofSize: (storyTextVIew.font?.pointSize)!)
         placeholderLabel.sizeToFit()
         storyTextVIew.addSubview(placeholderLabel)
         placeholderLabel.frame.origin = CGPoint(x: 5, y: (storyTextVIew.font?.pointSize)! / 2)
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !storyTextVIew.text.isEmpty
-    
-    
-
+        
+        
+        
         print("viewDidLoad of CreatingPostVC")
         locationManager.delegate = self
         
-        
-//       locationAuthStatus()
-//        handleLocationAuthorizationStatus(status: )
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -122,14 +113,13 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         } else {
             locationManager.stopUpdatingLocation()
             print("not updating user location_CreatePostVC")
-           // return
             
         }
     }
-
-
     
-
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         currentUser.observeSingleEvent(of: .value) { (snapshot) in
             
@@ -175,108 +165,53 @@ class CreatingPostVC: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    func textViewDidChange(_ textView: UITextView) {
+        placeholderLabel.isHidden = !textView.text.isEmpty
+    }
     
-    // NEED TO CORRECT doesnt disable if image not selected
-//    func dismissAnyBeforeImageSelected() {
-//        if let image = imageSelectorImage.image, imageSelectorImage.image == nil {
-//            self.hashtagField.isUserInteractionEnabled = false
-//            hashtagField.isEnabled = false
-//            self.descriptionField.isUserInteractionEnabled = false
-//
-//        }
-//    }
-
-func textViewDidChange(_ textView: UITextView) {
-    placeholderLabel.isHidden = !textView.text.isEmpty
-}
-
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             imageSelectorImage.contentMode = .scaleAspectFit
             imageSelectorImage.image = editedImage
             imageSelected = true
-//
-//        } else if let pickerImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            imageSelectorImage.contentMode = .scaleAspectFit
-//            imageSelectorImage.image = pickerImage
-//
-//            imageSelected = true
+            
         } else if UIImagePickerController.isSourceTypeAvailable(.camera) {
             picker.sourceType = .camera
             let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage
             imageSelectorImage.contentMode = .scaleAspectFit
-//            userCamera.contentMode = .scaleAspectFit
             imageSelectorImage.image = pickedImage
-//            userCamera.image = pickedImage
             imageSelected = true
             
-//        } else if UIImagePickerController.isSourceTypeAvailable(.camera) {
-//            let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage
-//            userCamera.contentMode = .scaleToFill
-//            userCamera.image = pickedImage
-//            imageSelected = true
         }
         picker.dismiss(animated: true, completion: nil)
-            
+        
         
         imagePicker.dismiss(animated: true, completion: nil)
         
     }
     
-//    @IBAction func openCameraTapped(_ sender: UITapGestureRecognizer) {
-//        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-//
-//            let imagePicker = UIImagePickerController()
-//            imagePicker.delegate = self
-//            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-//            imagePicker.allowsEditing = false
-    
-//
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            userCamera.contentMode = .scaleToFill
-//            userCamera.image = pickedImage
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//
-
     func postToFirebase(imageDownloadURL: String!, descriptionText: String?, hashtagText: String?, selectedSection: Int!, postLocation_city: String!, postLocation_country: String!, postCoordinates: String!, postTimestamp: String!, lat: String!, long: String!, username: String!) {
         
-//       let postTimestamp = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
         let postTimestamp = [".sv": "timestamp"]
         
-        //let rr = ServerValue.timestamp()
-     
-        let lat = locationManager.location?.coordinate.latitude
-        let long = locationManager.location?.coordinate.longitude
+        let lat = (locationManager.location?.coordinate.latitude)!
+        let long = (locationManager.location?.coordinate.longitude)! // Double(randomPlus)
         
-        
-        //let ree = self.userVCRef.currentUser_DBRef.key
-        
-        //let tyy = DataService.instance.URL_USER_CURRENT.
-
-       // print("ree:: \(ree)")
         let post: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
-            //"description": descriptionField?.text as Any,
             "description": storyTextVIew?.text as Any,
             "hashtag": hashtagField?.text as Any,
             "likes": 0,
             "section": selectedSection as Int,
-            
             "location_city": postLocation_city as Any,
             "location_country": postLocation_country as Any,
-            
-//            "location_city": locationLbl_city.text as Any,
-//            "location_country": locationLbl_country.text as Any,
-            "coordinates": String(describing: (lat!) as Any)+","+String(describing: (long!) as Any),
+            "coordinates": String(describing: (lat) as Any)+","+String(describing: (long) as Any),
             "timestamp": postTimestamp as Any,
             "latitude": lat as Any,
             "longitude": long as Any,
             "username": username as Any
-            ]
+        ]
         
         let userPost: Dictionary<String, Any> = [
             "imageUrl": imageDowloadURL!,
@@ -289,18 +224,9 @@ func textViewDidChange(_ textView: UITextView) {
             "latitude": lat as Any,
             "longitude": long as Any,
             "username": username as Any
-            ]
+        ]
         
-        
-//        if descriptionField?.text != "" {
-//           post ["description"] = descriptionField
-//        }
-//
-//        if hashtagField?.text != "" {
-//            post ["hashtag"] = hashtagField
-//        }
-//self.newPostKey = firebasePost
-    let firebasePost = DataService.instance.URL_POSTS.child(newPostKey)
+        let firebasePost = DataService.instance.URL_POSTS.child(newPostKey)
         print("firebasePost:: \(firebasePost)")
         firebasePost.setValue(post)
         print("post:: \(post)")
@@ -309,45 +235,11 @@ func textViewDidChange(_ textView: UITextView) {
         firebasePostToUser.setValue(userPost)
         
         hashtagField?.text = ""
-        //descriptionField?.text = ""
         storyTextVIew.text = ""
         imageSelectorImage.image = UIImage(named: "camera-icon-hi")
         imageSelected = false
         
-        //NEED TO reload data somehow here // or maybe not. looks like tables reload after posting (but need to adjust sequence of posts).
-        
     }
-
-//
-//    func locationAuthStatus() {
-//        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-//            locationManager.startUpdatingLocation()
-//        } else {
-//            locationManager.requestWhenInUseAuthorization()
-////            userCamera.isHidden = true
-//
-//        }
-//    }
-    
-//    func locationAuthStatus(status: CLAuthorizationStatus) {
-//        switch status {
-//        case .notDetermined:
-//            locationManager.requestWhenInUseAuthorization()
-//            print("not determineddddd")
-//        case .authorizedWhenInUse, .authorizedAlways:
-//            print("authorizzzed")
-//            locationManager.startUpdatingLocation()
-//        case .denied:
-//
-//            showErrorAlert(title: "user denied location", msg: "denied location")
-//        case .restricted:
-//            showErrorAlert(title: "restricted", msg: "restricted")
-//        }
-//    }
-    
-
-    
-    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("didUpdateLocations:::")
@@ -366,13 +258,11 @@ func textViewDidChange(_ textView: UITextView) {
                         if let locality = place.locality {
                             self.postLocation_city = locality
                             self.postLocation_country = place.country
-                            //                            self.locationLbl_city.text = locality
-                            //                            self.locationLbl_country.text = place.country
+                            
                         } else {
                             self.postLocation_city = "n/a"
                             self.postLocation_country = "n/a"
-                            //                            self.locationLbl_city.text = "n/a"
-                            //                            self.locationLbl_country.text = "n/aa"
+                            
                         }
                     }
                 } else {
@@ -381,11 +271,6 @@ func textViewDidChange(_ textView: UITextView) {
             })
         }
     }
-    
-
-    
-    // Respond to the result of the location manager authorization status
-
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -398,57 +283,6 @@ func textViewDidChange(_ textView: UITextView) {
         present(alert, animated: true, completion: nil)
     }
     
- 
-    
-    
-//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-//        if let loc = userLocation.location {
-//            print("location loc: \(loc)")
-//            let lat = loc.coordinate.latitude
-//            let long = loc.coordinate.longitude
-//
-//            print("latitude: \(lat)", "longitude: \(long)")
-//
-//            CLGeocoder().reverseGeocodeLocation(loc, completionHandler: { (placemark, error) in
-//                if error != nil {
-//                    debugPrint("location error: \(error)")
-//                } else {
-//                    if let place = placemark?[0] {
-//                        if let locality = place.locality {
-//                            self.locationLbl.text = locality
-//                        } else {
-//                            print("nil value for locationLbl")
-//                        }
-//                        print("administrativeArea: \(String(describing: place.administrativeArea))")
-//                        print("areasOfInterest: \(String(describing: place.areasOfInterest))")
-//                        print("country: \(String(describing: place.country))")
-//                        print("inlandWater: \(String(describing: place.inlandWater))")
-//                        print("locality: \(String(describing: place.locality))")
-//                        print("isoCountryCode: \(String(describing: place.isoCountryCode))")
-//                        print("name: \(String(describing: place.name))")
-//                        print("ocean: \(String(describing: place.ocean))")
-//                        print("postalCode: \(String(describing: place.postalCode))")
-//                        print("region: \(String(describing: place.region))")
-//                        print("subAdministrativeArea: \(String(describing: place.subAdministrativeArea))")
-//                        print("subLocality: \(String(describing: place.subLocality))")
-//                        print("subThoroughfare: \(String(describing: place.subThoroughfare))")
-//                        print("timeZone: \(String(describing: place.timeZone))")
-//                    }
-//                }
-//            })
-//        }
-//    }
-    
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            userCamera.contentMode = .scaleToFill
-//            userCamera.image = pickedImage
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
- 
-    
-        
     @IBAction func selectImageTapped(_ sender: UITapGestureRecognizer) {
         present(imagePicker, animated: true, completion: nil)
     }
@@ -456,91 +290,21 @@ func textViewDidChange(_ textView: UITextView) {
     
     @IBAction func openCameraTapped(_ sender: UITapGestureRecognizer) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-
+            
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.allowsEditing = true
-            //self.presentedViewController(imagePicker, animated: true, completion: nil)
-            
-//            presentedViewController(imagePicker, animated: true, completion: nil)
-            
-//            present(imagePickerController, animated: true, completion: nil)
-//            imagePicker.cameraCaptureMode = .photo
-//            imagePicker.modalPresentationStyle = .fullScreen
-            //var picker = UIImagePickerController()
-            //imagePicker.allowsEditing = false
-//            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-
-//
             present(imagePicker, animated: true, completion: nil)
-//        } else {
-//            noCamera()
-//        }
-    }
+            
+        }
     }
     
-    
-
-    
-    
-//    func noCamera(){
-//        let alertVC = UIAlertController(
-//            title: "No Camera",
-//            message: "Sorry, someting is wrong with camera. Pick a photo from your Library",
-//            preferredStyle: .alert)
-//        let okAction = UIAlertAction(
-//            title: "OK",
-//            style:.default,
-//            handler: nil)
-//        alertVC.addAction(okAction)
-//        present(
-//            alertVC,
-//            animated: true,
-//            completion: nil)
-//    }
-    
-
-
     
     @IBAction func selectedSectionn(_ sender: UISegmentedControl) {
-        
         selectedSection = sender.selectedSegmentIndex
-//        sender.selectedSegmentIndex = selectedSection.hashValue
         print("segment selected::: \(selectedSection)")
     }
-//        if sender.selectedSegmentIndex == 0 {
-//            sender.selectedSegmentIndex = selectedSection.hashValue
-//            print("segment selected::: \(selectedSection.hashValue)")
-//        } else {
-//            if sender.selectedSegmentIndex == 1 {
-//                sender.selectedSegmentIndex = selectedSection.hashValue
-//                print("segment selected::: \(selectedSection.hashValue)")
-//            } else {
-//                if sender.selectedSegmentIndex == 2 {
-//                    sender.selectedSegmentIndex = selectedSection.hashValue
-//                    print("segment selected::: \(selectedSection.hashValue)")
-//                } else {
-//                    if sender.selectedSegmentIndex == 3 {
-//                        sender.selectedSegmentIndex = selectedSection.hashValue
-//                        print("segment selected::: \(selectedSection.hashValue)")
-//                    }
-//                }
-//            }
-//        }
-//            print("smth wrong with selectedSectionn value")
-        
-//    }
-    
-//    func switchToFeedVC() {
-//        Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(switchToFeedVC_objc), userInfo: nil, repeats: false)
-//    }
-//
-//    @objc func switchToFeedVC_objc(){
-//        tabBarController!.selectedIndex = 0
-//    }
-    
-    
     
     @IBAction func sharePost(_ sender: Any) {
         if let _ = imageSelectorImage.image, imageSelected == true  {
@@ -554,116 +318,41 @@ func textViewDidChange(_ textView: UITextView) {
                 activityIndicator.startAnimating()
                 UIApplication.shared.beginIgnoringInteractionEvents()
                 
-            if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.3) {
-                print("uploadData::: \(uploadData)")
-                let metadata = StorageMetadata()
-                print("metadata::: \(uploadData)")
-                let newPostRef = DataService.instance.URL_POSTS.childByAutoId()
-                print("newPostRef::: \(newPostRef)")
-                let newPostKey = newPostRef.key
-                print("newPostKey::: \(newPostKey)")
-                
-                self.newPostKey = newPostKey
-                let storRef = Storage.storage().reference()
-                let imageStorageRef = Storage.storage().reference().child("images")
-                print("imageStorageRef::: \(imageStorageRef)")
-                let newImageRef = imageStorageRef.child(newPostKey + ".jpeg")
-                print("newImageRef::: \(newImageRef)")
-//                imageStorageRef.downloadURL(completion: { (url, error) in
-//                    if let error = error {
-//                        print("error:p: \(error)")
-//                    } else {
-//                        print("imgg: \(String(describing: url))")
-//                    }
-//                })
-//                newImageRef.putData(uploadData).observe(.success) { snapshot in
-//
-//                    newImageRef.downloadURL(completion: { (url, err) in
-//                        if (error == nil) {
-//                            if let downloadUrl = url {
-//                                let downloadString = downloadUrl.absoluteString
-//                                self.imageDowloadURL = downloadString
-//                                print("urlurl \(self.imageDowloadURL)")
-//                            }
-//                        } else {
-//                            print("errerr\(String(describing: error))")
-//                        }
-//                    })
-//                }
-                //                this one whas the initial:: newImageRef.putData(uploadData, metadata: metadata).observe(.success, handler: { (snapshot) in
-//                newImageRef.putData(uploadData).observe(.success) { snapshot in
-//                let storage = Storage.storage().reference()
-//
-//                newImageRef.putData(uploadData, metadata: nil) { (metadata, error) in
-//
-//                if error == nil {
-//
-//                    Storage.storage().reference().child("images").child(newPostKey+".jpeg").downloadURL(completion: { (urlll, errr) in
-//                        if let error = error {
-//                            print(errr)
-//                        } else {
-//                            print("rerere \(String(describing: urlll))")
-//                        }
-//                    })
-//
-//                    print("errorrMetadata: \(error)")
-//
-//                } else {
-//                    return
-//                    }
-                newImageRef.putData(uploadData, metadata: metadata).observe(.success, handler: { (snapshot) in
-                    //save the post caption & download url
-                    print("snapshot:: \(snapshot)")
-                    self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
-                    print("imageDowloadURL:: \(self.imageDowloadURL)")
+                if let uploadData = UIImageJPEGRepresentation(self.imageSelectorImage.image!, 0.3) {
+                    print("uploadData::: \(uploadData)")
+                    let metadata = StorageMetadata()
+                    print("metadata::: \(uploadData)")
+                    let newPostRef = DataService.instance.URL_POSTS.childByAutoId()
+                    print("newPostRef::: \(newPostRef)")
+                    let newPostKey = newPostRef.key
+                    print("newPostKey::: \(newPostKey)")
                     
+                    self.newPostKey = newPostKey
+                    let storRef = Storage.storage().reference()
+                    let imageStorageRef = Storage.storage().reference().child("images")
+                    print("imageStorageRef::: \(imageStorageRef)")
+                    let newImageRef = imageStorageRef.child(newPostKey + ".jpeg")
+                    print("newImageRef::: \(newImageRef)")
                     
-                    self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation_city: self.postLocation_city, postLocation_country: self.postLocation_country, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
+                    newImageRef.putData(uploadData, metadata: metadata).observe(.success, handler: { (snapshot) in
+                        //save the post caption & download url
+                        print("snapshot:: \(snapshot)")
+                        self.imageDowloadURL = snapshot.metadata?.downloadURL()?.absoluteString
+                        print("imageDowloadURL:: \(self.imageDowloadURL)")
+                        
+                        self.postToFirebase(imageDownloadURL: self.imageDowloadURL, descriptionText: self.descriptionText, hashtagText: self.hashtagText, selectedSection: self.selectedSection, postLocation_city: self.postLocation_city, postLocation_country: self.postLocation_country, postCoordinates: self.postCoordinates, postTimestamp: self.postTimestamp, lat: self.lat, long: self.long, username: self.username)
+                        
+                        self.activityIndicator.stopAnimating()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                        self.dismiss(animated: true, completion: nil)
+                        self.performSegue(withIdentifier: "createdPost", sender: nil)
+                    })
+                } else {
+                    print("image not selected but SHARE tapped")
+                    postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation_city: "WRONG", postLocation_country: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
+                    print("saved to Firebase nil image")
+                    performSegue(withIdentifier: "createdPost", sender: nil)
                     
-//
-                    self.activityIndicator.stopAnimating()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                    self.dismiss(animated: true, completion: nil)
-//                    self.switchToFeedVC()
-                    self.performSegue(withIdentifier: "createdPost", sender: nil)
-                    
-                    
-//                    let FeedVC: FeedVCC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
-//                    let nvc: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "barController") as! UITabBarController
-//
-//                    nvc.viewControllers = [FeedVC]
-                    
-//                    let navigationController = UINavigationController(rootViewController: FeedVC)
-//                    self.window??.rootViewController = navigationController
-//                   UIApplication.shared.keyWindow?.rootViewController = nvc
-                    
-                    
-//                    let appDelegate = UIApplication.shared.delegate
-//                    let FeedVC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
-//                    let nav = UINavigationController(rootViewController: FeedVC)
-//
-//                    appDelegate?.window??.rootViewController = nav
-                    
-//
-//                    let rootVC: FeedVCC = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
-//                    let nvc: UITabBarController = self.storyboard?.instantiateViewController(withIdentifier: "barController") as! UITabBarController
-//
-//                    nvc.viewControllers = [rootVC]
-//                    UIApplication.shared.keyWindow?.rootViewController = nvc
-                    
-//                    let mainStoryBoard = self.storyboard?.instantiateViewController(withIdentifier: "FeedVCC") as! FeedVCC
-//                    let viewController = self.mainStoryBoard.instantiateViewController(withIdentifier: "barController") as! UITabBarController
-//                    UIApplication.shared.keyWindow?.rootViewController = viewController
-                 
-                })
-            } else {
-                print("image not selected but SHARE tapped")
-                postToFirebase(imageDownloadURL: nil, descriptionText: "WRONG", hashtagText: "WRONG", selectedSection: 0, postLocation_city: "WRONG", postLocation_country: "WRONG", postCoordinates: "WRONG", postTimestamp: "n/aa", lat: "na/aa", long: "nn/aa", username: "noo usrnm")
-                print("saved to Firebase nil image")
-                performSegue(withIdentifier: "createdPost", sender: nil)
-                
-
-                
                 }
             } else {
                 postSegments.shake()
@@ -673,8 +362,6 @@ func textViewDidChange(_ textView: UITextView) {
             userCamera.shake()
         }
     }
-    
-    
     
     
     @IBAction func explanationTapped(_ sender: Any) {
@@ -699,7 +386,6 @@ func textViewDidChange(_ textView: UITextView) {
     
     
     @IBAction func guestLoginwithDiffAcctTapped(_ sender: Any) {
-//        self.performSegue(withIdentifier: SEGUE_TO_LOGINVC_FROM_CREATEPOSTVC, sender: self)
         
         UserDefaults.standard.removeObject(forKey: KEY_UID)
         try! Auth.auth().signOut()
@@ -711,8 +397,8 @@ func textViewDidChange(_ textView: UITextView) {
     }
     
     
-
-
+    
+    
 }
 
 extension CreatingPostVC: CLLocationManagerDelegate {
@@ -739,7 +425,7 @@ extension CreatingPostVC: CLLocationManagerDelegate {
             return
         }
     }
-
+    
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .denied || status == .restricted {
@@ -790,6 +476,6 @@ extension UIImageView {
     }
 }
 
-    
+
 
 

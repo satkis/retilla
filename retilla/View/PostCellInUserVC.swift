@@ -32,24 +32,7 @@ class PostCellInUserVC: UICollectionViewCell {
     @IBOutlet weak var sectionImg: UIImageView!
     
     
-    
-//    layer.cornerRadius = 5
-//    layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-//    layer.shadowRadius = 5
 
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//
-//
-//
-//
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//
-    
     
     func configCell(post: postInUserVC, image: UIImage?) {
         self.postInUserVC = post
@@ -83,7 +66,7 @@ class PostCellInUserVC: UICollectionViewCell {
         }
         
         if let sectionNr = postInUserVC.sectionNo {
-            //let sectionn = "\(sectionNr)"
+            
             let img0 = UIImage(named: "circle0")
             let img1 = UIImage(named: "circle1")
             let img2 = UIImage(named: "circle2")

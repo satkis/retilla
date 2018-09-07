@@ -22,8 +22,6 @@ class Annotations: NSObject, MKAnnotation {
     var timeStamp: Double!
     var userName: String!
     
-    
-    
     init(coordinate: CLLocationCoordinate2D, reactions: Int?, imageUrl: String?, postStory: String?, hashtag: String?, sectionNumber: Int?, location: String?, countryLocation: String?, timeStamp: Double!, userName: String?) {
         self.coordinate = coordinate
         self.reactions = reactions
@@ -45,20 +43,6 @@ class Annotations: NSObject, MKAnnotation {
     var title: String? {
         return ""
     }
-    
-//    var markerTintColorr: UIColor  {
-//        switch sectionNumber {
-//        case 0:
-//            return .green
-//        case 1:
-//            return .blue
-//        case 2:
-//            return .orange
-//        case 3:
-//            return .red
-//        default:
-//            return .black
-//        }
-//    }
+
     
 }

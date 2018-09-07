@@ -26,22 +26,12 @@ class Switcher {
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
            rootVC = storyboard.instantiateViewController(withIdentifier: "feedVC") as! FeedVCC
-//                rootVC?.navigationController?.present(rootVC!, animated: true, completion: nil)
 
             let navig = UINavigationController(rootViewController: rootVC!)
-            
-//            UINavigationController.setNavigationBarHidden(rootVC)
+
             navig.setNavigationBarHidden(false, animated: true)
             
-//            rootVC?.navigationController?.pushViewController(rootVC!, animated: true)
-//
-//            UINavigationController.pushViewController(true)
-            
-            //rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "aaa") as! MainMapVC
-            
-            
-            
-            
+
         } else {
             rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "loginVC") as! ViewController
         }

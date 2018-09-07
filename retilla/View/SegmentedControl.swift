@@ -97,8 +97,6 @@ import UIKit
             label.textAlignment = .center
             label.font = UIFont(name: "Avenir-Black", size: 15)
             label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
-            //label.setTranslatesAutoresizingMaskIntoConstraints(false)
-//            label.translatesAutoresizingMaskIntoConstraints: Bool
             
             self.addSubview(label)
             labels.append(label)
@@ -111,7 +109,6 @@ import UIKit
         super.layoutSubviews()
         
         var selectFrame = self.bounds
-//        let newWidth = CGRectGetWidth(selectFrame) / CGFloat(items.count)
         let newWidth = selectFrame.width / CGFloat(items.count)
         selectFrame.size.width = newWidth
         thumbView.frame = selectFrame

@@ -38,36 +38,14 @@ class PageVC: UIPageViewController, UIPageViewControllerDataSource, UIPageViewCo
         self.dataSource = self
         self.delegate = self
         
-//        if UserDefaults.standard.value(forKey: KEY_UID) != nil {
-//            self.performSegue(withIdentifier: "loggedInn", sender: nil)
-//        }
-
-        
         if let firstVC = VCArr.first {
             setViewControllers([firstVC], direction: .forward, animated: true, completion: nil)
         }
         
-//        let bgView = UIView(frame: UIScreen.main.bounds)
-////        bgView.backgroundColor = UIColor.orange
-//        self.view.backgroundColor =
-//        view.insertSubview(bgView, at: 0)
-        
         let imageView = UIImageView(image: UIImage(named: "bg.png")!)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        
-//        let xx = view.safeAreaLayoutGuide
-//        view.addConstraint((NSLayoutConstraint(item: imageView, attribute: .top, relatedBy: .equal, toItem: xx.topAnchor, attribute: .bottom, multiplier: 1, constant: 0)))
-//        view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .bottom, relatedBy: .equal, toItem: xx.bottomAnchor, attribute:.top, multiplier: 1, constant: 20))
-//
-//
-//        view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .notAnAttribute,multiplier: 1, constant: 300))
-//        view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .trailingMargin, relatedBy: .equal, toItem: view, attribute: .trailingMargin, multiplier: 1, constant: 0))
-        
-//        UIImageView(image: UIImage(named: "bg.png")!).frame = CGRect(x: 0, y: 0, width: self.view.frame.width / 2, height: 185)
-      
-//        imageView.contentMode = .scaleAspectFit
-        
+     
         view.insertSubview(imageView, at: 0)
 
         
@@ -103,7 +81,6 @@ class PageVC: UIPageViewController, UIPageViewControllerDataSource, UIPageViewCo
          //returting nil so on first PageVC it doesnt go in loop back to the last page.
         guard previousIndex >= 0 else {
             return nil
-//            return VCArr.last
         }
         
         guard VCArr.count > previousIndex else {
@@ -122,7 +99,7 @@ class PageVC: UIPageViewController, UIPageViewControllerDataSource, UIPageViewCo
         
         //returting nil so on last PageVC it doesnt go in loop. It stops.
         guard nextIndex < VCArr.count else {
-//            return VCArr.first
+
             return nil
         }
         

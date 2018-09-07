@@ -31,26 +31,13 @@ class ClusterView: MKAnnotationView {
                 let reuse = cluster.memberAnnotations.filter { (member) -> Bool in
                     return (member as! Annotations).sectionNumber == 0
                     }.count
-                
-//                let recycle = cluster.memberAnnotations.filter { (member) -> Bool in
-//                    return (member as! Annotations).sectionNumber == 1
-//                    }.count
-//
-//                let reduce = cluster.memberAnnotations.filter { (member) -> Bool in
-//                    return (member as! Annotations).sectionNumber == 2
-//                    }.count
-//
-//                let pollution = cluster.memberAnnotations.filter { (member) -> Bool in
-//                    return (member as! Annotations).sectionNumber == 3
-//                    }.count
-                
+ 
                 image = renderer.image { _ in
                     //fill full circle with REDUCE[0] color
                     UIColor.init(cgColor: #colorLiteral(red: 0.6672604313, green: 0.8732352475, blue: 0.7655537169, alpha: 1)).setFill()
                     UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 40, height: 40)).fill()
                     
-                    //fill pie with RECYCLE[1] color
-  //                  UIColor.init(cgColor: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)).setFill()
+
                     let piePath = UIBezierPath()
                     piePath.addArc(withCenter: CGPoint(x: 20, y: 20), radius: 20, startAngle: 0, endAngle: CGFloat.pi * CGFloat(reuse) / CGFloat(count), clockwise: true)
 
@@ -102,25 +89,4 @@ extension UIBezierPath {
         self.close()
     }
 }
-
-
-
-//func pieChart(pieces:[(UIBezierPath, UIColor)]) -> UIView {
-//    var layers = [CAShapeLayer]()
-//    for p in pieces {
-//        let layer = CAShapeLayer()
-//        layer.path = p.0.cgPath
-//        layer.fillColor = p.1.cgColor
-//        layer.strokeColor = UIColor.white.cgColor
-//        layers.append(layer)
-//    }
-////    let view = UIView(frame: viewRect)
-////    for l in layers {
-////
-////        view.layer.addSublayer(l)
-////
-////
-////    }
-//    return view
-//}
 

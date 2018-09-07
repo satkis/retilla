@@ -14,7 +14,6 @@ import AppAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     //var fbAccessToken: AccessToken?
 

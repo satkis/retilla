@@ -83,15 +83,10 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             print("Could not strat notifier")
         }
         
-        // Do any additional setup after loading the view, typically from a nib.
-//        activityIndicator.isHidden = true
         if UserDefaults.standard.value(forKey: KEY_UID) != nil {
             self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
         
-//        let googleButton = GIDSignInButton()
-//        googleButton.frame = CGRect(x: 30, y: 350, width: view.frame.width - 32, height: 50)
-//        view.addSubview(googleButton)
         setupLayout()
         
     }
@@ -102,8 +97,6 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         activityIndicator.isHidden = true
 //        viewDidAppear doesnt require user to login again if he did that once
 
-        
-        
         if UserDefaults.standard.value(forKey: KEY_UID) != nil {
             self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
         }
@@ -113,14 +106,8 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     
     func animateIn() {
         self.view.addSubview(itemView)
-//        itemView.center = self.view.center
         itemView.layer.cornerRadius = 5
-        //itemView.frame = CGRect(x: 0, y: 250, width: view.frame.width, height: 350)
-        
-//                itemView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
-//                itemView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50).isActive = true
-//                itemView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-//                itemView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+
         itemView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
         itemView.alpha = 0
         
@@ -134,14 +121,9 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     private func setupLayout() {
         connectionText.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
         connectionText.bottomAnchor.constraint(equalTo: emailTxt.topAnchor, constant: 150)
-//        connectionText.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
         connectionText.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         connectionText.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        
-//        itemView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
-//        itemView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 50).isActive = true
-//        itemView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-//        itemView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+
     }
     
     @objc func internetChanged(note:Notification)  {
@@ -162,8 +144,8 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             }
         }
     }
-    
 
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -181,7 +163,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             case .success(let grantedPermissions, let declinedPermissions, let token):
                 print("gantedPermissions:::", grantedPermissions)
                 print("declinedPermissions:::", declinedPermissions)
-//                self.fbAccessToken = AccessToken.self
+
                 //https://firebase.google.com/docs/auth/ios/account-linking
                 let credential = FacebookAuthProvider.credential(withAccessToken: token.authenticationToken)
                 Auth.auth().signIn(with: credential, completion: { (authData, error) in
@@ -189,8 +171,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                         print("FIREBASE LOGIN FAILED::: \(String(describing: error))")
                     } else {
                         print("USER LOGGED IN TO FIREBASE::: \(Auth.auth())")
-                        
-                        // guard for user id
+
                         guard let uid = authData?.uid else {
                             return }
                         // create a child reference - uid will let us wrap each users data in a unique user id for later reference
@@ -205,9 +186,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                             } else {
                                 print("resulresult", result as Any)
                                 let data:[String:AnyObject] = result as! [String : AnyObject]
-//                                let userName : NSString? = data["name"]! as? NSString
                                 let firstName : NSString? = data["first_name"]! as? NSString
-                                //let lastName : NSString? = data["last_name"]! as? NSString
                                 let email : NSString? = data["email"]! as? NSString
                                 guard let userd = authData?.uid else { return }
                                 let user = ["first_name": firstName as Any, "email": email as Any]
@@ -251,7 +230,6 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                                 self.showErrorAlert(title: "Something went wrong with account creation", msg: "try later or continue as Guest")
                             } else {
                                 //https://medium.com/@paul.allies/ios-swift4-login-logout-branching-4cdbc1f51e2c
-                                // Switcher.updateRootVC()
 
                                 UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
 
@@ -266,7 +244,6 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
                     }
                 } else {
                     //login if user already exists
-                    
                     Auth.auth().signIn(withEmail: self.emailTxt.text!, password: self.passwordTxt.text!, completion: nil)
                     UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
                     self.currentUser = UserDefaults.standard.value(forKey: KEY_UID)
@@ -291,7 +268,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
             let credentials = GoogleAuthProvider.credential(withIDToken: googleIDToken, accessToken: googleAccessToken)
             let userGoogleEmail = user.profile.email
             let userGoogleGivenName = user.profile.givenName
-//            let userGoogleName = user.profile.name gives users full name
+
             print("userGoogleEmail", userGoogleEmail as Any)
          
 
@@ -325,34 +302,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
     @IBAction func TCs_tapped(_ sender: UIButton) {
         performSegue(withIdentifier: SEGUE_TO_RULESVC, sender: nil)
     }
-    
-            
-            
-            //                    guard let uid = user?.uid else { return }
-                    
-//                    print("successfully logged into FIrebase with Google", user?.uid as Any)
-                    //self.currentUser = Auth.auth().currentUser
-//                    UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-//                    print("useruseruser:::", Auth.auth().currentUser?.uid as Any)
-//                    let user = ["email": userGoogleEmail]
-//                    DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
-//
-//                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-//                    print("logged in and sent to FeedVC after Google login")
-                    
-                    
-//                    self.currentUser = Auth.auth().currentUser
-//                    UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-//                    let user = ["email": "lalala" ]
-//                    DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
-//                    self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-//                    print("logged in okk:::")
-//                }
-//            }
-//        }
-//    }
-
-    
+ 
     
     @IBAction func googleLoginTapped(_ sender: UITapGestureRecognizer) {
         print("tapped google")
@@ -361,24 +311,7 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().signIn()
     }
     
-    
 
-    
-    
-//    @IBAction func loginAnonymouslyTapped(_ sender: Any) {
-//        Auth.auth().signInAnonymously { (user, error) in
-//            if error == nil {
-//                // successfully sign in anonymously
-//
-//                UserDefaults.standard.set(Auth.auth().currentUser?.uid, forKey: KEY_UID)
-//                let user = ["email": "Anonymous\(arc4random())"]
-//                DataService.instance.createFirebaseUser(uid: (Auth.auth().currentUser?.uid)!, user: user as Dictionary<String, AnyObject>)
-//                self.performSegue(withIdentifier: SEGUE_LOGGED_IN, sender: nil)
-//                print("anonymous user: \((Auth.auth().currentUser?.uid)!)")
-//            }
-//        }
-//    }
-    
     
     @IBAction func anonymouslyLoginTapped(_ sender: UITapGestureRecognizer) {
         activityIndicatorr.center = self.view.center
@@ -404,6 +337,11 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
         
     }
     
+    @IBAction func backToIntro(_ sender: UIButton) {
+        self.performSegue(withIdentifier: SEGUE_BACKTOINTRO, sender: self)
+        
+    }
+    
     
     
     
@@ -418,17 +356,4 @@ class ViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate {
 
     
     
-    
-    
-    
-    
-    
 }
-
-
-
-
-
-
-
-

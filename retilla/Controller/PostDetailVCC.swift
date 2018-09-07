@@ -403,18 +403,11 @@ class PostDetailVCC: UIViewController, MKMapViewDelegate {
     
     
     @IBAction func imgTapped(_ sender: UITapGestureRecognizer) {
-        
-        //     self.slideUpMenu.clipsToBounds = false
-        //        self.imgLbl.superview?.bringSubview(toFront: imgLbl)
-        //        self.imgLbl.layer.masksToBounds = false
-        //        self.imgLbl.transform = CGAffineTransform.init(scaleX: 0.7, y: 0.7)
-        //self.imgLbl.alpha = 0
-        
+
         UIView.animate(withDuration: 0.25) { () -> Void in
-            //            self.imgLbl.alpha = 1
             self.imageLbl.frame = CGRect(x: 0, y: 70, width: self.view.frame.width, height: self.view.frame.height / 2)
             self.imageLbl.contentMode = .scaleAspectFit
-            //            self.imgLbl.layer.cornerRadius = 8.0
+
         }
         
     }

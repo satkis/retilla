@@ -12,9 +12,7 @@ import Firebase
 class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     var currentUser_DBRef: DatabaseReference!
-    
-    //var posts = [[Post]]()
-//    var imageCachee = NSCache<AnyObject, AnyObject>()
+
     var postInUserVCC: postInUserVC!
     
     var postsInUserVC = [postInUserVC]()
@@ -38,9 +36,7 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     @IBOutlet weak var emptyStateText: UILabel!
     @IBOutlet weak var emptyStateButton: UIButtonX!
-    
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,8 +68,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
             let email = snap?["email"] as? String
             let firstName = snap?["first_name"] as? String
-            //let lastName = snap?["last_name"] as? String
-//            let fullName = snap?["name"] as? String
             
             if user.first_name != nil {
                 self.userNameLbl.text  = user.first_name
@@ -85,9 +79,7 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             } else {
                 self.userNameLbl.text = "no user ID"
             }
-            
-      
-            
+
         }
  
         currentUser_DBRef.child("posts").observeSingleEvent(of: .value) { (snapshot) in
@@ -101,7 +93,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                     self.emptyStateButton.isHidden = true
                     self.emptyStateText.isHidden = true
                 }
-                
                 
             }
         }
@@ -135,16 +126,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         }
         
 
-        
-        
-        
-        
-
-        
-        
-        
-        
-
 
     }
 
@@ -154,12 +135,8 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         super.viewWillAppear(true)
 
         
-        
-        
         currentUser_DBRef.child("posts").observe(.value) { (snapshottt) in
-            
-            //print("snapshottt: \(snapshottt.value)")
-            
+
             self.postsInUserVC = []
             
             if let snapshots = snapshottt.children.allObjects as? [DataSnapshot] {
@@ -169,8 +146,7 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                         let key = snapp.key
                         print("keY: \(key)")
                         let postt = postInUserVC(postKey: key, dictionary: postDictt)
-                        
-                        //                        self.postsInUserVC.append(postt)
+
                         self.postsInUserVC.insert(postt, at: 0)
                     }
                 }
@@ -178,67 +154,14 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             
             self.collection.reloadData()
         }
-        
-        
-//        currentUser_DBRef.child("reactions").observeSingleEvent(of: .value) { (snapshot) in
-//            if let reactsnapshots = snapshot.children.allObjects as? [DataSnapshot] {
-//                self.reactionsLbl.text = String(reactsnapshots.count)
-//            }
-//            self.reloadInputViews()
-//        }
-        
-//        currentUser_DBRef.child("posts").observeSingleEvent(of: .value) { (snapshott) in
-//            if snapshott.exists() {
-//                for childd in snapshott.children {
-//                    let snapp = childd as! DataSnapshot
-////                    let dict = snapp.value as! [String: Any]
-////                    let dict = Dictionary<String, AnyObject>
-//
-//                    let dictt: Dictionary<String, Any> = [
-//                        "urlToImg": self.imgUrl]
-////                    let urlToImg = dict["urlToImg"] as! String
-//                    //self.image
-//
-//                    print("snappy: \(snapp)")
-//                    print("dictty: \(dictt)")
-////                    print("urlToImgg: \(urlToImg)")
-//
-//                    if let postDictt =
-//
-//                }
-//
-//            }
-//        }
-        
-        
-
-        
-        
+  
         
     }
     
    private func setupNavigationBarItems() {
         print("setupNavig FUnc is called")
 
-    
-    
-//    let settingsButton = UIButton(type: .infoLight)
-//    settingsButton.setImage(#imageLiteral(resourceName: "settingsIcon").withRenderingMode(.automatic), for: .normal)
-
-//    let settingBttn = UIBarButtonItem(image: #imageLiteral(resourceName: "settingsIcon"), style: .plain, target: self, action: #selector(settingsClicked(_:)))
-//    let settingBttns = UIBarButtonItem(image: #imageLiteral(resourceName: "settingsIcon"), style: .plain, target: self, action: #selector(settingsClicked(_:)))
-//    let sett = UIBarButtonItem(barButtonSystemItem: #imageLiteral(resourceName: "settingsIcon"), target: self, action: #selector(settingsClicked(_:)))
-    
-    
-    
-    
-//        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(settingsClicked(_:)))
     let rr = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(settingsClicked(_:)))
-//    let rrWidth = rr.customView?.widthAnchor.constraint(equalToConstant: 30)
-//    rrWidth?.isActive = true
-//    let rrHeight = rr.customView?.widthAnchor.constraint(equalToConstant: 25)
-//    rrHeight?.isActive = true
-    //settingsButton.contentMode = .scaleAspectFit
     navigationItem.rightBarButtonItem = rr
     
     let container = UIView(frame: CGRect(x: 0, y: 0, width: 122, height: 23))
@@ -251,14 +174,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     container.addSubview(imageView)
     navigationItem.titleView = container
-    
-//    let userIcon = UIImageView(image: #imageLiteral(resourceName: "logoo_darker.png"))
-//    userIcon.frame = CGRect(x: 0-100, y: 0, width: 44, height: 14)
-//
-//    userIcon.contentMode = .scaleAspectFit
-//    userIcon.sizeToFit()
-//    navigationItem.titleView = userIcon
-    
 
     }
     
@@ -266,21 +181,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         self.performSegue(withIdentifier: SEGUE_TOSETTINGSVC, sender: self)
     }
     
-    
-    
-    
-//    @IBAction func settingsButton(_ sender: UIButton) {
-//        self.performSegue(withIdentifier: SEGUE_TOSETTINGSVC, sender: self)
-//    }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == SEGUE_TOSETTINGSVC {
-//            if let destination = segue.destination as? SettingsVC {
-//                perform
-//            }
-//        }
-//    }
-    
-
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -321,14 +221,8 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         debugPrint("collectionView.tag_USERVC", collectionView.tag)
         debugPrint("indexPath.item_USERVC", indexPath.item)
         let post = postsInUserVC[indexPath.item]
-        print("selectedPostusername_USERVC::", post.imageUrl)
-        
-        
-        
-//        let postt = postsInUserVC[indexPath.item]
-//        print("posTT: \(String(describing: postt.imageUrl))")
-        
-        
+        print("selectedPostusername_USERVC::", post.imageUrl as Any)
+
         self.performSegue(withIdentifier: SEGUE_POSTDETAILVC, sender: post)
     }
     
@@ -373,9 +267,6 @@ class UserVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     @IBAction func emptyStateBttnTapped(_ sender: Any) {
         switchToCreatePostVC()
     }
-    
-
-  
     
     
 }

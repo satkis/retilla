@@ -15,11 +15,9 @@ class ResetPasswordVC: UIViewController {
 
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    
     @IBOutlet weak var emailField: UITextField!
     
 
-    
     var effect: UIVisualEffect!
     
     override func viewDidLoad() {
@@ -54,13 +52,11 @@ class ResetPasswordVC: UIViewController {
         Auth.auth().sendPasswordReset(withEmail: email) { (error) in
             if error == nil {
                 print("pasword was reset successfully")
-                //self.closeBttn(AnyObject.self)
                 self.emailField.text = ""
                 self.showErrorAlert(title: "Successful reset!", msg: "Check your email \(email)")
-//                 dismiss(animated: true, completion: nil)
                 
             } else {
-                self.showErrorAlert(title: "This email doesn't exist", msg: "Login as a new user with email or Facebook")
+                self.showErrorAlert(title: "Email doesn't exist", msg: "Register as a new user or login with Google or Facebook")
             }
             } 
         } else {

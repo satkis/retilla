@@ -20,9 +20,9 @@ class Post {
     private var _sectionNumber: Int?
     private var _location_city: String?
     private var _location_country: String?
-    private var _lat: Double!
-    private var _long: Double!
-    private var _timestamp: Double!
+    private var _lat: Double! = 40.724
+    private var _long: Double! = -73.9928
+    private var _timestamp: Double! = 1535640749836
     private var _postRef: DatabaseReference!
     
     var postStory: String? {
@@ -94,7 +94,6 @@ class Post {
         self._likes = likes
     }
     
-    //calling this when downloading data from Firebase
     init(postKey: String, dictionary: Dictionary<String, AnyObject>) {
         self._postKey = postKey
         

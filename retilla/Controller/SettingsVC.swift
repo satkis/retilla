@@ -21,14 +21,9 @@ class SettingsVC: UIViewController, UITextViewDelegate {
     var feedbackTimestamp: String! = "smth wrongg"
     var newFeedbackKey = DataService.instance.URL_POSTS.childByAutoId().key
     var placeholderLabel: UILabel!
-    final private let message = "Hey, check out this app called wasteBud. Download it on the App Store."
     
-//    var userLocationCountry: String? = "no country"
-//    var userLocationCity: String? =  "no cityy"
-    
-//    let locationManager = CLLocationManager()
-    
-    
+    let message = "Hey, check out wasteBud app. Available on ios: https://itunes.apple.com/us/app/wastebud/id1434517217?ls=1&mt=8"
+
     @IBOutlet weak var feedbackTxtField: UITextField!
     @IBOutlet weak var feedbackTxtView: UITextView!
     
@@ -55,63 +50,10 @@ class SettingsVC: UIViewController, UITextViewDelegate {
         placeholderLabel.textColor = UIColor.lightGray
         placeholderLabel.isHidden = !feedbackTxtView.text.isEmpty
         
-        
-        //feedbackTxtField.delegate = self
-        
-//        sendButton.isUserInteractionEnabled = false
-//        sendButton.isEnabled = false
-//        if (feedbackTxtField.text?.count)! < 5 {
-//            sendButton.isEnabled = false
-////            sendButton.alpha = 0.3
-//        } else {
-//            sendButton.isEnabled = true
-//        }
-    
-//        sendButton.isUserInteractionEnabled = false
-//        sendButton.alpha = 0.3
-        
-//        if self.feedbackTxtField.hasText {
-//            sendButton.isUserInteractionEnabled = true
-//            sendButton.alpha = 1
-//        } else {
-//            sendButton.isUserInteractionEnabled = false
-//            sendButton.alpha = 0.3
-//        }
-
-//
-//        currentUser.observeSingleEvent(of: .value) { (snapshot) in
-//
-//            let snap = snapshot.value as? Dictionary<String, AnyObject>
-//            print("snapInSettingsVC::: \(String(describing: snap))")
-//            let key = snapshot.key
-//            let user = User(userKey: key, dictionary: snap!)
-//
-//            if user.email != nil {
-//                self.username = user.email
-//
-//            } else {
-//                self.username = "not Identified Username"
-//            }
-//
-//        }
-//
-//        if user.email = NSNull {
-//            self.username = user.email
-//        } else {
-//            self.username = "not identified username"
-//        }
+  
     }
     
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        if (feedbackTxtField.text?.count)! > 5 {
-//            sendButton.isUserInteractionEnabled = true
-//            sendButton.isEnabled = true
-//        } else {
-//            sendButton.isUserInteractionEnabled = false
-//            sendButton.isEnabled = false
-//        }
-//    }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -179,61 +121,36 @@ class SettingsVC: UIViewController, UITextViewDelegate {
                 //dismiss keyboard
                 self.view.endEditing(true)
             }
-            
-
-            
-            
-            
-//            newFeedbackRef.setValue(postToFirebase(username: self.username, feedbackFieldTxt: self.userEmailTxtField.text! as String, userContactFieldTxt: self.userEmailTxtField.text! as String, feedbackTimestamp: self.feedbackTimestamp), withCompletionBlock: { err, dbref in
-            
-//                if err != nil {
-//                print("error happened: \(String(describing: err))")
-//
-//                newFeedbackRef.setValue(self.postToFirebase(username: "error", feedbackFieldTxt: "error", userContactFieldTxt: "error", feedbackTimestamp: "error"))
-//
-//                } else {
-//                print("feedback uploaded successfully \(dbref)")
-//                }
-            
-//            })
+   
         
         } else {
             feedbackTxtView.shake()
         }
     }
-            
-            
-            
-//            newFeedbackRef.setValue(postToFirebase(username: self.username, feedbackFieldTxt: self.userEmailTxtField.text! as NSString, userContactFieldTxt: self.userEmailTxtField.text! as NSString, feedbackTimestamp: self.feedbackTimestamp), withCompletionBlock: { err, dbref in
-//
-//                    if err != nil {
-//                        print("error happened: \(String(describing: err))")
-//
-//                        newFeedbackRef.setValue(self.postToFirebase(username: "error", feedbackFieldTxt: "error", userContactFieldTxt: "error", feedbackTimestamp: "error"))
-//
-//                    } else {
-//                        print("feedback uploaded successfully \(dbref)")
-//                    }
-//                })
-//
-//
-//        }
-
-    
+ 
     
     
     @IBAction func RateAppClicked(_ sender: Any) {
-        if let url = URL(string: "https://www.google.com/") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            
+        let appID = "1434517217"
+        let urlStr = "https://itunes.apple.com/us/app/wastebud/id\(appID)?ls=1&mt=8" // (Option 1) Open App Page
+        //        let urlStr = "itms-apps://itunes.apple.com/app/viewContentsUserReviews?id=\(appID)" // (Option 2) Open App Review Tab
+
+        if let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
+
     }
     
     @IBAction func shareAPpp(_ sender: Any) {
+
         guard let image = UIImage(named: "logo") else { return }
-        
+
         let activityController = UIActivityViewController(activityItems: [message, image], applicationActivities: nil)
-        
+
         activityController.completionWithItemsHandler = { (nil, completed, _, error) in
             if completed {
                 print("completedd")
@@ -248,8 +165,7 @@ class SettingsVC: UIViewController, UITextViewDelegate {
     }
     
 
-    
-    
+  
     @IBAction func logOutPressed(_ sender: Any) {
 
        //https://www.youtube.com/watch?v=lvz0cPkIxzM partly used logic from this link
@@ -260,37 +176,12 @@ class SettingsVC: UIViewController, UITextViewDelegate {
         let initialVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         let appDelegate = UIApplication.shared.delegate
         appDelegate?.window??.rootViewController = initialVC
-        
-//        if UserDefaults.standard.value(forKey: "appFirstTImeOpened") == nil {
-//            UserDefaults.standard.setValue(true, forKey: "appFirstTImeOpened")
-//
-//            do {
-//                try Auth.auth().signOut()
-//            } catch {
-//
-//            }
-//
-//        }
-//        performSegue(withIdentifier: SEGUE_LOGOUT_TAPPED, sender: nil)
-        
-//        try! Auth.auth().signOut()
-//        UserDefaults.standard.removeObject(forKey: KEY_UID)
-//
-//        currentUser = nil
-//        //UserDefaults.standard.synchronize()
-//        performSegue(withIdentifier: SEGUE_LOGOUT_TAPPED, sender: nil)
-        
-        //print("USERID_SETTINGSVC", DataService.instance.URL_USER_CURRENT.key)
+     
         print("USERID_SETTINGSVCC", currentUser as Any)
-        //        UserDefaults.standard.set(false, forKey: "status")
-        //        Switcher.updateRootVC()
-        
-        
-        
+
     }
     
 }
-
 
 
 
