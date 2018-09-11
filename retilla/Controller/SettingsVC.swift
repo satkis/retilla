@@ -22,7 +22,7 @@ class SettingsVC: UIViewController, UITextViewDelegate {
     var newFeedbackKey = DataService.instance.URL_POSTS.childByAutoId().key
     var placeholderLabel: UILabel!
     
-    let message = "Hey, check out wasteBud app. Available on ios: https://itunes.apple.com/us/app/wastebud/id1434517217?ls=1&mt=8"
+    let message = "Hey, check out wasteBud app. Available on the AppStore: https://itunes.apple.com/us/app/wastebud/id1434517217?ls=1&mt=8"
 
     @IBOutlet weak var feedbackTxtField: UITextField!
     @IBOutlet weak var feedbackTxtView: UITextView!
@@ -145,12 +145,12 @@ class SettingsVC: UIViewController, UITextViewDelegate {
 
     }
     
-    @IBAction func shareAPpp(_ sender: Any) {
-
+    @IBAction func shareApp(_ sender: UIButton) {
+        
         guard let image = UIImage(named: "logo") else { return }
-
+        
         let activityController = UIActivityViewController(activityItems: [message, image], applicationActivities: nil)
-
+        
         activityController.completionWithItemsHandler = { (nil, completed, _, error) in
             if completed {
                 print("completedd")
@@ -158,11 +158,14 @@ class SettingsVC: UIViewController, UITextViewDelegate {
                 print("cancelled")
             }
         }
+        activityController.popoverPresentationController?.sourceView = sender
         present(activityController, animated: true) {
             print("presented")
         }
         
     }
+    
+ 
     
 
   

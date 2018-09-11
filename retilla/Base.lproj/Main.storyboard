@@ -1094,7 +1094,7 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="shareAPpp:" destination="WB3-h3-bbd" eventType="touchUpInside" id="oTU-gw-88h"/>
+                                            <action selector="shareApp:" destination="WB3-h3-bbd" eventType="touchUpInside" id="yZo-0M-zFX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yI-6q-PAd">
@@ -2564,6 +2564,6 @@ ZXAgdHJhY2sgb2YgeW91ciBwb3N0cw
         <segue reference="RUH-1t-vT0"/>
         <segue reference="uFg-Ny-Eed"/>
         <segue reference="7UT-XJ-Xp1"/>
-        <segue reference="2Ik-J6-7ya"/>
+        <segue reference="vkO-YP-cXP"/>
     </inferredMetricsTieBreakers>
 </document>
